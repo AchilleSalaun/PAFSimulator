@@ -6,7 +6,7 @@ import java.util.Random;
 public class Alea 
 {
 	
-		private static Random alea = new Random() ;
+		/**private static Random alea = new Random() ;
 		
 		public static double uniforme()
 		{
@@ -81,6 +81,6 @@ public class Alea
 				}
 					
 			return i ;
-		}	
+		}	*/
 
 }
