@@ -2,8 +2,7 @@ package simulatorpack;
 
 import java.sql.Date;
 
-public class Evenement {
-    
+
     
     public class Evenement {
         
@@ -30,4 +29,4 @@ public class Evenement {
         
         
     }
-}
+
