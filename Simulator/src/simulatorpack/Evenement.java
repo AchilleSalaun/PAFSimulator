@@ -6,7 +6,8 @@ import modele.Objet;
 
 
     
-    public class Evenement {
+    public class Evenement 
+    {
         
         private Objet acteur;
         private Date temps ;
@@ -14,17 +15,20 @@ import modele.Objet;
         
         
         
-        public Objet getActeur(){
+        public Objet getActeur()
+        {
             return this.acteur;
         }
         
         
-        public Date getDate(){
+        public Date getDate()
+        {
             return this.temps;
         }
         
         
-        public String getAction(){
+        public String getAction()
+        {
             return this.action;
         }
         
