@@ -32,7 +32,7 @@ import modele.Objet;
             return this.action;
         }
         
-        
+      
         
     }
 
