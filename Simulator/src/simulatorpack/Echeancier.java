@@ -10,8 +10,17 @@ public class Echeancier extends PriorityQueue<Evenement>{
 	static EventComparator comparator = new EventComparator();
 	
 
-	public Echeancier(){
+	public Echeancier()
+	{
 		super(Integer.MAX_VALUE, comparator);
+	}
+	
+	public void nextEvent()
+	{
+		Evenement nextevent = this.poll() ;
+		ActeurInterface acteur = nextevent.getActeur() ;
+		String action = nextevent.getAction();
+		acteur.realise(action);
 	}
 	
 

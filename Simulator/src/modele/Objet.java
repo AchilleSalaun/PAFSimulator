@@ -19,6 +19,8 @@ public abstract class Objet implements ActeurInterface
 		
 	}
 	
+	/** getters and setters **/
+	
 	public Case getEtat()
 	{
 		return etat ;
@@ -57,6 +59,14 @@ public abstract class Objet implements ActeurInterface
 	public void setNombreMax(int nombremax)
 	{
 		this.nombremax = nombremax ;
+	}
+	
+	/*****************************************************************************************************/
+	
+	@Override
+	public void realise(String action)
+	{
+		// TODO Auto-generated method stub
 	}
 	
 }
