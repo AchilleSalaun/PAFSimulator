@@ -1,21 +1,22 @@
 package simulatorpack;
 
 import java.sql.Date;
-
-import modele.Objet;
-
-
     
     public class Evenement 
     {
         
-        private Objet acteur;
+        private ActeurInterface acteur;
         private Date temps ;
         private String action ;
         
+        public Evenement(ActeurInterface acteur, Date temps, String action)
+        {
+        	this.acteur = acteur ;
+        	this.action = action ;
+        	this.temps = temps ;
+        }
         
-        
-        public Objet getActeur()
+        public ActeurInterface getActeur()
         {
             return this.acteur;
         }
