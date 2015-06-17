@@ -1,6 +1,10 @@
 package modele;
 
-public abstract class Case 
+import java.util.PriorityQueue;
+
+public abstract class Case
 {
+	private PriorityQueue listeObjets;
+
 	
 }
