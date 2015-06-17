@@ -2,20 +2,24 @@ package simulatorpack;
 
 import java.sql.Date;
 
-import modele.Objet;
-
+import modele.Acteur;
 
     
-    public class Evenement 
+    public abstract class Evenement 
     {
         
-        private Objet acteur;
+        private Acteur acteur;
         private Date temps ;
-        private String action ;
+        private int action ;
         
+        public Evenement(Acteur acteur, Date temps, int action)
+        {
+        	this.acteur = acteur ;
+        	this.action = action ;
+        	this.temps = temps ;
+        }
         
-        
-        public Objet getActeur()
+        public Acteur getActeur()
         {
             return this.acteur;
         }
@@ -27,7 +31,7 @@ import modele.Objet;
         }
         
         
-        public String getAction()
+        public int getAction()
         {
             return this.action;
         }
