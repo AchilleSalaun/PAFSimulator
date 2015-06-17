@@ -4,9 +4,17 @@ package modele;
 public class Source extends Case implements ActeurInterface
 {
 
-	@Override
-	public void realise(int action) {
-		// TODO Auto-generated method stub
+	public void realise(int action)
+	{
+		switch(action)
+		{
+		  	case 1: this.generer() ; //generer objet
+	
+		}
+	}
+	
+	private void generer()
+	{	
 		
 	}
 

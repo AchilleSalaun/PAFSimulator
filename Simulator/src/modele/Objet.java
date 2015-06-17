@@ -81,16 +81,17 @@ public abstract class Objet implements ActeurInterface
 	{
 		Case caseactuelle = this.getEtat() ;
 		
+		
 	}
 	
 	private void passer()
 	{
-		
+		Case caseactuelle = this.getEtat() ;
 	}
 	
 	private void partir()
 	{
-		
+		Case caseactuelle = this.getEtat() ;
 	}
 	
 }
