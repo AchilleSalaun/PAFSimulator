@@ -2,7 +2,7 @@ package simulatorpack;
 
 import java.sql.Date;
     
-    public class Evenement 
+    public abstract class Evenement 
     {
         
         private ActeurInterface acteur;
