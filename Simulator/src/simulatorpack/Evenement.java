@@ -6,7 +6,7 @@ import modele.Objet;
 
 
     
-    public class Evenement 
+    public abstract class Evenement 
     {
         
         private Objet acteur;
