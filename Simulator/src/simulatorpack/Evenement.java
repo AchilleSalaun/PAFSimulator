@@ -2,6 +2,8 @@ package simulatorpack;
 
 import java.sql.Date;
 
+import modele.Objet;
+
 
     
     public class Evenement {
@@ -26,7 +28,7 @@ import java.sql.Date;
             return this.action;
         }
         
-        
+      
         
     }
 
