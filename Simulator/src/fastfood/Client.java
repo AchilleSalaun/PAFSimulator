@@ -1,19 +1,15 @@
 package fastfood;
 
+import modele.Case;
 import modele.Objet;
 
-public class Client extends Objet{
+public class Client extends Objet
+{
+	
+	public Client(Case etat, double timeout, double priority, int nombremax) 
+	{
+		super(etat, timeout, priority, nombremax) ;
+	}
 
-	private int tolerance; //nombre de clients au dela duquel le client ne veut pas rentrer dans la file
-	
-	public Client(double timeout, int tolerance) {
-		
-		super(timeout);
-		this.tolerance = tolerance;
-	}
-	
-	public int getTolerance(){
-		return this.tolerance;
-	}
 
 }

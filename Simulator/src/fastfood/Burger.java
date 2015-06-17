@@ -1,12 +1,14 @@
 package fastfood;
 
+import modele.Case;
 import modele.Objet;
 
-public class Burger extends Objet {
+public class Burger extends Objet 
+{
 
-	public Burger(double timeout) 
+	public Burger(Case etat, double timeout, double priority) 
 	{
-		super(timeout);
+		super(etat, timeout, priority, 1000) ;
 	}
 
 }
