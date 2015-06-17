@@ -2,7 +2,7 @@ package modele;
 
 import java.util.ArrayList;
 
-public abstract class Objet extends Acteur 
+public abstract class Objet implements ActeurInterface 
 {
 	private Case etat ;
 	private ArrayList<Integer> listeactions ; 
@@ -63,11 +63,34 @@ public abstract class Objet extends Acteur
 	}
 	
 	/*****************************************************************************************************/
+	/** Champ d'actions **/
 	
 	@Override
 	public void realise(int action)
 	{
-		// TODO Auto-generated method stub
+		switch(action)
+		{
+		  	case 1: this.patienter() ; //patienter
+		  	case 2: this.passer() ; //passer a  la case suivante
+		  	case 3: this.partir() ; // partir 
+			default : // ne rien faire  	
+		}
+	}
+	
+	private void patienter()
+	{
+		Case caseactuelle = this.getEtat() ;
+		
+	}
+	
+	private void passer()
+	{
+		
+	}
+	
+	private void partir()
+	{
+		
 	}
 	
 }

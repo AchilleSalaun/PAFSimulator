@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-public abstract class Case extends Acteur
+public abstract class Case
 {
 	private PriorityQueue<Objet> listeObjets;
     private ArrayList <Case> entree;

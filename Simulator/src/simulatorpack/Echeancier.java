@@ -3,7 +3,7 @@ package simulatorpack;
 
 import java.util.PriorityQueue;
 
-import modele.Acteur;
+import modele.ActeurInterface;
 
 public class Echeancier extends PriorityQueue<Evenement>{
 
@@ -20,7 +20,7 @@ public class Echeancier extends PriorityQueue<Evenement>{
 	public void nextEvent()
 	{
 		Evenement nextevent = this.poll() ;
-		Acteur acteur = nextevent.getActeur() ;
+		ActeurInterface acteur = nextevent.getActeur() ;
 		int action = nextevent.getAction();
 		acteur.realise(action);
 	}

@@ -2,24 +2,24 @@ package simulatorpack;
 
 import java.sql.Date;
 
-import modele.Acteur;
+import modele.ActeurInterface;
 
     
     public abstract class Evenement 
     {
         
-        private Acteur acteur;
+        private ActeurInterface acteur;
         private Date temps ;
         private int action ;
         
-        public Evenement(Acteur acteur, Date temps, int action)
+        public Evenement(ActeurInterface acteur, Date temps, int action)
         {
         	this.acteur = acteur ;
         	this.action = action ;
         	this.temps = temps ;
         }
         
-        public Acteur getActeur()
+        public ActeurInterface getActeur()
         {
             return this.acteur;
         }
@@ -34,9 +34,6 @@ import modele.Acteur;
         public int getAction()
         {
             return this.action;
-        }
-        
-      
-        
+        }        
     }
 
