@@ -1,10 +1,11 @@
 package modele;
 
-import simulatorpack.ActeurInterface;
+import java.util.ArrayList;
 
-public abstract class Objet implements ActeurInterface 
+public abstract class Objet extends Acteur 
 {
 	private Case etat ;
+	private ArrayList<Integer> listeactions ; 
 	
 	private double timeout; // le temps limite au dela duquel l'objet quitte une file d'attente
 	private double priority; // priorite intrinseque a l'interieur d'une file d'attente
@@ -64,7 +65,7 @@ public abstract class Objet implements ActeurInterface
 	/*****************************************************************************************************/
 	
 	@Override
-	public void realise(String action)
+	public void realise(int action)
 	{
 		// TODO Auto-generated method stub
 	}

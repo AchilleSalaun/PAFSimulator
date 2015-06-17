@@ -1,12 +1,11 @@
 package modele;
 
-import simulatorpack.ActeurInterface;
 
-public class Source extends Case implements ActeurInterface
+public class Source extends Case
 {
 
 	@Override
-	public void realise(String action) {
+	public void realise(int action) {
 		// TODO Auto-generated method stub
 		
 	}
