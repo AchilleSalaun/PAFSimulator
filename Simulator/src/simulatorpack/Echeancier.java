@@ -9,6 +9,7 @@ public class Echeancier extends PriorityQueue<Evenement>{
 	
 	static EventComparator comparator = new EventComparator();
 	
+
 	public Echeancier(){
 		super(Integer.MAX_VALUE, comparator);
 	}
