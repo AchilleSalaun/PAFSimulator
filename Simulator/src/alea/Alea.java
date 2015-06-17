@@ -8,7 +8,7 @@ public class Alea
 	
 	public static double poisson(double lambda){
 		
-		return -Math.log(/*(double)*/1 - alea.nextDouble());
+		return -Math.log(1 - alea.nextDouble());
 	}
 
 }
