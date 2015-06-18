@@ -22,7 +22,7 @@ public class Echeancier extends PriorityQueue<Evenement>{
 		Evenement nextevent = this.poll() ;
 		ActeurInterface acteur = nextevent.getActeur() ;
 		int action = nextevent.getAction();
-		acteur.realise(action);
+		acteur.realise(action, this);
 	}
 	
 

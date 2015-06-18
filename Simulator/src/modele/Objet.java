@@ -2,6 +2,8 @@ package modele;
 
 import java.util.ArrayList;
 
+import simulatorpack.Echeancier;
+
 public abstract class Objet implements ActeurInterface 
 {
 	private Case etat ;
@@ -66,30 +68,30 @@ public abstract class Objet implements ActeurInterface
 	/** Champ d'actions **/
 	
 	@Override
-	public void realise(int action)
+	public void realise(int action, Echeancier echeancier)
 	{
 		switch(action)
 		{
-		  	case 1: this.patienter() ; //patienter
-		  	case 2: this.passer() ; //passer a  la case suivante
-		  	case 3: this.partir() ; // partir 
+		  	case 1: this.patienter(echeancier) ; //patienter
+		  	case 2: this.passer(echeancier) ; //passer a  la case suivante
+		  	case 3: this.partir(echeancier) ; // partir 
 			default : // ne rien faire  	
 		}
 	}
 	
-	private void patienter()
+	private void patienter( Echeancier echeancier)
 	{
 		Case caseactuelle = this.getEtat() ;
 		
 		
 	}
 	
-	private void passer()
+	private void passer( Echeancier echeancier)
 	{
 		Case caseactuelle = this.getEtat() ;
 	}
 	
-	private void partir()
+	private void partir( Echeancier echeancier)
 	{
 		Case caseactuelle = this.getEtat() ;
 	}

@@ -1,10 +1,12 @@
 package modele;
 
+import simulatorpack.Echeancier;
+
 
 public interface ActeurInterface 
 {
 	
-	public void realise(int action) ;
+	public void realise(int action, Echeancier echeancier) ;
 	/**{
 		switch(action)
 		{
