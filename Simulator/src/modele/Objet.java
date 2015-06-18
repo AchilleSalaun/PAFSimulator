@@ -1,14 +1,13 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import simulatorpack.Echeancier;
 
 public abstract class Objet implements ActeurInterface 
 {
 	private Case etat ;
-	private ArrayList<Integer> listeactions ; 
-	
 	private double timeout; // le temps limite au dela duquel l'objet quitte une file d'attente
 	private double priority; // priorite intrinseque a l'interieur d'une file d'attente
 	private int nombremax ; // tolerance au nombre dans une file
@@ -74,7 +73,6 @@ public abstract class Objet implements ActeurInterface
 		{
 		  	case 1: this.patienter(echeancier) ; //patienter
 		  	case 2: this.passer(echeancier) ; //passer a� la case suivante
-		  	case 3: this.partir(echeancier) ; // partir 
 			default : // ne rien faire  	
 		}
 	}
@@ -82,8 +80,11 @@ public abstract class Objet implements ActeurInterface
 	private void patienter( Echeancier echeancier)
 	{
 		Case caseactuelle = this.getEtat() ;
-		
-		
+		long attente = caseactuelle.getWait();
+		long currentTimeMs = (Echeancier.getCurrentDate()).getTime();
+		Date nextDate= null;
+		nextDate.setTime(attente + currentTimeMs);	
+		// Définir création de l'évenement à venir
 	}
 	
 	private void passer( Echeancier echeancier)
@@ -93,7 +94,7 @@ public abstract class Objet implements ActeurInterface
 	
 	private void partir( Echeancier echeancier)
 	{
-		Case caseactuelle = this.getEtat() ;
+		this.setEtat((this.getEtat()).getSortie()
 	}
 	
 }

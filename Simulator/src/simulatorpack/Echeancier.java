@@ -1,6 +1,7 @@
 package simulatorpack;
 
 
+import java.util.Date;
 import java.util.PriorityQueue;
 
 import modele.ActeurInterface;
@@ -8,8 +9,8 @@ import modele.ActeurInterface;
 public class Echeancier extends PriorityQueue<Evenement>{
 
 	private static final long serialVersionUID = 1L;
-	
-	static EventComparator comparator = new EventComparator();
+	private static Date currentDate ;
+	private static EventComparator comparator = new EventComparator();
 	
 
 	public Echeancier()
@@ -19,12 +20,21 @@ public class Echeancier extends PriorityQueue<Evenement>{
 	
 	public void nextEvent()
 	{
-		Evenement nextevent = this.poll() ;
-		ActeurInterface acteur = nextevent.getActeur() ;
-		int action = nextevent.getAction();
-		acteur.realise(action, this);
+		Evenement currentEvent = this.poll() ;
+		ActeurInterface acteur = currentEvent.getActeur() ;
+		Echeancier.setCurrentDate(currentEvent.getDate());
+		int action = currentEvent.getAction();
+		acteur.realise(action);
 	}
 	
+	public static Date getCurrentDate() {
+		return currentDate;
+	}
 
+	public static void setCurrentDate(Date currentDate) {
+		Echeancier.currentDate = currentDate;
+	}
+
+	
 	
 }
