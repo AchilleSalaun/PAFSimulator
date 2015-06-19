@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import simulatorpack.Echeancier;
+import simulatorpack.Evenement;
 
-public abstract class Objet implements ActeurInterface 
+public  class Objet implements ActeurInterface 
 {
 	private Case etat ;
 	private double timeout; // le temps limite au dela duquel l'objet quitte une file d'attente
@@ -85,6 +86,7 @@ public abstract class Objet implements ActeurInterface
 		Date nextDate= null;
 		nextDate.setTime(attente + currentTimeMs);	
 		// Définir création de l'évenement à venir
+		Evenement newEvent= new Evenement(this,nextDate,2);
 	}
 	
 	private void passer()

@@ -3,16 +3,17 @@ package simulatorpack;
 import java.sql.Date;
 
 import modele.ActeurInterface;
+import modele.Objet;
 
     
-    public abstract class Evenement 
+    public  class Evenement 
     {
         
-        private ActeurInterface acteur;
+        private Objet acteur;
         private Date temps ;
         private int action ;
         
-        public Evenement(ActeurInterface acteur, Date temps, int action)
+        public Evenement(Objet acteur, Date temps, int action)
         {
         	this.acteur = acteur ;
         	this.action = action ;
