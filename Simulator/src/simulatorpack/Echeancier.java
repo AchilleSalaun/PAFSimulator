@@ -24,7 +24,7 @@ public class Echeancier extends PriorityQueue<Evenement>{
 		ActeurInterface acteur = currentEvent.getActeur() ;
 		Echeancier.setCurrentDate(currentEvent.getDate());
 		int action = currentEvent.getAction();
-		acteur.realise(action);
+		acteur.realise(action,this);
 	}
 	
 	public static Date getCurrentDate() {
