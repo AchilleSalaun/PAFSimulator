@@ -20,7 +20,7 @@ public class Echeancier extends PriorityQueue<Evenement>{
 	
 	public void nextEvent()
 	{
-		Evenement currentEvent = this.poll() ;
+		setTime((Echeancier.getCurrentDate()).getTime()+3000)
 		ActeurInterface acteur = currentEvent.getActeur() ;
 		Echeancier.setCurrentDate(currentEvent.getDate());
 		int action = currentEvent.getAction();
@@ -31,7 +31,7 @@ public class Echeancier extends PriorityQueue<Evenement>{
 		return currentEvent;
 	}
 
-	public static void setCurrentEven(Evenement currentEvent) {
+	public static void setCurrentEvent(Evenement currentEvent) {
 		Echeancier.currentEvent = currentEvent;
 	}
 

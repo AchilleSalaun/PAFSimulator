@@ -8,26 +8,43 @@ import java.util.PriorityQueue;
 public abstract class Case
 {
 	private PriorityQueue<Objet> listeObjets;
-    private ArrayList <Case> entree;
-    private ArrayList <Case> sortie;
-    //private long wait ;
+    private ArrayList<Case> sortie;
+  
     
-    public ArrayList <Case> getEntree(){
-    	return this.entree;
-    }
-    
-    /*public long getWait(){
-    	return this.wait;
-    }*/
-    
-    public ArrayList <Case> getSortie() {
+    public ArrayList<Case> getSortie() {
     	return this.sortie;
     }
-	public void setEntree(ArrayList<Case> entree) {
-		this.entree = entree;
-	}
+	
 	public void setSortie(ArrayList<Case> sortie){
 		this.sortie = sortie;
 	}
 	
+	public Objet getFirstObjet(){
+		Objet firstObjet = (this.listeObjets).poll();
+		return firstObjet;
+	}
+	
+	
+	public int compareCase(Case case2){
+		if ((this.listeObjets).size() < (case2.listeObjets).size()){
+			return -1;
+		}
+		else if ((this.listeObjets).size() == (case2.listeObjets).size()){
+			return 0;
+		}
+		else 
+			return 1;
+	}
+	
+	public Case compareSortie(){
+		int fileMin = 0;
+		for (int i=0; i<(this.getSortie()).size(); i++){
+			for (int j=i+1; j<(this.getSortie()).size(); j++){
+				if ( (this.getSortie().get(i)).compareCase((this.getSortie()).get(j)) <= 0 && ((this.getSortie()).get(i)).compareCase((this.getSortie()).get(fileMin)) <= 0){
+					fileMin =i;
+				}
+			}
+		}
+		return (this.getSortie()).get(fileMin);
+	}
 }

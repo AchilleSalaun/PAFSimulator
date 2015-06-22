@@ -3,6 +3,7 @@ package modele;
 import java.util.ArrayList;
 import java.util.Date;
 
+import alea.Alea;
 import simulatorpack.Echeancier;
 import simulatorpack.Evenement;
 
@@ -12,6 +13,7 @@ public  class Objet implements ActeurInterface
 	private double timeout; // le temps limite au dela duquel l'objet quitte une file d'attente
 //	private double priority; // priorite intrinseque a l'interieur d'une file d'attente
 	private int nombremax ; // tolerance au nombre dans une file
+	private double lambda ;
 		
 	public Objet(Case etat, double timeout, double priority, int nombremax)
 	{
@@ -32,6 +34,16 @@ public  class Objet implements ActeurInterface
 	public void setEtat(Case etat)
 	{
 		this.etat = etat ;
+	}
+	
+	public double getLambda()
+	{
+		return this.lambda;
+	}
+	
+	public void setLambda(double coeff)
+	{
+		this.lambda = coeff ;
 	}
 	
 	public double getTimeout()
@@ -90,8 +102,29 @@ public  class Objet implements ActeurInterface
 	
 	private void passer( Echeancier echeancier)
 	{
-		Case caseActuelle = this.getEtat() ;
-		
+		Case lieu = this.getEtat() ;
+		if (lieu != (echeancier.getCurrentEvent()).getcaseActuelle()){
+			return;
+		}
+		else if (this.getEtat() instanceof Puit){
+		Date nextDate= null;
+		nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + 3000);
+		Evenement newEvent= new Evenement(this,3,nextDate,this.getEtat());
+		echeancier.add(newEvent);
+		return;
+		}
+		else if(this.getEtat() instanceof FileAttente && this != (this.getEtat()).getFirstObjet()){
+			Date nextDate= null;
+			double tpsAleatoireDouble = Alea.exponentielle(this.getLambda());
+			long tpsAleatoireLong = (long) tpsAleatoireDouble ;
+			nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + tpsAleatoireLong);
+			Evenement newEvent= new Evenement(this,(echeancier.getCurrentEvent()).getAction(),nextDate,this.getEtat());
+			echeancier.add(newEvent);
+			return;
+		}
+		else if (this.getEtat() instanceof FileAttente && this == (this.getEtat()).getFirstObjet()){
+			
+		}
 	}
 	
 	/* private void partir( Echeancier echeancier)
