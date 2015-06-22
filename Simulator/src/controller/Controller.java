@@ -23,6 +23,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import view.ViewModelisation;
+import view.ViewSimulation;
+import view.Window;
+
 //Classe permettant de controller ce qui se passe quand on appuie sur un bouton, c'est elle qui
 //interrogera la base de donnee
 
@@ -46,15 +50,11 @@ public class Controller
 
 	public void setActualView(Container actualview) 
 	{
-		// System.out.println("before :" + actualview) ;
 		this.actualview = actualview;
-		//System.out.println("actual :" + actualview);
 	}
 
 	public void clearNextStacks()
 	{
-		/*System.out.println("is stacknextview empty ?"
-				+ stacknextview.empty());*/
 		while (!stacknextview.empty()) 
 		{
 
@@ -65,8 +65,6 @@ public class Controller
 	
 	public void clearPreviousStacks()
 	{
-		/*System.out.println("is stackpreviousview empty ?"
-				+ stackpreviousview.empty());*/
 		while (!stackpreviousview.empty()) 
 		{
 			stackpreviousview.pop();
@@ -97,12 +95,10 @@ public class Controller
 
 	public void previousView(Container actualview) 
 	{
-		//System.out.println("test " + stackpreviousview.empty()) ;
-		
 		if (stackpreviousview.empty()) 
 		{
 			JOptionPane.showMessageDialog(null,
-					"L'opération demandée est impossible", "Attention",
+					"L'opÃ©ration demandÃ©e est impossible", "Attention",
 					JOptionPane.WARNING_MESSAGE);
 		} 
 		else 
@@ -127,7 +123,7 @@ public class Controller
 		if (stacknextview.empty()) 
 		{
 			JOptionPane.showMessageDialog(null,
-					"L'opération demandée est impossible", "Attention",
+					"L'opÃ©ration demandÃ©e est impossible", "Attention",
 					JOptionPane.WARNING_MESSAGE);
 		} 
 		else 
@@ -170,7 +166,7 @@ public class Controller
 		System.out.println("WARNING : the method " + methodname
 				+ "hasn't been implemented yet !!!");
 		JOptionPane.showMessageDialog(null,
-				"L'opération demandée n'est pas encore disponible.",
+				"L'opÃ©ration demandÃ©e n'est pas encore disponible.",
 				"Attention", JOptionPane.WARNING_MESSAGE);
 	}
 
@@ -180,13 +176,9 @@ public class Controller
 				.showMessageDialog(
 						null,
 
-						"OptiBar a pour objectif de fournir à un bar des outils novateurs et pratiques d'utilisation permettant d'en faciliter la gestion. \n"
-								+ "Il permettra au patron de gérer ses stocks et aussi de savoir quelles sont les habitudes de consommation de ses clients de façon claire et précise. \n"
-								+ "Puisque la gestion des stocks est une dépense importante pour les bars, notre projet permettra au bar de minimiser ses stocks, sans jamais être à court. \n"
-								+ "Enfin, notre système fournit aussi une aide au barman en lui indiquant les quantités qu'il a versées ce qui lui permet à la fois de préparer de meilleures boissons \n "
-								+ "mais lui facilite également la production de l'addition, gain de temps toujours utile à l'heure de pointe."
+						"DiscreteSimulator est un simulateur Ã  Ã©vÃ¨nements discrets."
 
-						, "A propos d'OptiBar", JOptionPane.INFORMATION_MESSAGE);
+						, "A propos de DiscreteSimulator", JOptionPane.INFORMATION_MESSAGE);
 
 	}
 
@@ -196,52 +188,33 @@ public class Controller
 
 	}
 
-	public void changementSystemeMetrique() 
-	{
-		this.fonctionnaliteNonImplementee("changementSystemeMetrique()");
-
-	}
-
-	public void changementSystemeMonetaire() 
-	{
-		this.fonctionnaliteNonImplementee("changementSystemeMonetaire()");
-
-	}
-
-	public void changementLanguage() 
-	{
-		this.fonctionnaliteNonImplementee("changementLanguage()");
-
-	}
-
+	
 	/****************************************************************************************************/
 	/** ViewWelcome */
-	public void boutonBarman() 
+	public void boutonSimulation() 
 	{
-		// Methode appelee quand on appuie sur Barman sur l'ecran d'accueil
-		this.clearStacks() ;
-		
-		/*ViewBarmanHome vbh = new ViewBarmanHome(this);*/
+		// Methode appelee quand on appuie sur Simulation sur l'ecran d'accueil
+		this.addPreviousView(actualview);
+		ViewSimulation vs = new ViewSimulation(this);
 		
 		Container cp = new Container() ;		
 		cp.setLayout(new GridBagLayout());
-		/*cp.add(vbh) ;*/
+		cp.add(vs) ;
 		window.setContentPane(cp);
 		
 		this.setActualView(cp);
 		window.validate();
 	}
 
-	public void boutonGestionnaire() 
+	public void boutonModelisation() 
 	{
-		// Methode appelee quand on appuie sur Barman sur l'ecran d'accueil
-		this.clearStacks() ;
-		
-		/*ViewBossLogin vbh = new ViewBossLogin(this);*/
+		// Methode appelee quand on appuie sur Modelisation sur l'ecran d'accueil
+		this.addPreviousView(actualview);
+		ViewModelisation vm = new ViewModelisation(this);
 		
 		Container cp = new Container() ;		
 		cp.setLayout(new GridBagLayout());
-		/*cp.add(vbh) ;*/
+		cp.add(vm) ;
 		window.setContentPane(cp);
 		
 		this.setActualView(cp);

@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -14,12 +14,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JToolBar;
 
-import view.ViewWelcome;
+import controller.Controller;
 
 public class Window extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
-	String title = "OptiBar";
+	String title = "DiscreteSimulator";
 	private int width = 500;
 	private int height = 400;
 	private Controller controller ;
@@ -27,24 +27,17 @@ public class Window extends JFrame
 
 	private JMenuBar menubar = new JMenuBar();
 	private JToolBar toolbar = new JToolBar();
-	private JMenu general = new JMenu("Général");
-	private JMenu general_user = new JMenu("Utilisateur");
-	private JMenuItem barman = new JMenuItem("Barman");
-	private JMenuItem boss = new JMenuItem("Patron");
-	//private JMenu general_navigation = new JMenu("Navigation");
+	
+	private JButton simulation = new JButton("Simulation");
+	private JButton modelisation = new JButton("Modélisation");
 	
 	private JButton previous = new JButton("⇦");
 	private JButton next = new JButton("⇨");	
-	private JMenu settings = new JMenu("Paramètres");
-	private JMenuItem settings_language = new JMenuItem("Langue");
-	private JMenuItem settings_mdp = new JMenuItem("Mot de Passe");
-	private JMenu settings_units = new JMenu("Unités");
-	private JMenuItem settings_units_money = new JMenuItem("Monnaie");
-	private JMenuItem settings_units_metric = new JMenuItem("Système métrique");
+
 
 	private JMenu help = new JMenu("Aide");
 	private JMenuItem help_help = new JMenuItem("Aide");
-	private JMenuItem help_about = new JMenuItem("A propos d'OptiBar");
+	private JMenuItem help_about = new JMenuItem("A propos de DiscreteSimulator");
 
 	public void setWSize(int width, int height) {
 		this.width = width;
@@ -75,19 +68,16 @@ public class Window extends JFrame
 
 		toolbar.setFloatable(false);
 		
-		/** Menu general */
-		
-		// Sous-menu utilisateur
-		this.general.add(this.general_user);
-			//this.general_navigation.add(previous);
-				this.previous.addActionListener(new ActionListener()
-				{					
-					public void actionPerformed(ActionEvent arg0)
-					{
-						controller.previousView(controller.getActualView());
-					}
-				});
-			//this.general_navigation.add(next);
+		/** Navigation */
+
+			this.previous.addActionListener(new ActionListener()
+			{					
+				public void actionPerformed(ActionEvent arg0)
+				{
+					controller.previousView(controller.getActualView());
+				}
+			});
+
 			this.next.addActionListener(new ActionListener()
 			{					
 				public void actionPerformed(ActionEvent arg0)
@@ -96,62 +86,22 @@ public class Window extends JFrame
 				}
 			});
 			
+		/** **/
+			this.simulation.addActionListener(new ActionListener()
+			{					
+				public void actionPerformed(ActionEvent arg0)
+				{
+					controller.boutonSimulation();
+				}
+			});
 			
-			//Sous-menu navigation
-			//this.general.add(this.general_navigation);
-				this.general_user.add(barman);
-					this.barman.addActionListener(new ActionListener()
-					{					
-						public void actionPerformed(ActionEvent arg0)
-						{
-							controller.boutonBarman();
-						}
-					});
-				this.general_user.add(boss);
-					this.boss.addActionListener(new ActionListener()
-					{					
-						public void actionPerformed(ActionEvent arg0)
-						{
-							controller.boutonGestionnaire();
-							
-						}
-					});
-				
-		
-			
-		// Sous_menu 2
-
-		/** Menu settings **/
-		
-		
-		// Sous-menu langue
-		this.settings.add(this.settings_language);
-		this.settings_language.addActionListener(new ActionListener()
-		{					
-			public void actionPerformed(ActionEvent arg0)
-			{
-				controller.changementLanguage();
-			}
-		});
-		// Sous-menu units
-
-		this.settings.add(this.settings_units);
-		this.settings_units.add(this.settings_units_money);
-		this.settings_units_money.addActionListener(new ActionListener()
-		{					
-			public void actionPerformed(ActionEvent arg0)
-			{
-				controller.changementSystemeMonetaire();
-			}
-		});
-		this.settings_units.add(this.settings_units_metric);
-		this.settings_units_metric.addActionListener(new ActionListener()
-		{					
-			public void actionPerformed(ActionEvent arg0)
-			{
-				controller.changementSystemeMetrique();
-			}
-		});
+			this.modelisation.addActionListener(new ActionListener()
+			{					
+				public void actionPerformed(ActionEvent arg0)
+				{
+					controller.boutonModelisation();
+				}
+			});
 
 		/** Menu help */
 		this.help.add(this.help_help);
@@ -180,9 +130,10 @@ public class Window extends JFrame
 		next.setFont(f);
 		this.toolbar.add(previous);
 		this.toolbar.add(next);
+		this.toolbar.add(simulation);
+		this.toolbar.add(modelisation);
 		this.menubar.add(toolbar);
-		this.menubar.add(general);
-		this.menubar.add(settings);
+
 		this.menubar.add(help);
 
 		this.setJMenuBar(menubar);
@@ -195,6 +146,7 @@ public class Window extends JFrame
 		cp.setLayout(new GridBagLayout());
 		cp.add(vw) ;
 		this.setContentPane(cp);
+		controller.setActualView(cp);
 		this.setVisible(true);
 	}
 }
