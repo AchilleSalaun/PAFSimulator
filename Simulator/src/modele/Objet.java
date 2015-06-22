@@ -9,14 +9,14 @@ public abstract class Objet implements ActeurInterface
 {
 	private Case etat ;
 	private double timeout; // le temps limite au dela duquel l'objet quitte une file d'attente
-	private double priority; // priorite intrinseque a l'interieur d'une file d'attente
+	//private double priority; // priorite intrinseque a l'interieur d'une file d'attente
 	private int nombremax ; // tolerance au nombre dans une file
 		
 	public Objet(Case etat, double timeout, double priority, int nombremax)
 	{
 		this.etat = etat ;
 		this.timeout = timeout;
-		this.priority = priority ;
+		//this.priority = priority //;
 		this.nombremax = nombremax ;
 		
 	}
@@ -66,7 +66,7 @@ public abstract class Objet implements ActeurInterface
 	/*****************************************************************************************************/
 	/** Champ d'actions **/
 	
-	@Override
+	/*@Override
 	public void realise( Echeancier echeancier)
 	{
 		switch(action)
@@ -92,9 +92,9 @@ public abstract class Objet implements ActeurInterface
 	
 	private void partir( Echeancier echeancier)
 	{
-		if this.nombremax>size(this.etat) (this.etat=Puit)
+		if (this.nombremax>size(this.etat)) this.etat=Puit;
 		Evenement
 		this.setEtat((this.getEtat()).getSortie()
-	}
+	}*/
 	
 }
