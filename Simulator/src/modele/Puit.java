@@ -8,6 +8,10 @@ private int compteur = 0;
 	public void incrementer(){
 		compteur++;
 	}
+	
+	public void evacuer(){
+		(this.getListeObjets()).clear();
+	}
 
 	@Override
 	public void realise(Echeancier echeancier) {

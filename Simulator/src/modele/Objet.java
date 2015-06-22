@@ -11,16 +11,16 @@ public  class Objet implements ActeurInterface
 {
 	private Case etat ;
 	private long timeout; // le temps limite au dela duquel l'objet quitte une file d'attente en ms 
-//	private double priority; // priorite intrinseque a l'interieur d'une file d'attente
+
 	private int nombremax ; // tolerance au nombre dans une file
 	private double lambda ;
 	
 		
-	public Objet(Case etat, long timeout, double priority, int nombremax)
+	public Objet(Case etat, long timeout,  int nombremax)
 	{
 		this.etat = etat ;
 		this.timeout = timeout;
-	//	this.priority = priority ;
+
 		this.nombremax = nombremax ;
 		
 	}
@@ -56,16 +56,7 @@ public  class Objet implements ActeurInterface
 	{
 		this.timeout = timeout;
 	}
-	
-/*	public double getPriority()
-	{
-		return priority ;
-	}
-	
-	public void setPriority(double priority)
-	{
-		this.priority = priority ;
-	} */
+
 	
 	public int getNombreMax()
 	{
@@ -90,16 +81,7 @@ public  class Objet implements ActeurInterface
 		} */
 	}
 	
-	/*private void patienter( Echeancier echeancier)
-	{
-		Case caseactuelle = this.getEtat() ;
-		long attente = caseactuelle.getWait();
-		long currentTimeMs = (Echeancier.getCurrentDate()).getTime();
-		Date nextDate= null;
-		nextDate.setTime(attente + currentTimeMs);	
-		// Définir création de l'évenement à venir
-		Evenement newEvent= new Evenement(this,nextDate,2);
-	} */
+	
 	
 	private void passer( Echeancier echeancier)
 	{
