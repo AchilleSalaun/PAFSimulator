@@ -12,6 +12,18 @@ public abstract class Case
     private ArrayList<Case> echappatoire;
     private int capacity;
 	
+    public Case(int capacity)
+    {
+    	PriorityQueue<Objet> liste = new PriorityQueue<Objet>();
+    	this.listeObjets = liste ;
+    	
+    	ArrayList<Case> listeSortie = new ArrayList<Case>();
+    	this.sortie = listeSortie ;
+    	
+    	ArrayList<Case> listeEchap = new ArrayList<Case>();
+    	this.echappatoire = listeEchap ;
+    	this.capacity = capacity ;
+    }
 	
 	public int getCapacity(){
 		return this.capacity;
@@ -35,8 +47,18 @@ public abstract class Case
 		this.echappatoire=echappatoire;
 	}
 	
+    public void relierEchappatoire(Case caseEchap)
+    {
+    	this.echappatoire.add(caseEchap);
+    }
+    
 	public void setSortie(ArrayList<Case> sortie){
 		this.sortie = sortie;
+	}
+	
+	public void relierSortie(Case caseSortie)
+	{
+		this.sortie.add(caseSortie);
 	}
 	
 	public Objet getFirstObjet(){

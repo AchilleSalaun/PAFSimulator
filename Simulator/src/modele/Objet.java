@@ -75,11 +75,12 @@ public  class Objet implements ActeurInterface
 	@Override
 	public void realise( Echeancier echeancier)
 	{
-	/*	switch(action)
+		int action = echeancier.getCurrentEvent().getAction();
+		switch(action)
 		{
-		  	case 1: this.passer(echeancier) ;//passer a� la case suivante
-			default : // ne rien faire  	
-		} */
+		  	case 1: this.passer(echeancier) ; //generer objet
+	
+		}
 	}
 	
 	
@@ -87,18 +88,22 @@ public  class Objet implements ActeurInterface
 	private void passer( Echeancier echeancier)
 	{
 		Case lieu = this.getEtat() ;
-		if (lieu != (echeancier.getCurrentEvent()).getcaseActuelle()){
+		if (lieu != echeancier.getCurrentEvent().getcaseActuelle())
+		{
 			return;
 		}
-		else if (this.getEtat() instanceof Puit){
-		Date nextDate= null;
-		nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + 3000);
-		Evenement newEvent= new Evenement(this,3,nextDate,this.getEtat());
-		echeancier.add(newEvent);
-		return;
+		else if (this.getEtat() instanceof Puit)
+		{
+			Date nextDate= new Date();
+			nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + 1);
+			Evenement newEvent= new Evenement((Puit) this.getEtat(),3,nextDate,this.getEtat());
+			echeancier.add(newEvent);
+			System.out.println("Demande evacuation realisée");
+			return;
 		}
-		else if(this.getEtat() instanceof FileAttente && this != (this.getEtat()).getFirstObjet()){
-			Date nextDate= null;
+		else if(this.getEtat() instanceof FileAttente && this != (this.getEtat()).getFirstObjet())
+		{
+			Date nextDate= new Date();
 			double tpsAleatoireDouble = Alea.exponentielle(this.getLambda());
 			long tpsAleatoireLong = (long) tpsAleatoireDouble ;
 			nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + tpsAleatoireLong);
