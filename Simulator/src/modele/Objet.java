@@ -10,12 +10,13 @@ import simulatorpack.Evenement;
 public  class Objet implements ActeurInterface 
 {
 	private Case etat ;
-	private double timeout; // le temps limite au dela duquel l'objet quitte une file d'attente
+	private long timeout; // le temps limite au dela duquel l'objet quitte une file d'attente en ms 
 //	private double priority; // priorite intrinseque a l'interieur d'une file d'attente
 	private int nombremax ; // tolerance au nombre dans une file
 	private double lambda ;
+	
 		
-	public Objet(Case etat, double timeout, double priority, int nombremax)
+	public Objet(Case etat, long timeout, double priority, int nombremax)
 	{
 		this.etat = etat ;
 		this.timeout = timeout;
@@ -46,12 +47,12 @@ public  class Objet implements ActeurInterface
 		this.lambda = coeff ;
 	}
 	
-	public double getTimeout()
+	public long getTimeout()
 	{
 		return this.timeout;
 	}
 	
-	public void setTimeout(double timeout)
+	public void setTimeout(long timeout)
 	{
 		this.timeout = timeout;
 	}
@@ -125,7 +126,34 @@ public  class Objet implements ActeurInterface
 		else if (this.getEtat() instanceof FileAttente && this == (this.getEtat()).getFirstObjet()){
 			Case sortieMoinsRemplie = this.getEtat().compareSortie();
 			if (sortieMoinsRemplie.getListeObjets().size()>= sortieMoinsRemplie.getCapacity()){
-				
+				Date nextDate= null;
+				double tpsAleatoireDouble = Alea.exponentielle(this.getLambda());
+				long tpsAleatoireLong = (long) tpsAleatoireDouble ;
+				nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + tpsAleatoireLong);
+				Evenement newEvent= new Evenement(this,(echeancier.getCurrentEvent()).getAction(),nextDate,this.getEtat());
+				echeancier.add(newEvent);
+				return;
+			}
+			else if (sortieMoinsRemplie.getListeObjets().size() < sortieMoinsRemplie.getCapacity()){
+			this.getEtat().getListeObjets().remove(this);
+			this.setEtat(sortieMoinsRemplie);
+			sortieMoinsRemplie.getListeObjets().add(this);
+				if(sortieMoinsRemplie instanceof FileAttente){
+					Date nextDate= null;
+					double tpsAleatoireDouble = Alea.exponentielle(this.getLambda());
+					long tpsAleatoireLong = (long) tpsAleatoireDouble ;
+					nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + tpsAleatoireLong);
+					Evenement newEvent= new Evenement(this,(echeancier.getCurrentEvent()).getAction(),nextDate,this.getEtat());
+					echeancier.add(newEvent);
+					return;
+				}
+				else if (sortieMoinsRemplie instanceof Puit){
+					Date nextDate= null;
+					nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + this.getTimeout());
+					Evenement newEvent= new Evenement(this,(echeancier.getCurrentEvent()).getAction(),nextDate,this.getEtat());
+					echeancier.add(newEvent);
+					return;
+				}
 			}
 		}
 	}
