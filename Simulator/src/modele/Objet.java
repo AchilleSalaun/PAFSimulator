@@ -67,33 +67,33 @@ public abstract class Objet implements ActeurInterface
 	/** Champ d'actions **/
 	
 	@Override
-	public void realise(int action, Echeancier echeancier)
+	public void realise( Echeancier echeancier)
 	{
 		switch(action)
 		{
-		  	case 1: this.patienter(echeancier) ; //patienter
-		  	case 2: this.passer(echeancier) ; //passer a� la case suivante
+		  	case 1: this.passer(echeancier) ;//passer a� la case suivante
+		  	case 2: this.partir(echeancier);// partir dans le puits ou dans une autre file
 			default : // ne rien faire  	
 		}
 	}
 	
-	private void patienter( Echeancier echeancier)
-	{
-		Case caseactuelle = this.getEtat() ;
-		long attente = caseactuelle.getWait();
-		long currentTimeMs = (Echeancier.getCurrentDate()).getTime();
-		Date nextDate= null;
-		nextDate.setTime(attente + currentTimeMs);	
-		// Définir création de l'évenement à venir
-	}
+	
+		
+	
 	
 	private void passer( Echeancier echeancier)
-	{
-		Case caseactuelle = this.getEtat() ;
+	{   
+		if (this.etat==echeancier.getCurrentEvent().getcaseActuelle())
+			
+		{
+			
+		}
 	}
 	
 	private void partir( Echeancier echeancier)
 	{
+		if this.nombremax>size(this.etat) (this.etat=Puit)
+		Evenement
 		this.setEtat((this.getEtat()).getSortie()
 	}
 	

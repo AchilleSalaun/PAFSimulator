@@ -9,7 +9,7 @@ import modele.ActeurInterface;
 public class Echeancier extends PriorityQueue<Evenement>{
 
 	private static final long serialVersionUID = 1L;
-	private static Date currentDate ;
+	private static Evenement currentEvent ;
 	private static EventComparator comparator = new EventComparator();
 	
 
@@ -24,15 +24,15 @@ public class Echeancier extends PriorityQueue<Evenement>{
 		ActeurInterface acteur = currentEvent.getActeur() ;
 		Echeancier.setCurrentDate(currentEvent.getDate());
 		int action = currentEvent.getAction();
-		acteur.realise(action);
+		acteur.realise(this);
 	}
 	
-	public static Date getCurrentDate() {
-		return currentDate;
+	public static Evenement getCurrentEvent() {
+		return currentEvent;
 	}
 
-	public static void setCurrentDate(Date currentDate) {
-		Echeancier.currentDate = currentDate;
+	public static void setCurrentEven(Evenement currentEvent) {
+		Echeancier.currentEvent = currentEvent;
 	}
 
 	
