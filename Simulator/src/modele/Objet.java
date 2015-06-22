@@ -82,7 +82,7 @@ public  class Objet implements ActeurInterface
 	}
 	
 	
-	
+	//parametre des event à vérifier
 	private void passer( Echeancier echeancier)
 	{
 		Case lieu = this.getEtat() ;
@@ -120,20 +120,19 @@ public  class Objet implements ActeurInterface
 			this.getEtat().getListeObjets().remove(this);
 			this.setEtat(sortieMoinsRemplie);
 			sortieMoinsRemplie.getListeObjets().add(this);
-				if(sortieMoinsRemplie instanceof FileAttente){
+			
 					Date nextDate= null;
 					double tpsAleatoireDouble = Alea.exponentielle(this.getLambda());
 					long tpsAleatoireLong = (long) tpsAleatoireDouble ;
 					nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + tpsAleatoireLong);
-					Evenement newEvent= new Evenement(this,(echeancier.getCurrentEvent()).getAction(),nextDate,this.getEtat());
+					Evenement newEvent= new Evenement(this,1,nextDate,this.getEtat());
 					echeancier.add(newEvent);
-					return;
-				}
-				else if (sortieMoinsRemplie instanceof Puit){
-					Date nextDate= null;
-					nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + this.getTimeout());
-					Evenement newEvent= new Evenement(this,(echeancier.getCurrentEvent()).getAction(),nextDate,this.getEtat());
-					echeancier.add(newEvent);
+					
+				 if (sortieMoinsRemplie instanceof FileAttente){
+					Date nextDat= null;
+					nextDat.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + this.getTimeout());
+					Evenement event= new Evenement(this,2,nextDat,this.getEtat());
+					echeancier.add(event);
 					return;
 				}
 			}
