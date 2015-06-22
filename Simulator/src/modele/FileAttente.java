@@ -11,13 +11,15 @@ public class FileAttente extends Case
 	public FileAttente() {
 	}
 	
-	private int nombrePlacesRestantes;
-	public int getNombrePlacesRestantes(){
-		return nombrePlacesRestantes;
-	}
-	public void setNombrePlacesRestantes(int nombrePlaces){
-		this.nombrePlacesRestantes=nombrePlaces;
-		
+	
+	private int capacity;
+	
+	
+	public int getCapacity(){
+		return this.capacity;
 	}
 
+	public void setCapacity(int capacity2){
+		this.capacity = capacity2;
+	}
 }

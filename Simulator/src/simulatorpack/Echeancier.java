@@ -28,7 +28,7 @@ public class Echeancier extends PriorityQueue<Evenement>{
 		return currentEvent;
 	}
 
-	public static void setCurrentEven(Evenement currentEvent) {
+	public static void setCurrentEvent(Evenement currentEvent) {
 		Echeancier.currentEvent = currentEvent;
 	}
 

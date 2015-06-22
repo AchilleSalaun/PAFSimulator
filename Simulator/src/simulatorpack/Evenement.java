@@ -1,12 +1,12 @@
 package simulatorpack;
 
-import java.sql.Date;
+import java.util.Date;
 
 import modele.ActeurInterface;
 import modele.Case;
 
     
-    public abstract class Evenement 
+    public  class Evenement 
     {
         
         private ActeurInterface acteur;
