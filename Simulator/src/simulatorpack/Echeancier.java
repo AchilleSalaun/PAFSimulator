@@ -20,7 +20,7 @@ public class Echeancier extends PriorityQueue<Evenement>{
 	
 	public void nextEvent()
 	{
-		this.currentEvent = this.poll();
+		this.currentEvent = this.poll() ;
 		this.currentEvent.getActeur().realise(this);
 	}
 	

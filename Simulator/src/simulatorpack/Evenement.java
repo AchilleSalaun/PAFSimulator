@@ -42,5 +42,14 @@ import modele.Case;
         {
         	return this.caseActuelle;
         }
+        public void setDate(Date date) {
+        	this.temps=date;
+        }
+        public void setAction(int action) {
+        	this.action=action;
+        }
+        public void setActeur(ActeurInterface acteur) {
+        	this.acteur=acteur;
+        }
     }
 

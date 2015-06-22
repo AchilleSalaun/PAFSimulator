@@ -26,6 +26,13 @@ public abstract class Case
     public ArrayList<Case> getSortie() {
     	return this.sortie;
     }
+    
+    public ArrayList<Case> getEchappatoire() {
+    	return this.echappatoire;
+    }
+    public void setEchappatoire(ArrayList<Case> echappatoire){
+		this.echappatoire=echappatoire;
+	}
 	
 	public void setSortie(ArrayList<Case> sortie){
 		this.sortie = sortie;

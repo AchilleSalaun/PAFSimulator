@@ -2,6 +2,7 @@ package modele;
 
 import java.util.ArrayList;
 import java.util.Date;
+import modele.Puit;
 
 import alea.Alea;
 import simulatorpack.Echeancier;
