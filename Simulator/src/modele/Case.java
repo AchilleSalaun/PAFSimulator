@@ -9,7 +9,19 @@ public abstract class Case
 {
 	private PriorityQueue<Objet> listeObjets;
     private ArrayList<Case> sortie;
-  
+    private int capacity;
+	
+	
+	public int getCapacity(){
+		return this.capacity;
+	}
+
+	public void setCapacity(int capacity2){
+		this.capacity = capacity2;
+	}
+    public PriorityQueue<Objet> getListeObjets(){
+    	return this.listeObjets;
+    }
     
     public ArrayList<Case> getSortie() {
     	return this.sortie;
@@ -23,13 +35,12 @@ public abstract class Case
 		Objet firstObjet = (this.listeObjets).poll();
 		return firstObjet;
 	}
-	
-	
+
 	public int compareCase(Case case2){
-		if ((this.listeObjets).size() < (case2.listeObjets).size()){
+		if ((this.getListeObjets()).size() < (case2.getListeObjets()).size()){
 			return -1;
 		}
-		else if ((this.listeObjets).size() == (case2.listeObjets).size()){
+		else if ((this.getListeObjets()).size() == (case2.getListeObjets()).size()){
 			return 0;
 		}
 		else 
@@ -40,11 +51,12 @@ public abstract class Case
 		int fileMin = 0;
 		for (int i=0; i<(this.getSortie()).size(); i++){
 			for (int j=i+1; j<(this.getSortie()).size(); j++){
-				if ( (this.getSortie().get(i)).compareCase((this.getSortie()).get(j)) <= 0 && ((this.getSortie()).get(i)).compareCase((this.getSortie()).get(fileMin)) <= 0){
+				if ( !(this.getSortie().get(i)instanceof Puit) && !(this.getSortie().get(j)instanceof Puit) && (this.getSortie().get(i)).compareCase((this.getSortie()).get(j)) <= 0 && ((this.getSortie()).get(i)).compareCase((this.getSortie()).get(fileMin)) <= 0){
 					fileMin =i;
 				}
 			}
 		}
 		return (this.getSortie()).get(fileMin);
 	}
+
 }

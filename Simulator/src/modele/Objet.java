@@ -124,7 +124,10 @@ public  class Objet implements ActeurInterface
 			return;
 		}
 		else if (this.getEtat() instanceof FileAttente && this == (this.getEtat()).getFirstObjet()){
-			
+			Case sortieMoinsRemplie = this.getEtat().compareSortie();
+			if (sortieMoinsRemplie.getListeObjets().size()>= sortieMoinsRemplie.getCapacity()){
+				
+			}
 		}
 	}
 	
