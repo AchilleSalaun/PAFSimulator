@@ -2,6 +2,7 @@ package modele;
 
 import java.util.ArrayList;
 import java.util.Date;
+import modele.Puit;
 
 import simulatorpack.Echeancier;
 
@@ -43,7 +44,7 @@ public abstract class Objet implements ActeurInterface
 		this.timeout = timeout;
 	}
 	
-	public double getPriority()
+	/*public double getPriority()
 	{
 		return priority ;
 	}
@@ -51,7 +52,7 @@ public abstract class Objet implements ActeurInterface
 	public void setPriority(double priority)
 	{
 		this.priority = priority ;
-	}
+	}*/
 	
 	public int getNombreMax()
 	{
@@ -89,12 +90,14 @@ public abstract class Objet implements ActeurInterface
 			
 		}
 	}
-	
-	private void partir( Echeancier echeancier)
+	*/
+	private void partir( Echeancier echeancier,Puit puit)
 	{
-		if (this.nombremax>size(this.etat)) this.etat=Puit;
-		Evenement
-		this.setEtat((this.getEtat()).getSortie()
-	}*/
+		if (this.nombremax>echeancier.size()) 
+		this.setEtat(puit);
+		
+		
+	}
+	
 	
 }
