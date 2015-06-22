@@ -3,21 +3,23 @@ package simulatorpack;
 import java.sql.Date;
 
 import modele.ActeurInterface;
-import modele.Objet;
+import modele.Case;
 
     
-    public  class Evenement 
+    public abstract class Evenement 
     {
         
-        private Objet acteur;
+        private ActeurInterface acteur;
         private Date temps ;
         private int action ;
+        private Case caseActuelle;
         
-        public Evenement(Objet acteur, Date temps, int action)
+        public Evenement(ActeurInterface acteur,int action,Date temps, Case caseActuelle )
         {
         	this.acteur = acteur ;
         	this.action = action ;
         	this.temps = temps ;
+        	this.caseActuelle = caseActuelle;
         }
         
         public ActeurInterface getActeur()
@@ -35,6 +37,10 @@ import modele.Objet;
         public int getAction()
         {
             return this.action;
-        }        
+        }  
+        public Case getcaseActuelle() 
+        {
+        	return this.caseActuelle;
+        }
     }
 

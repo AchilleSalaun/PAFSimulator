@@ -10,15 +10,15 @@ public abstract class Case
 	private PriorityQueue<Objet> listeObjets;
     private ArrayList <Case> entree;
     private ArrayList <Case> sortie;
-    private long wait ;
+    //private long wait ;
     
     public ArrayList <Case> getEntree(){
     	return this.entree;
     }
     
-    public long getWait(){
+    /*public long getWait(){
     	return this.wait;
-    }
+    }*/
     
     public ArrayList <Case> getSortie() {
     	return this.sortie;
@@ -29,4 +29,5 @@ public abstract class Case
 	public void setSortie(ArrayList<Case> sortie){
 		this.sortie = sortie;
 	}
+	public priorityQueue<Case>{
 }

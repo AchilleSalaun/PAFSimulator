@@ -68,12 +68,11 @@ public  class Objet implements ActeurInterface
 	/** Champ d'actions **/
 	
 	@Override
-	public void realise(int action, Echeancier echeancier)
+	public void realise( Echeancier echeancier)
 	{
 		switch(action)
 		{
-		  	case 1: this.patienter(echeancier) ; //patienter
-		  	case 2: this.passer(echeancier) ; //passer a  la case suivante
+		  	case 1: this.passer(echeancier) ;//passer aï¿½ la case suivante
 			default : // ne rien faire  	
 		}
 	}
