@@ -29,5 +29,5 @@ public abstract class Case
 	public void setSortie(ArrayList<Case> sortie){
 		this.sortie = sortie;
 	}
-	public priorityQueue<Case>{
+	
 }
