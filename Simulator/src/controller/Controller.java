@@ -228,8 +228,18 @@ public class Controller
 	
 	public void lancerSimulation() 
 	{
-		// TODO Auto-generated method stub
 		this.fonctionnaliteNonImplementee("lancerSimulation()");
+	}
+
+	public void charger() 
+	{
+		this.fonctionnaliteNonImplementee("charger()");
+		
+	}
+
+	public void enregistrer()
+	{
+		this.fonctionnaliteNonImplementee("enregistrer()");		
 	}
 	
 	/****************************************************************************************************/

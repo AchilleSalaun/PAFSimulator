@@ -1,10 +1,15 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
@@ -28,15 +33,37 @@ public class ViewModelisation extends JPanel
 		GroupLayout layout = new GroupLayout(this) ;
 		this.setLayout(layout);
 		
-		JLabel txt1 = new JLabel("Modélisation Automatique : ");
+		JRadioButton txt1 = new JRadioButton("Modélisation Automatique : ");
+		txt1.setSelected(true);
 		String[] tab ={"Vierge","Pré-Enregistré 1","Pré-Enregistré 2"};
 		JComboBox choixmodele = new JComboBox(tab);
 		
-		JLabel txt2 = new JLabel("Parcourir : ");
+		JRadioButton txt2 = new JRadioButton("Parcourir : ");
 		JTextField adressemodele = new JTextField();
-
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(txt1);
+		group.add(txt2);
+		
 		JButton charger = new JButton("Charger");
+		
+		charger.addActionListener(new ActionListener()
+		{					
+			public void actionPerformed(ActionEvent arg0)
+			{
+				controller.charger();
+			}
+		});
+		
 		JButton enregistrer = new JButton("Enregistrer");
+		
+		enregistrer.addActionListener(new ActionListener()
+		{					
+			public void actionPerformed(ActionEvent arg0)
+			{
+				controller.enregistrer();
+			}
+		});
 		
 		/*****************************************/
 		
