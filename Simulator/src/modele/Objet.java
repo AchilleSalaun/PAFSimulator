@@ -68,17 +68,17 @@ public  class Objet implements ActeurInterface
 	/** Champ d'actions **/
 	
 	@Override
-	public void realise(int action)
+	public void realise(int action, Echeancier echeancier)
 	{
 		switch(action)
 		{
-		  	case 1: this.patienter() ; //patienter
-		  	case 2: this.passer() ; //passer aï¿½ la case suivante
+		  	case 1: this.patienter(echeancier) ; //patienter
+		  	case 2: this.passer(echeancier) ; //passer a  la case suivante
 			default : // ne rien faire  	
 		}
 	}
 	
-	private void patienter()
+	private void patienter( Echeancier echeancier)
 	{
 		Case caseactuelle = this.getEtat() ;
 		long attente = caseactuelle.getWait();
@@ -89,11 +89,14 @@ public  class Objet implements ActeurInterface
 		Evenement newEvent= new Evenement(this,nextDate,2);
 	}
 	
-	private void passer()
+	private void passer( Echeancier echeancier)
+	{
+		Case caseactuelle = this.getEtat() ;
+	}
+	
+	private void partir( Echeancier echeancier)
 	{
 		this.setEtat((this.getEtat()).getSortie()
 	}
-	
-	
 	
 }

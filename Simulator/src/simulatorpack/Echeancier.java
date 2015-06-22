@@ -37,7 +37,4 @@ public class Echeancier extends PriorityQueue<Evenement>{
 
 	
 	
-	
-	
-	
 }
