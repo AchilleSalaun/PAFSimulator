@@ -9,7 +9,7 @@ public class MainTest {
 
 		for(int i=0; i<100; i++){
 			
-			System.out.println(Alea.poisson(2));
+			System.out.println(Alea.exponentielle(2));
 		}
 	}
 

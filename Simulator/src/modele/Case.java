@@ -9,6 +9,7 @@ public abstract class Case
 {
 	private PriorityQueue<Objet> listeObjets;
     private ArrayList<Case> sortie;
+    private ArrayList<Case> echappatoire;
     private int capacity;
 	
 	
