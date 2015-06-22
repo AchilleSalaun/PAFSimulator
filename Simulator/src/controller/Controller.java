@@ -221,5 +221,17 @@ public class Controller
 		window.validate();
 	}
 
+	
 
+	/****************************************************************************************************/
+	/** ViewSimulation */
+	
+	public void lancerSimulation() 
+	{
+		// TODO Auto-generated method stub
+		this.fonctionnaliteNonImplementee("lancerSimulation()");
+	}
+	
+	/****************************************************************************************************/
+	/** ViewModelisation */
 }
