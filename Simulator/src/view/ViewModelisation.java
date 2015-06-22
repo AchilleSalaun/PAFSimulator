@@ -73,6 +73,7 @@ public class ViewModelisation extends JPanel
 		Object parentSource = graphSource.getDefaultParent() ;
 		Object vSource = graphSource.insertVertex(parentSource, null, "Source", 20, 20, 80, 30);
 		
+		
 		graphSource.getModel().endUpdate();
 		
 		mxGraphComponent graphComponentSource = new mxGraphComponent(graphSource);
@@ -96,8 +97,8 @@ public class ViewModelisation extends JPanel
 		mxGraphModel modelPuit = new mxGraphModel();
 		mxGraph graphPuit = new mxGraph();
 		graphPuit.setEnabled(false);
-		Object parentPuit = graphFile.getDefaultParent() ;
-		Object vPuit = graphFile.insertVertex(parentPuit, null, "Puit", 20, 20, 80, 30);
+		Object parentPuit = graphPuit.getDefaultParent() ;
+		Object vPuit = graphPuit.insertVertex(parentPuit, null, "Puit", 20, 20, 10, 10);
 		
 		graphPuit.getModel().endUpdate();
 		
@@ -106,10 +107,12 @@ public class ViewModelisation extends JPanel
 		scrollPuit.add(graphComponentPuit);
 		/*****************************************/
 		
-		mxGraphModel model = new mxGraphModel();
+		//mxGraphModel model = new mxGraphModel();
 		mxGraph graph = new mxGraph();
 		graph.setEnabled(true);
 		
+		Object parent = graph.getDefaultParent() ;
+		Object v1 = graph.insertVertex(parent, null, "Hello", 20, 20, 10, 10);
 		graph.getModel().endUpdate();
 		
 		mxGraphComponent graphComponent = new mxGraphComponent(graph);

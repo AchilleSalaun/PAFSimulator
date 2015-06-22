@@ -20,8 +20,8 @@ public class Window extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	String title = "DiscreteSimulator";
-	private int width = 500;
-	private int height = 400;
+	private int width = 1000;
+	private int height = 800;
 	private Controller controller ;
 	//private GroupLayout layout ;
 
