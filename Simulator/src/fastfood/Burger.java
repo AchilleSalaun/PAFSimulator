@@ -6,9 +6,9 @@ import modele.Objet;
 public class Burger extends Objet 
 {
 
-	public Burger(Case etat, double timeout, double priority) 
+	public Burger(Case etat, double timeout) 
 	{
-		super(etat, timeout, priority, 1000) ;
+		super(etat, timeout, 1000) ;
 	}
 
 }

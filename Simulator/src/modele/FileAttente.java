@@ -8,7 +8,14 @@ import java.util.Queue;
 public class FileAttente extends Case 
 
 {
+	public FileAttente() {
+	}
 	
 	
 
+	
+	
+	
+	
+	
 }
