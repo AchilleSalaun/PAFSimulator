@@ -9,6 +9,7 @@ private int compteur = 0;
 		compteur++;
 	}
 
+	Puit puit = new Puit();
 	@Override
 	public void realise(Echeancier echeancier) {
 		// TODO Auto-generated method stub

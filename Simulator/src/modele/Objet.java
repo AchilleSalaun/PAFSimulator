@@ -11,12 +11,12 @@ import simulatorpack.Evenement;
 public  class Objet implements ActeurInterface 
 {
 	private Case etat ;
-	private double timeout; // le temps limite au dela duquel l'objet quitte une file d'attente
+	private long timeout; // le temps limite au dela duquel l'objet quitte une file d'attente
 //	private double priority; // priorite intrinseque a l'interieur d'une file d'attente
 	private int nombremax ; // tolerance au nombre dans une file
 	private double lambda ;
 		
-	public Objet(Case etat, double timeout, double priority, int nombremax)
+	public Objet(Case etat, long timeout, double priority, int nombremax)
 	{
 		this.etat = etat ;
 		this.timeout = timeout;
@@ -131,9 +131,10 @@ public  class Objet implements ActeurInterface
 		}
 	}
 	
-	/* private void partir( Echeancier echeancier)
+	private void partir( Echeancier echeancier, Puit puit)
 	{
-		this.setEtat((this.getEtat()).getSortie()
-	} */
+		this.etat=puit;	
+		}
+	} 
 	
-}
+
