@@ -20,10 +20,9 @@ public class MainSimulator
 		source.relierSortie(puit);
 		
 		// Creation de l'echeancier
-		Echeancier echeancier = new Echeancier();
-		Date date = new Date();
-		Evenement amorce = new Evenement(source,0,date,source);
-		echeancier.add(amorce);
+		Echeancier echeancier = new Echeancier(source);
+		/** ATTENTION : Constructeur Temporaire !!! **/
+
 		
 		System.out.println("début");
 	

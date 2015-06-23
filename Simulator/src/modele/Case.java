@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public abstract class Case
+import simulatorpack.Echeancier;
+
+public abstract class Case extends Acteur
 {
 	private LinkedList<Objet> listeObjets;
     private ArrayList<Case> sortie;

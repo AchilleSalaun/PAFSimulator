@@ -4,7 +4,8 @@ package simulatorpack;
 import java.util.Date;
 import java.util.PriorityQueue;
 
-import modele.ActeurInterface;
+import modele.Acteur;
+import modele.Source;
 
 public class Echeancier extends PriorityQueue<Evenement>{
 
@@ -13,9 +14,13 @@ public class Echeancier extends PriorityQueue<Evenement>{
 	private static EventComparator comparator = new EventComparator();
 	
 
-	public Echeancier()
+	public Echeancier(Source source)
 	{
 		super(/*Integer.MAX_VALUE*/ 1000, comparator);
+		Date date = new Date();
+		Evenement amorce = new Evenement(source,0,date,source);
+		//this.currentEvent=amorce;
+		this.add(amorce);
 	}
 	
 	public void nextEvent()

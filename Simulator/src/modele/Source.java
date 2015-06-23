@@ -8,7 +8,7 @@ import simulatorpack.Evenement;
 
 
 
-public class Source extends Case implements ActeurInterface
+public class Source extends Case
 {
 	private long retry;
 	
@@ -24,9 +24,10 @@ public class Source extends Case implements ActeurInterface
 	
 	//il sera peut-etre plus simlpe de faire deux methode generer pour burger et client avec des paramétres différents
 	//Il faudrait donc modifier les int des actions dans le case et dans ce code
-	private void generer(Echeancier echeancier)
+	public void generer(Echeancier echeancier)
 	{	
-		System.out.println("Début génération : "+echeancier.getCurrentEvent().getDate());
+		super.generer(echeancier);
+		System.out.println("Génération : "+ echeancier.getCurrentEvent().getDate());
 		Case sortieMoinsRemplie = this.compareSortie();
 		
 		if (sortieMoinsRemplie.getListeObjets().size() >= sortieMoinsRemplie.getCapacity())
@@ -43,26 +44,12 @@ public class Source extends Case implements ActeurInterface
 			Date nextDate= new Date();
 			nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + this.getRetry());
 			Evenement newGeneration= new Evenement(this,0,nextDate,this);
-			Evenement newPassage = new Evenement(obj,1,nextDate,sortieMoinsRemplie);
+			Evenement newPassage = new Evenement(obj,2,nextDate,sortieMoinsRemplie);
 			echeancier.add(newGeneration);
 			echeancier.add(newPassage);
-			System.out.println("Event ajouté : "+nextDate);
+			
+			/*System.out.println("Event ajouté : "+nextDate);
+			System.out.println("Taille echeancier : "+echeancier.size());*/
 		}
 	}
-
-	@Override
-	public void realise(Echeancier echeancier) 
-	{
-		// TODO Auto-generated method stub
-		int action = echeancier.getCurrentEvent().getAction();
-		switch(action)
-		{
-		  	case 0: this.generer(echeancier) ; //generer objet
-	
-		}
-	}
-
-
-
-
 }

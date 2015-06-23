@@ -8,7 +8,7 @@ import alea.Alea;
 import simulatorpack.Echeancier;
 import simulatorpack.Evenement;
 
-public  class Objet implements ActeurInterface 
+public  class Objet extends Acteur 
 {
 	private Case etat ;
 	private long timeout; // le temps limite au dela duquel l'objet quitte une file d'attente en ms 
@@ -71,22 +71,13 @@ public  class Objet implements ActeurInterface
 	
 	/*****************************************************************************************************/
 	/** Champ d'actions **/
-	
-	@Override
-	public void realise( Echeancier echeancier)
-	{
-		int action = echeancier.getCurrentEvent().getAction();
-		switch(action)
-		{
-		  	case 1: this.passer(echeancier) ; //generer objet
-	
-		}
-	}
-	
-	
+
 	//parametre des event à vérifier
-	private void passer( Echeancier echeancier)
+	//@Override
+	public void passer( Echeancier echeancier)
 	{
+		super.passer(echeancier);
+		
 		Case lieu = this.getEtat() ;
 		
 		// est-ce que je veux quitter une case dont je suis deja parti ?
@@ -99,9 +90,8 @@ public  class Objet implements ActeurInterface
 		{
 			Date nextDate= new Date();
 			long nextTime = echeancier.getCurrentEvent().getDate().getTime() ;
-			nextTime = nextTime +1;
 			nextDate.setTime(nextTime);
-			Evenement newEvent= new Evenement((Puit) this.getEtat(),3,nextDate,this.getEtat());
+			Evenement newEvent= new Evenement(this.getEtat(),1,nextDate,this.getEtat());
 			echeancier.add(newEvent);
 			System.out.println("Demande evacuation realisée");
 			return;
@@ -112,7 +102,7 @@ public  class Objet implements ActeurInterface
 			double tpsAleatoireDouble = Alea.exponentielle(this.getLambda());
 			long tpsAleatoireLong = (long) tpsAleatoireDouble ;
 			nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + tpsAleatoireLong);
-			Evenement newEvent= new Evenement(this,(echeancier.getCurrentEvent()).getAction(),nextDate,this.getEtat());
+			Evenement newEvent= new Evenement(this,2,nextDate,this.getEtat());
 			echeancier.add(newEvent);
 			return;
 		}
@@ -123,7 +113,7 @@ public  class Objet implements ActeurInterface
 				double tpsAleatoireDouble = Alea.exponentielle(this.getLambda());
 				long tpsAleatoireLong = (long) tpsAleatoireDouble ;
 				nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + tpsAleatoireLong);
-				Evenement newEvent= new Evenement(this,(echeancier.getCurrentEvent()).getAction(),nextDate,this.getEtat());
+				Evenement newEvent= new Evenement(this,2,nextDate,this.getEtat());
 				echeancier.add(newEvent);
 				return;
 			}
@@ -136,23 +126,18 @@ public  class Objet implements ActeurInterface
 					double tpsAleatoireDouble = Alea.exponentielle(this.getLambda());
 					long tpsAleatoireLong = (long) tpsAleatoireDouble ;
 					nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + tpsAleatoireLong);
-					Evenement newEvent= new Evenement(this,1,nextDate,this.getEtat());
+					Evenement newEvent= new Evenement(this,2,nextDate,this.getEtat());
 					echeancier.add(newEvent);
 					
 				 if (sortieMoinsRemplie instanceof FileAttente){
 					Date nextDat= null;
 					nextDat.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + this.getTimeout());
-					Evenement event= new Evenement(this,2,nextDat,this.getEtat());
+					Evenement event= new Evenement(this,3,nextDat,this.getEtat());
 					echeancier.add(event);
 					return;
 				}
 			}
 		}
 	}
-	
-	/* private void partir( Echeancier echeancier)
-	{
-		this.setEtat((this.getEtat()).getSortie()
-	} */
-	
+
 }

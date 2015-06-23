@@ -2,19 +2,20 @@ package simulatorpack;
 
 import java.util.Date;
 
-import modele.ActeurInterface;
+import modele.Acteur;
 import modele.Case;
+import modele.Objet;
 
     
     public  class Evenement 
     {
         
-        private ActeurInterface acteur;
+        private Acteur acteur;
         private int action ;
         private Date temps ;
         private Case caseActuelle;
         
-        public Evenement(ActeurInterface acteur,int action,Date temps, Case caseActuelle )
+        public Evenement(Acteur acteur,int action,Date temps, Case caseActuelle )
         {
         	this.acteur = acteur ;
         	this.action = action ;
@@ -24,7 +25,7 @@ import modele.Case;
         
         /********************************************************************************************************/
         /** getters & setters **/
-        public ActeurInterface getActeur()
+        public Acteur getActeur()
         {
             return this.acteur;
         }
@@ -50,7 +51,7 @@ import modele.Case;
         public void setAction(int action) {
         	this.action=action;
         }
-        public void setActeur(ActeurInterface acteur) {
+        public void setActeur(Acteur acteur) {
         	this.acteur=acteur;
         }
         

@@ -1,16 +1,38 @@
 package main;
 
+import java.util.Date;
+
+import simulatorpack.Echeancier;
+import simulatorpack.Evenement;
+import modele.Puit;
+import modele.Source;
 import alea.Alea;
 
 public class MainTest {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) 
+	{
+		// Creation du modele
+				Source source = new Source();
+				Puit puit = new Puit();
+				source.relierSortie(puit);
+				
+				// Creation de l'echeancier
+				Echeancier echeancier = new Echeancier(source);
+				/** ATTENTION : Constructeur Temporaire !!! **/
 
-		for(int i=0; i<100; i++){
+				
+				System.out.println("début");
 			
-			System.out.println(Alea.exponentielle(2));
-		}
-	}
+				int s = 0;
+				do
+				{
+					s = echeancier.size();
+					echeancier.nextEvent();
+					System.out.println("Fin de boucle : taille puit = " + puit.getListeObjets().size());
+				}
+				while(s>0);
+				
+				System.out.println("fin");
 
 }
