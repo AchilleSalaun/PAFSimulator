@@ -31,7 +31,10 @@ public class MainSimulator
 	
 		int s = 0;
 		int ctr = 0;
-		/*
+		
+		/***************************************************************************************************************************************/
+		/** Regime permanent **/
+		
 		do
 		{
 			ctr++ ;
@@ -41,9 +44,12 @@ public class MainSimulator
 			echeancier.nextEvent();
 			System.out.println("Fin boucle n°"+ctr+": taille puit = " + puit.getListeObjets().size()+" / taille poubelle = "+poubelle.getListeObjets().size());
 		}
-		while(s>0);*/
+		while(s>0);
 		
-		for(int i=0 ; i<20
+		/***************************************************************************************************************************************/
+		/** Regime transitoire **/
+		
+		/*for(int i=0 ; i<20
 				; i++)
 		{
 			ctr++ ;
@@ -52,7 +58,7 @@ public class MainSimulator
 			s = echeancier.size();
 			echeancier.nextEvent();
 			System.out.println("Fin boucle n°"+ctr+": taille puit = " + puit.getListeObjets().size()+" / taille poubelle = "+poubelle.getListeObjets().size());
-		}
+		}*/
 		
 		System.out.println("fin");
 	}

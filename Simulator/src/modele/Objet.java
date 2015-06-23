@@ -88,7 +88,7 @@ public  class Objet extends Acteur
 		// je veux quitter une case dont je suis deja passé
 		if (lieu != echeancier.getCurrentEvent().getcaseActuelle())
 		{
-			System.out.println("Evenement obsolete (passé) : "+ echeancier.getCurrentEvent().getDate());
+			System.out.println("Evenement obsolete (passé)");
 			return;
 		}
 		
@@ -99,12 +99,12 @@ public  class Objet extends Acteur
 			{
 				Evenement newEvent= new Evenement(this.getEtat(),1,nextDateEvacuation,this.getEtat());
 				echeancier.add(newEvent);
-				System.out.println("Demande evacuation : "+ echeancier.getCurrentEvent().getDate());
+				System.out.println("Demande evacuation : prevue pour "+ nextDateEvacuation);
 				return;
 			}
 			else
 			{
-				System.out.println("Evenement obsolete (évacué) : "+ echeancier.getCurrentEvent().getDate());
+				System.out.println("Evenement obsolete (évacué)");
 				return ;
 			} 
 			
@@ -115,22 +115,22 @@ public  class Objet extends Acteur
 		{
 			Evenement newEvent= new Evenement(this,2,nextDate1,this.getEtat());
 			echeancier.add(newEvent);
-			System.out.println("Attente de mon tour : "+ echeancier.getCurrentEvent().getDate());
-			System.out.println("Nombre d'objets dans la file : "+this.getEtat().getListeObjets().size());
+			System.out.println("Attente de mon tour : prochain essai le "+ nextDate1);
+			System.out.println("Nombre total d'objets dans la file : "+this.getEtat().getListeObjets().size());
 			return;
 		}
 		// c'est mon tour
 		
 		else
 		{
-			System.out.println("premier");
+			System.out.println("Enfin premier !");
 			Case sortieMoinsRemplie = this.getEtat().compareSortie();
 			// pas de sortie praticable
 			if (sortieMoinsRemplie.getListeObjets().size()>= sortieMoinsRemplie.getCapacity())
 			{
 				Evenement newEvent= new Evenement(this,2,nextDate1,this.getEtat());
 				echeancier.add(newEvent);
-				System.out.println("Attente d'une sortie : "+ echeancier.getCurrentEvent().getDate());
+				System.out.println("Attente d'une sortie : prochain essai le "+ nextDate1);
 				return;
 			}
 			else
@@ -141,14 +141,14 @@ public  class Objet extends Acteur
 			
 				Evenement newEvent= new Evenement(this,2,nextDate1,this.getEtat());
 				echeancier.add(newEvent);
-				System.out.println("Passé : "+ echeancier.getCurrentEvent().getDate());
+				System.out.println("Passé dans "+ sortieMoinsRemplie+", prochain passage prevu pour "+nextDate1);
 				
 				// mise en place Time Out eventuel
 				if ((sortieMoinsRemplie instanceof FileAttente) && (!sortieMoinsRemplie.getEchappatoire().isEmpty()))
 				{
 					Evenement event= new Evenement(this,3,nextDateTimeOut,this.getEtat());
 					echeancier.add(event);
-					System.out.println("Création TimeOut : "+ echeancier.getCurrentEvent().getDate()+" prevu pour "+nextDateTimeOut);
+					System.out.println("Création TimeOut prevu pour "+nextDateTimeOut);
 					return;
 				}
 			}
@@ -169,16 +169,16 @@ public  class Objet extends Acteur
 		// je veux quitter une case dont je suis deja parti
 		if (lieu != echeancier.getCurrentEvent().getcaseActuelle())
 		{
-			System.out.println("Evenement obsolete (parti) : "+ echeancier.getCurrentEvent().getDate());
+			System.out.println("Evenement obsolete (parti)");
 			return;
 		}
 		
 		// c'est mon tour
 		else
 		{
-			System.out.println("Je me casse de "+this.getEtat()+" !");
+			System.out.println("C'est décidé, je pars de "+this.getEtat()+" !");
 			ArrayList<Case> liste = new ArrayList<Case>();
-					liste.addAll(this.getEtat().getEchappatoire()) ;
+			liste.addAll(this.getEtat().getEchappatoire()) ;
 			System.out.println("J'ai le choix de "+liste);
 			boolean available = false ;
 			Case choix = this.getEtat();
@@ -194,8 +194,6 @@ public  class Objet extends Acteur
 				int i = Alea.getRandomIndex(liste) ;
 				//System.out.println("i = "+i);				
 				choix = liste.remove(i);
-				System.out.println("liste : "+liste);
-				System.out.println("echappatoire : "+this.getEtat().getEchappatoire());
 				s= liste.size();
 				//System.out.println("size = "+s);
 				available = (choix.getCapacity()>choix.getListeObjets().size());
@@ -207,8 +205,8 @@ public  class Objet extends Acteur
 			{
 				Evenement newEvent= new Evenement(this,3,nextDate2,this.getEtat());
 				echeancier.add(newEvent);
-				System.out.println("Attente d'une echappatoire : "+ echeancier.getCurrentEvent().getDate());
-				return;
+				System.out.println("Attente d'une echappatoire : prochain essai le "+ nextDate2);
+				return ;
 			}
 			else
 			{
@@ -218,14 +216,14 @@ public  class Objet extends Acteur
 			
 				Evenement newEvent= new Evenement(this,2,nextDate1,this.getEtat());
 				echeancier.add(newEvent);
-				System.out.println("Parti pour "+choix+" : "+ echeancier.getCurrentEvent().getDate());
+				System.out.println("Parti pour "+choix+", prochain départ le "+nextDate1);
 				
 				// mise en place Time Out eventuel
 				if (choix instanceof FileAttente && !choix.getEchappatoire().isEmpty())
 				{
 					Evenement event= new Evenement(this,3,nextDate2,this.getEtat());
 					echeancier.add(event);
-					System.out.println("Création TimeOut : "+ echeancier.getCurrentEvent().getDate()+" prevu pour "+nextDate2);
+					System.out.println("Création TimeOut prevu pour "+nextDate2);
 					return;
 				}
 			}
