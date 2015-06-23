@@ -3,14 +3,30 @@ package modele;
 import java.lang.reflect.Array;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public abstract class Case
+import simulatorpack.Echeancier;
+
+public abstract class Case extends Acteur
 {
-	private PriorityQueue<Objet> listeObjets;
+	private LinkedList<Objet> listeObjets;
     private ArrayList<Case> sortie;
+    private ArrayList<Case> echappatoire;
     private int capacity;
 	
+    public Case(int capacity)
+    {
+    	LinkedList<Objet> liste = new LinkedList<Objet>();
+    	this.listeObjets = liste ;
+    	
+    	ArrayList<Case> listeSortie = new ArrayList<Case>();
+    	this.sortie = listeSortie ;
+    	
+    	ArrayList<Case> listeEchap = new ArrayList<Case>();
+    	this.echappatoire = listeEchap ;
+    	this.capacity = capacity ;
+    }
 	
 	public int getCapacity(){
 		return this.capacity;
@@ -19,7 +35,7 @@ public abstract class Case
 	public void setCapacity(int capacity2){
 		this.capacity = capacity2;
 	}
-    public PriorityQueue<Objet> getListeObjets(){
+    public LinkedList<Objet> getListeObjets(){
     	return this.listeObjets;
     }
     
@@ -34,8 +50,18 @@ public abstract class Case
 		this.echappatoire=echappatoire;
 	}
 	
+    public void relierEchappatoire(Case caseEchap)
+    {
+    	this.echappatoire.add(caseEchap);
+    }
+    
 	public void setSortie(ArrayList<Case> sortie){
 		this.sortie = sortie;
+	}
+	
+	public void relierSortie(Case caseSortie)
+	{
+		this.sortie.add(caseSortie);
 	}
 	
 	public Objet getFirstObjet(){

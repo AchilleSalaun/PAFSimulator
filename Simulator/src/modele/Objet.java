@@ -8,23 +8,24 @@ import alea.Alea;
 import simulatorpack.Echeancier;
 import simulatorpack.Evenement;
 
-public  class Objet implements ActeurInterface 
+public  class Objet extends Acteur 
 {
 	private Case etat ;
-	private long timeout; // le temps limite au dela duquel l'objet quitte une file d'attente
-//	private double priority; // priorite intrinseque a l'interieur d'une file d'attente
+	private long timeout; // le temps limite au dela duquel l'objet quitte une file d'attente en ms 
 	private int nombremax ; // tolerance au nombre dans une file
-	private double lambda ;
+	private double lambda ; 
+	
 		
-	public Objet(Case etat, long timeout, double priority, int nombremax)
+	public Objet(Case etat, long timeout,  int nombremax)
 	{
 		this.etat = etat ;
 		this.timeout = timeout;
-	//	this.priority = priority ;
+
 		this.nombremax = nombremax ;
 		
 	}
 	
+	/********************************************************************************************************/
 	/** getters and setters **/
 	
 	public Case getEtat()
@@ -47,25 +48,16 @@ public  class Objet implements ActeurInterface
 		this.lambda = coeff ;
 	}
 	
-	public double getTimeout()
+	public long getTimeout()
 	{
 		return this.timeout;
 	}
 	
-	public void setTimeout(double timeout)
+	public void setTimeout(long timeout)
 	{
 		this.timeout = timeout;
 	}
-	
-/*	public double getPriority()
-	{
-		return priority ;
-	}
-	
-	public void setPriority(double priority)
-	{
-		this.priority = priority ;
-	} */
+
 	
 	public int getNombreMax()
 	{
@@ -79,62 +71,90 @@ public  class Objet implements ActeurInterface
 	
 	/*****************************************************************************************************/
 	/** Champ d'actions **/
-	
-	@Override
-	public void realise( Echeancier echeancier)
+
+	//parametre des event à vérifier
+	//@Override
+	public void passer( Echeancier echeancier)
 	{
-	/*	switch(action)
-		{
-		  	case 1: this.passer(echeancier) ;//passer a� la case suivante
-			default : // ne rien faire  	
-		} */
-	}
-	
-	/*private void patienter( Echeancier echeancier)
-	{
-		Case caseactuelle = this.getEtat() ;
-		long attente = caseactuelle.getWait();
-		long currentTimeMs = (Echeancier.getCurrentDate()).getTime();
-		Date nextDate= null;
-		nextDate.setTime(attente + currentTimeMs);	
-		// Définir création de l'évenement à venir
-		Evenement newEvent= new Evenement(this,nextDate,2);
-	} */
-	
-	private void passer( Echeancier echeancier)
-	{
+		super.passer(echeancier);
+		System.out.println("Démarrage passer : "+ echeancier.getCurrentEvent().getDate());
+		
 		Case lieu = this.getEtat() ;
-		if (lieu != (echeancier.getCurrentEvent()).getcaseActuelle()){
+		
+		// je veux quitter une case dont je suis deja parti
+		if (lieu != echeancier.getCurrentEvent().getcaseActuelle())
+		{
+			System.out.println("Evenement obsolete : "+ echeancier.getCurrentEvent().getDate());
 			return;
 		}
-		else if (this.getEtat() instanceof Puit){
-		Date nextDate= null;
-		nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + 3000);
-		Evenement newEvent= new Evenement(this,3,nextDate,this.getEtat());
-		echeancier.add(newEvent);
-		return;
+		
+		//je suis dans un puit
+		if (this.getEtat() instanceof Puit)
+		{
+			Date nextDate= new Date();
+			long nextTime = echeancier.getCurrentEvent().getDate().getTime() ;
+			nextDate.setTime(nextTime);
+			Evenement newEvent= new Evenement(this.getEtat(),1,nextDate,this.getEtat());
+			echeancier.add(newEvent);
+			System.out.println("Demande evacuation : "+ echeancier.getCurrentEvent().getDate());
+			return;
 		}
-		else if(this.getEtat() instanceof FileAttente && this != (this.getEtat()).getFirstObjet()){
-			Date nextDate= null;
+		
+		// je ne suis pas le premier dans la file
+		if(/*this.getEtat() instanceof FileAttente && */this != (this.getEtat().getFirstObjet()))
+		{
+			Date nextDate= new Date();
 			double tpsAleatoireDouble = Alea.exponentielle(this.getLambda());
 			long tpsAleatoireLong = (long) tpsAleatoireDouble ;
 			nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + tpsAleatoireLong);
-			Evenement newEvent= new Evenement(this,(echeancier.getCurrentEvent()).getAction(),nextDate,this.getEtat());
+			Evenement newEvent= new Evenement(this,2,nextDate,this.getEtat());
 			echeancier.add(newEvent);
+			System.out.println("Attente de mon tour : "+ echeancier.getCurrentEvent().getDate());
 			return;
 		}
-		else if (this.getEtat() instanceof FileAttente && this == (this.getEtat()).getFirstObjet()){
+		// c'est mon tour
+		else //if (/*this.getEtat() instanceof FileAttente && */this == (this.getEtat().getFirstObjet()))
+		{
+			System.out.println("premier");
 			Case sortieMoinsRemplie = this.getEtat().compareSortie();
-			if (sortieMoinsRemplie.getListeObjets().size()>= sortieMoinsRemplie.getCapacity()){
+			// pas de sortie praticable
+			if (sortieMoinsRemplie.getListeObjets().size()>= sortieMoinsRemplie.getCapacity())
+			{
+				Date nextDate= null;
+				double tpsAleatoireDouble = Alea.exponentielle(this.getLambda());
+				long tpsAleatoireLong = (long) tpsAleatoireDouble ;
+				nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + tpsAleatoireLong);
+				Evenement newEvent= new Evenement(this,2,nextDate,this.getEtat());
+				echeancier.add(newEvent);
+				System.out.println("Attente d'une sortie : "+ echeancier.getCurrentEvent().getDate());
+				return;
+			}
+			else if (sortieMoinsRemplie.getListeObjets().size() < sortieMoinsRemplie.getCapacity())
+			{
+				this.getEtat().getListeObjets().remove(this);
+				this.setEtat(sortieMoinsRemplie);
+				sortieMoinsRemplie.getListeObjets().add(this);
+			
+				Date nextDate= new Date();
+				double tpsAleatoireDouble = Alea.exponentielle(this.getLambda());
+				long tpsAleatoireLong = (long) tpsAleatoireDouble ;
+				nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + tpsAleatoireLong);
+				Evenement newEvent= new Evenement(this,2,nextDate,this.getEtat());
+				echeancier.add(newEvent);
+				System.out.println("Passé : "+ echeancier.getCurrentEvent().getDate());
 				
+				// mise en place Time Out eventuel
+				if (sortieMoinsRemplie instanceof FileAttente)
+				{
+					Date nextDat= null;
+					nextDat.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + this.getTimeout());
+					Evenement event= new Evenement(this,3,nextDat,this.getEtat());
+					echeancier.add(event);
+					System.out.println("Création TimeOut : "+ echeancier.getCurrentEvent().getDate());
+					return;
+				}
 			}
 		}
 	}
 	
-	private void partir( Echeancier echeancier, Puit puit)
-	{
-		this.etat=puit;	
-		}
-	} 
-	
-
+}

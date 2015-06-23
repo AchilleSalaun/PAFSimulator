@@ -4,18 +4,23 @@ package simulatorpack;
 import java.util.Date;
 import java.util.PriorityQueue;
 
-import modele.ActeurInterface;
+import modele.Acteur;
+import modele.Source;
 
 public class Echeancier extends PriorityQueue<Evenement>{
 
 	private static final long serialVersionUID = 1L;
-	private static Evenement currentEvent ;
+	private Evenement currentEvent ;
 	private static EventComparator comparator = new EventComparator();
 	
 
-	public Echeancier()
+	public Echeancier(Source source)
 	{
-		super(Integer.MAX_VALUE, comparator);
+		super(/*Integer.MAX_VALUE*/ 1000, comparator);
+		Date date = new Date();
+		Evenement amorce = new Evenement(source,0,date,source);
+		//this.currentEvent=amorce;
+		this.add(amorce);
 	}
 	
 	public void nextEvent()
@@ -24,12 +29,12 @@ public class Echeancier extends PriorityQueue<Evenement>{
 		this.currentEvent.getActeur().realise(this);
 	}
 	
-	public static Evenement getCurrentEvent() {
+	public Evenement getCurrentEvent() {
 		return currentEvent;
 	}
 
-	public static void setCurrentEvent(Evenement currentEvent) {
-		Echeancier.currentEvent = currentEvent;
+	public void setCurrentEvent(Evenement currentEvent) {
+		this.currentEvent = currentEvent;
 	}
 
 	
