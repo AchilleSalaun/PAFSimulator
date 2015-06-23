@@ -17,6 +17,15 @@ private int compteur = 0;
 		compteur++;
 	}
 	
+	public int getCompteur(){
+		return compteur;
+	}
+	
+	/*la methode setCompteur est uniquement la pour tester les graphiques*/
+	public void setCompteur(int valeur){
+		compteur = valeur;
+	}
+	
 	public void evacuer(Echeancier echeancier)
 	{
 		System.out.println("Evacuation : "+echeancier.getCurrentEvent().getDate());
