@@ -1,5 +1,6 @@
 package modele;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -72,7 +73,6 @@ public  class Objet extends Acteur
 	/*****************************************************************************************************/
 	/** Champ d'actions **/
 
-	//parametre des event à vérifier
 	@Override
 	public void passer( Echeancier echeancier)
 	{
@@ -81,12 +81,14 @@ public  class Objet extends Acteur
 		Date nextDateEvacuation = new Date();
 		nextDateEvacuation.setTime(echeancier.getCurrentEvent().getDate().getTime());
 		Date nextDate1 = this.creationNextDate(echeancier, 2);
+		Date nextDateTimeOut = this.creationNextDate(echeancier, 30);
+		
 		Case lieu = this.getEtat() ;
 		
-		// je veux quitter une case dont je suis deja parti
+		// je veux quitter une case dont je suis deja passé
 		if (lieu != echeancier.getCurrentEvent().getcaseActuelle())
 		{
-			System.out.println("Evenement obsolete (parti) : "+ echeancier.getCurrentEvent().getDate());
+			System.out.println("Evenement obsolete (passé) : "+ echeancier.getCurrentEvent().getDate());
 			return;
 		}
 		
@@ -131,7 +133,7 @@ public  class Objet extends Acteur
 				System.out.println("Attente d'une sortie : "+ echeancier.getCurrentEvent().getDate());
 				return;
 			}
-			else if (sortieMoinsRemplie.getListeObjets().size() < sortieMoinsRemplie.getCapacity())
+			else
 			{
 				this.getEtat().getListeObjets().remove(this);
 				this.setEtat(sortieMoinsRemplie);
@@ -142,15 +144,88 @@ public  class Objet extends Acteur
 				System.out.println("Passé : "+ echeancier.getCurrentEvent().getDate());
 				
 				// mise en place Time Out eventuel
-				/*if (sortieMoinsRemplie instanceof FileAttente)
+				if ((sortieMoinsRemplie instanceof FileAttente) && (!sortieMoinsRemplie.getEchappatoire().isEmpty()))
 				{
-					Date nextDate2= new Date();
-					nextDate2.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + this.getTimeout());
+					Evenement event= new Evenement(this,3,nextDateTimeOut,this.getEtat());
+					echeancier.add(event);
+					System.out.println("Création TimeOut : "+ echeancier.getCurrentEvent().getDate());
+					return;
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void partir( Echeancier echeancier)
+	{
+		super.passer(echeancier);
+		System.out.println("Démarrage partir : "+ echeancier.getCurrentEvent().getDate());
+		Date nextDateEvacuation = new Date();
+		nextDateEvacuation.setTime(echeancier.getCurrentEvent().getDate().getTime());
+		Date nextDate1 = this.creationNextDate(echeancier, 2);
+		Date nextDate2 = this.creationNextDate(echeancier, 3);
+		Case lieu = this.getEtat() ;
+		
+		// je veux quitter une case dont je suis deja parti
+		if (lieu != echeancier.getCurrentEvent().getcaseActuelle())
+		{
+			System.out.println("Evenement obsolete (parti) : "+ echeancier.getCurrentEvent().getDate());
+			return;
+		}
+		
+		// c'est mon tour
+		else
+		{
+			System.out.println("Je me casse !");
+			System.out.println(this.getEtat());
+			ArrayList<Case> liste = this.getEtat().getEchappatoire() ;
+			System.out.println(liste);
+			boolean available = false ;
+			Case choix = this.getEtat();
+			
+			int s = liste.size();
+			//System.out.println("size = "+s);
+			//int ctr = 0 ;
+			
+			while(s>0 && !available )
+			{
+				//System.out.println("ctr = "+ctr);
+				//ctr++;			
+				int i = Alea.getRandomIndex(liste) ;
+				//System.out.println("i = "+i);				
+				choix = liste.remove(i);				
+				s= liste.size();
+				//System.out.println("size = "+s);
+				available = (choix.getCapacity()>choix.getListeObjets().size());
+				System.out.println(available);
+			}
+					
+			// pas de sortie praticable
+			if (!available)
+			{
+				Evenement newEvent= new Evenement(this,3,nextDate2,this.getEtat());
+				echeancier.add(newEvent);
+				System.out.println("Attente d'une echappatoire : "+ echeancier.getCurrentEvent().getDate());
+				return;
+			}
+			else
+			{
+				this.getEtat().getListeObjets().remove(this);
+				this.setEtat(choix);
+				choix.getListeObjets().add(this);
+			
+				Evenement newEvent= new Evenement(this,2,nextDate1,this.getEtat());
+				echeancier.add(newEvent);
+				System.out.println("Parti : "+ echeancier.getCurrentEvent().getDate());
+				
+				// mise en place Time Out eventuel
+				if (choix instanceof FileAttente && !choix.getEchappatoire().isEmpty())
+				{
 					Evenement event= new Evenement(this,3,nextDate2,this.getEtat());
 					echeancier.add(event);
 					System.out.println("Création TimeOut : "+ echeancier.getCurrentEvent().getDate());
 					return;
-				}*/
+				}
 			}
 		}
 	}
@@ -172,7 +247,6 @@ public  class Objet extends Acteur
 				return true ;
 			}
 		}
-		// TODO Auto-generated method stub
 		return false;
 	}
 	

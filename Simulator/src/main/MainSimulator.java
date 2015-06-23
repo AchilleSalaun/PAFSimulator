@@ -13,11 +13,14 @@ public class MainSimulator
 		// Creation du modele
 		Source source = new Source();
 		Puit puit = new Puit();
+		Puit poubelle = new Puit() ;
 		FileAttente file1 = new FileAttente(5);
 		FileAttente file2 = new FileAttente(1);
 		source.relierSortie(file1);
 		file1.relierSortie(file2);
 		file2.relierSortie(puit);
+		file1.relierEchappatoire(poubelle);
+		file2.relierEchappatoire(poubelle);
 		
 		// Creation de l'echeancier
 		Echeancier echeancier = new Echeancier(source);

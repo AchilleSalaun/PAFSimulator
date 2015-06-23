@@ -7,6 +7,7 @@ public class MainTest {
 
 	public static void main(String[] args) 
 	{
+		/**
 		// Creation du modele
 				Source source = new Source();
 				Puit puit = new Puit();
@@ -14,7 +15,7 @@ public class MainTest {
 				
 				// Creation de l'echeancier
 				Echeancier echeancier = new Echeancier(source);
-				/** ATTENTION : Constructeur Temporaire !!! **/
+				/** ATTENTION : Constructeur Temporaire !!! 
 
 				
 				System.out.println("début");
@@ -28,6 +29,9 @@ public class MainTest {
 				}
 				while(s>0);
 				
-				System.out.println("fin");
+				System.out.println("fin"); */
+		
+		boolean b = (2<1);
+		System.out.println(b);
 	}
 }

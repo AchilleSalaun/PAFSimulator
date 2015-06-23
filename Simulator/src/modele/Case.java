@@ -7,9 +7,10 @@ public abstract class Case extends Acteur
 {
 	private LinkedList<Objet> listeObjets;
     private ArrayList<Case> sortie;
-    private ArrayList<Case> echappatoire;
+    private ArrayList<Case> echappatoire ;
     private int capacity;
 	
+    /** Constructeur **/
     public Case(int capacity)
     {
     	LinkedList<Objet> liste = new LinkedList<Objet>();
@@ -23,6 +24,8 @@ public abstract class Case extends Acteur
     	this.capacity = capacity ;
     }
 	
+    /************************************************************************************/
+    /** capacity **/
 	public int getCapacity(){
 		return this.capacity;
 	}
@@ -30,27 +33,30 @@ public abstract class Case extends Acteur
 	public void setCapacity(int capacity2){
 		this.capacity = capacity2;
 	}
-    public LinkedList<Objet> getListeObjets(){
+
+	/************************************************************************************/
+	/** listeObjet **/
+    public LinkedList<Objet> getListeObjets()
+    {
     	return this.listeObjets;
     }
     
-    public ArrayList<Case> getSortie() {
+    public Objet getFirstObjet()
+	{
+		Objet firstObjet = 
+				this.listeObjets.peek();
+		return firstObjet;
+	}
+    
+    /************************************************************************************/
+    /** sortie **/
+    public ArrayList<Case> getSortie() 
+    {
     	return this.sortie;
     }
     
-    public ArrayList<Case> getEchappatoire() {
-    	return this.echappatoire;
-    }
-    public void setEchappatoire(ArrayList<Case> echappatoire){
-		this.echappatoire=echappatoire;
-	}
-	
-    public void relierEchappatoire(Case caseEchap)
+    public void setSortie(ArrayList<Case> sortie)
     {
-    	this.echappatoire.add(caseEchap);
-    }
-    
-	public void setSortie(ArrayList<Case> sortie){
 		this.sortie = sortie;
 	}
 	
@@ -59,11 +65,38 @@ public abstract class Case extends Acteur
 		this.sortie.add(caseSortie);
 	}
 	
-	public Objet getFirstObjet(){
-		Objet firstObjet = 
-				this.listeObjets.peek();
-		return firstObjet;
+	public Case compareSortie(){
+		int fileMin = 0;
+		for (int i=0; i<(this.getSortie()).size(); i++){
+			for (int j=i+1; j<(this.getSortie()).size(); j++)
+			{
+				if ( !(this.getSortie().get(i)instanceof Puit) 
+						&& !(this.getSortie().get(j)instanceof Puit) 
+						&& (this.getSortie().get(i)).compareCase((this.getSortie()).get(j)) <= 0 
+						&& ((this.getSortie()).get(i)).compareCase((this.getSortie()).get(fileMin)) <= 0)
+				{
+					fileMin =i;
+				}
+			}
+		}
+		return (this.getSortie()).get(fileMin);
 	}
+    
+	/************************************************************************************/
+    /** echappatoire **/
+    public ArrayList<Case> getEchappatoire() 
+    {
+    	return this.echappatoire;
+    }
+    public void setEchappatoire(ArrayList<Case> echappatoire)
+    {
+		this.echappatoire=echappatoire;
+	}
+	
+    public void relierEchappatoire(Case caseEchap)
+    {
+    	this.echappatoire.add(caseEchap);
+    }
 
 	public int compareCase(Case case2){
 		if ((this.getListeObjets()).size() < (case2.getListeObjets()).size()){
@@ -76,11 +109,19 @@ public abstract class Case extends Acteur
 			return 1;
 	}
 	
-	public Case compareSortie(){
+	public Case compareEchappatoire()
+	{
 		int fileMin = 0;
-		for (int i=0; i<(this.getSortie()).size(); i++){
-			for (int j=i+1; j<(this.getSortie()).size(); j++){
-				if ( !(this.getSortie().get(i)instanceof Puit) && !(this.getSortie().get(j)instanceof Puit) && (this.getSortie().get(i)).compareCase((this.getSortie()).get(j)) <= 0 && ((this.getSortie()).get(i)).compareCase((this.getSortie()).get(fileMin)) <= 0){
+		for (int i=0; i<(this.getEchappatoire()).size(); i++)
+		{
+			for (int j=i+1; j<(this.getSortie()).size(); j++)
+			{
+				if ( !(this.getEchappatoire().get(i)instanceof Puit) 
+						&& !(this.getEchappatoire().get(j)instanceof Puit) 
+						&& (this.getEchappatoire().get(i)).compareCase((this.getEchappatoire()).get(j)) <= 0 
+						&& ((this.getEchappatoire()).get(i)).compareCase((this.getEchappatoire()).get(fileMin)) <= 0)
+									
+				{
 					fileMin =i;
 				}
 			}
