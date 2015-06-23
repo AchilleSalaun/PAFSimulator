@@ -1,5 +1,8 @@
 package modele;
 
+import java.util.Date;
+
+import alea.Alea;
 import simulatorpack.Echeancier;
 
 
@@ -38,5 +41,15 @@ public abstract class Acteur
 	public void generer(Echeancier echeancier) 
 	{
 		// TODO Auto-generated method stub	
+	}
+	
+	public Date creationNextDate(Echeancier echeancier, double lambda)
+	{
+		Date nextDate = new Date();
+		long nextTime = echeancier.getCurrentEvent().getDate().getTime();
+		long tau = (long)(Alea.exponentielle(lambda)*100000);
+		nextTime = nextTime + tau ;
+		nextDate.setTime(nextTime);
+		return nextDate;
 	}
 }

@@ -60,7 +60,8 @@ public abstract class Case extends Acteur
 	}
 	
 	public Objet getFirstObjet(){
-		Objet firstObjet = (this.listeObjets).poll();
+		Objet firstObjet = 
+				this.listeObjets.peek();
 		return firstObjet;
 	}
 

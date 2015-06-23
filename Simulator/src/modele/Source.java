@@ -24,17 +24,17 @@ public class Source extends Case
 	
 	//il sera peut-etre plus simlpe de faire deux methode generer pour burger et client avec des paramétres différents
 	//Il faudrait donc modifier les int des actions dans le case et dans ce code
+	@Override
 	public void generer(Echeancier echeancier)
 	{	
 		super.generer(echeancier);
-		
+		Date nextDateGeneration = this.creationNextDate(echeancier, 2);
+		Date nextDatePassage = this.creationNextDate(echeancier, 2);		
 		Case sortieMoinsRemplie = this.compareSortie();
 		
 		if (sortieMoinsRemplie.getListeObjets().size() >= sortieMoinsRemplie.getCapacity())
 		{
-			Date nextDate = new Date();
-			nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + this.getRetry());
-			Evenement newEvent= new Evenement(this,0,nextDate,this);
+			Evenement newEvent= new Evenement(this,0,nextDateGeneration,this);
 			echeancier.add(newEvent);
 			System.out.println("Generation en attente : "+echeancier.getCurrentEvent().getDate());
 		}
@@ -42,13 +42,12 @@ public class Source extends Case
 		{
 			Objet obj = new Objet(sortieMoinsRemplie,(long)(10000 + Alea.exponentielle(100)), (int)Alea.exponentielle(30));
 			sortieMoinsRemplie.getListeObjets().add(obj);
-			Date nextDate= new Date();
-			nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + this.getRetry());
-			Evenement newGeneration= new Evenement(this,0,nextDate,this);
-			Evenement newPassage = new Evenement(obj,2,nextDate,sortieMoinsRemplie);
+			Evenement newGeneration= new Evenement(this,0,nextDateGeneration,this);
+			Evenement newPassage = new Evenement(obj,2,nextDatePassage,sortieMoinsRemplie);
 			echeancier.add(newGeneration);
 			echeancier.add(newPassage);
 			System.out.println("Génération : "+ echeancier.getCurrentEvent().getDate());
 		}
 	}
+
 }
