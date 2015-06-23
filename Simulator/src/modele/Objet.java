@@ -148,7 +148,7 @@ public  class Objet extends Acteur
 				{
 					Evenement event= new Evenement(this,3,nextDateTimeOut,this.getEtat());
 					echeancier.add(event);
-					System.out.println("Création TimeOut : "+ echeancier.getCurrentEvent().getDate());
+					System.out.println("Création TimeOut : "+ echeancier.getCurrentEvent().getDate()+" prevu pour "+nextDateTimeOut);
 					return;
 				}
 			}
@@ -177,7 +177,8 @@ public  class Objet extends Acteur
 		else
 		{
 			System.out.println("Je me casse de "+this.getEtat()+" !");
-			ArrayList<Case> liste = this.getEtat().getEchappatoire() ;
+			ArrayList<Case> liste = new ArrayList<Case>();
+					liste.addAll(this.getEtat().getEchappatoire()) ;
 			System.out.println("J'ai le choix de "+liste);
 			boolean available = false ;
 			Case choix = this.getEtat();
@@ -192,7 +193,9 @@ public  class Objet extends Acteur
 				//ctr++;			
 				int i = Alea.getRandomIndex(liste) ;
 				//System.out.println("i = "+i);				
-				choix = liste.remove(i);				
+				choix = liste.remove(i);
+				System.out.println("liste : "+liste);
+				System.out.println("echappatoire : "+this.getEtat().getEchappatoire());
 				s= liste.size();
 				//System.out.println("size = "+s);
 				available = (choix.getCapacity()>choix.getListeObjets().size());
@@ -222,7 +225,7 @@ public  class Objet extends Acteur
 				{
 					Evenement event= new Evenement(this,3,nextDate2,this.getEtat());
 					echeancier.add(event);
-					System.out.println("Création TimeOut : "+ echeancier.getCurrentEvent().getDate());
+					System.out.println("Création TimeOut : "+ echeancier.getCurrentEvent().getDate()+" prevu pour "+nextDate2);
 					return;
 				}
 			}
