@@ -31,6 +31,7 @@ private int compteur = 0;
 		switch(action)
 		{
 		  	case 3: this.evacuer(echeancier) ; //generer objet
+		  	default : System.out.println("Echec realise puit");
 	
 		}
 	}

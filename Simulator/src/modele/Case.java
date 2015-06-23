@@ -3,18 +3,19 @@ package modele;
 import java.lang.reflect.Array;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 public abstract class Case
 {
-	private PriorityQueue<Objet> listeObjets;
+	private LinkedList<Objet> listeObjets;
     private ArrayList<Case> sortie;
     private ArrayList<Case> echappatoire;
     private int capacity;
 	
     public Case(int capacity)
     {
-    	PriorityQueue<Objet> liste = new PriorityQueue<Objet>();
+    	LinkedList<Objet> liste = new LinkedList<Objet>();
     	this.listeObjets = liste ;
     	
     	ArrayList<Case> listeSortie = new ArrayList<Case>();
@@ -32,7 +33,7 @@ public abstract class Case
 	public void setCapacity(int capacity2){
 		this.capacity = capacity2;
 	}
-    public PriorityQueue<Objet> getListeObjets(){
+    public LinkedList<Objet> getListeObjets(){
     	return this.listeObjets;
     }
     

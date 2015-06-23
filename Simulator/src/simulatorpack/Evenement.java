@@ -10,8 +10,8 @@ import modele.Case;
     {
         
         private ActeurInterface acteur;
-        private Date temps ;
         private int action ;
+        private Date temps ;
         private Case caseActuelle;
         
         public Evenement(ActeurInterface acteur,int action,Date temps, Case caseActuelle )
@@ -22,6 +22,8 @@ import modele.Case;
         	this.caseActuelle = caseActuelle;
         }
         
+        /********************************************************************************************************/
+        /** getters & setters **/
         public ActeurInterface getActeur()
         {
             return this.acteur;
@@ -51,5 +53,7 @@ import modele.Case;
         public void setActeur(ActeurInterface acteur) {
         	this.acteur=acteur;
         }
+        
+        /********************************************************************************************************/
     }
 

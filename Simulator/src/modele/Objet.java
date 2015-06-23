@@ -12,9 +12,8 @@ public  class Objet implements ActeurInterface
 {
 	private Case etat ;
 	private long timeout; // le temps limite au dela duquel l'objet quitte une file d'attente en ms 
-
 	private int nombremax ; // tolerance au nombre dans une file
-	private double lambda ;
+	private double lambda ; 
 	
 		
 	public Objet(Case etat, long timeout,  int nombremax)
@@ -26,6 +25,7 @@ public  class Objet implements ActeurInterface
 		
 	}
 	
+	/********************************************************************************************************/
 	/** getters and setters **/
 	
 	public Case getEtat()
@@ -88,14 +88,19 @@ public  class Objet implements ActeurInterface
 	private void passer( Echeancier echeancier)
 	{
 		Case lieu = this.getEtat() ;
+		
+		// est-ce que je veux quitter une case dont je suis deja parti ?
 		if (lieu != echeancier.getCurrentEvent().getcaseActuelle())
 		{
 			return;
 		}
+		// est-ce que je suis dans un puit ?
 		else if (this.getEtat() instanceof Puit)
 		{
 			Date nextDate= new Date();
-			nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + 1);
+			long nextTime = echeancier.getCurrentEvent().getDate().getTime() ;
+			nextTime = nextTime +1;
+			nextDate.setTime(nextTime);
 			Evenement newEvent= new Evenement((Puit) this.getEtat(),3,nextDate,this.getEtat());
 			echeancier.add(newEvent);
 			System.out.println("Demande evacuation realisée");
