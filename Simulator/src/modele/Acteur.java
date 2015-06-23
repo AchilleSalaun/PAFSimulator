@@ -12,14 +12,19 @@ public abstract class Acteur
 	public void realise( Echeancier echeancier)
 	{
 		int action = echeancier.getCurrentEvent().getAction();
-		System.out.println("realisation "+this);
+		System.out.println("realisation de "+action+" par "+this);
+		
 		switch(action)
 		{
 	  		case 0: this.generer(echeancier) ;// generer un objet
+	  			break ;
 	  		case 1: this.evacuer(echeancier) ; //evacuer un puit
+	  			break ;
 	  		case 2: this.passer(echeancier) ; //passer à la case suivante
-	  		case 3: this.partir(echeancier)  ;      
-	  		default : //ne rien faire  	
+	  			break ;
+	  		case 3: this.partir(echeancier)  ;    
+	  			break ;
+	  		default : System.out.println("default") ;//ne rien faire  	
 		}
 	}
 

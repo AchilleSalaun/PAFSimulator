@@ -1,37 +1,39 @@
 package main;
 
+import java.util.Date;
+
 import simulatorpack.Echeancier;
+import simulatorpack.Evenement;
+import modele.FileAttente;
+import modele.Objet;
 import modele.Puit;
 import modele.Source;
 public class MainTest {
 
 	public static void main(String[] args) 
 	{
-		/**
+		
 		// Creation du modele
 				Source source = new Source();
+				FileAttente file = new FileAttente(1);
+				FileAttente fileBloquee1 = new FileAttente(0);
+				FileAttente fileBloquee2 = new FileAttente(1);
+				FileAttente fileBloquee3 = new FileAttente(0);
 				Puit puit = new Puit();
-				source.relierSortie(puit);
+				file.relierEchappatoire(puit);
+				file.relierEchappatoire(fileBloquee1);
+				file.relierEchappatoire(fileBloquee2);
+				file.relierEchappatoire(fileBloquee3);
 				
-				// Creation de l'echeancier
+		// Creation de l'echeancier
 				Echeancier echeancier = new Echeancier(source);
-				/** ATTENTION : Constructeur Temporaire !!! 
+				/** ATTENTION : Constructeur Temporaire !!! **/
 
-				
-				System.out.println("début");
-			
-				int s = 0;
-				do
-				{
-					s = echeancier.size();
-					echeancier.nextEvent();
-					System.out.println("Fin de boucle : taille puit = " + puit.getListeObjets().size());
-				}
-				while(s>0);
-				
-				System.out.println("fin"); */
-		
-		boolean b = (2<1);
-		System.out.println(b);
+		// Operations
+				Objet objet = new Objet(file, 0, 0);
+				Date date = new Date();
+				Evenement event = new Evenement(objet, 3, date, file);
+				echeancier.setCurrentEvent(event);
+				objet.realise(echeancier);
 	}
 }

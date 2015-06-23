@@ -81,7 +81,7 @@ public  class Objet extends Acteur
 		Date nextDateEvacuation = new Date();
 		nextDateEvacuation.setTime(echeancier.getCurrentEvent().getDate().getTime());
 		Date nextDate1 = this.creationNextDate(echeancier, 2);
-		Date nextDateTimeOut = this.creationNextDate(echeancier, 30);
+		Date nextDateTimeOut = this.creationNextDate(echeancier, 1);
 		
 		Case lieu = this.getEtat() ;
 		
@@ -163,7 +163,7 @@ public  class Objet extends Acteur
 		Date nextDateEvacuation = new Date();
 		nextDateEvacuation.setTime(echeancier.getCurrentEvent().getDate().getTime());
 		Date nextDate1 = this.creationNextDate(echeancier, 2);
-		Date nextDate2 = this.creationNextDate(echeancier, 3);
+		Date nextDate2 = this.creationNextDate(echeancier, 1);
 		Case lieu = this.getEtat() ;
 		
 		// je veux quitter une case dont je suis deja parti
@@ -176,10 +176,9 @@ public  class Objet extends Acteur
 		// c'est mon tour
 		else
 		{
-			System.out.println("Je me casse !");
-			System.out.println(this.getEtat());
+			System.out.println("Je me casse de "+this.getEtat()+" !");
 			ArrayList<Case> liste = this.getEtat().getEchappatoire() ;
-			System.out.println(liste);
+			System.out.println("J'ai le choix de "+liste);
 			boolean available = false ;
 			Case choix = this.getEtat();
 			
@@ -197,7 +196,7 @@ public  class Objet extends Acteur
 				s= liste.size();
 				//System.out.println("size = "+s);
 				available = (choix.getCapacity()>choix.getListeObjets().size());
-				System.out.println(available);
+				System.out.println("available = "+available);
 			}
 					
 			// pas de sortie praticable
@@ -216,7 +215,7 @@ public  class Objet extends Acteur
 			
 				Evenement newEvent= new Evenement(this,2,nextDate1,this.getEtat());
 				echeancier.add(newEvent);
-				System.out.println("Parti : "+ echeancier.getCurrentEvent().getDate());
+				System.out.println("Parti pour "+choix+" : "+ echeancier.getCurrentEvent().getDate());
 				
 				// mise en place Time Out eventuel
 				if (choix instanceof FileAttente && !choix.getEchappatoire().isEmpty())
