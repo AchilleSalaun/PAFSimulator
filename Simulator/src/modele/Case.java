@@ -1,12 +1,7 @@
 package modele;
 
-import java.lang.reflect.Array;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.PriorityQueue;
-
-import simulatorpack.Echeancier;
 
 public abstract class Case extends Acteur
 {

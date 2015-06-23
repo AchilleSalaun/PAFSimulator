@@ -1,13 +1,8 @@
 package main;
 
-import java.util.Date;
-
 import simulatorpack.Echeancier;
-import simulatorpack.Evenement;
 import modele.Puit;
 import modele.Source;
-import alea.Alea;
-
 public class MainTest {
 
 	public static void main(String[] args) 

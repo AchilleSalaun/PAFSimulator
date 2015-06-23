@@ -10,6 +10,7 @@ public class Puit extends Case
 		// TODO Auto-generated constructor stub
 	}
 
+@SuppressWarnings("unused")
 private int compteur = 0;
 	
 	public void incrementer()

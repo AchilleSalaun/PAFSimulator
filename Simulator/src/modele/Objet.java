@@ -1,9 +1,9 @@
 package modele;
 
-import java.util.ArrayList;
 import java.util.Date;
-import modele.Puit;
+import java.util.LinkedList;
 
+import modele.Puit;
 import alea.Alea;
 import simulatorpack.Echeancier;
 import simulatorpack.Evenement;
@@ -91,13 +91,17 @@ public  class Objet extends Acteur
 		//je suis dans un puit
 		if (this.getEtat() instanceof Puit)
 		{
-			Date nextDate= new Date();
-			long nextTime = echeancier.getCurrentEvent().getDate().getTime() ;
-			nextDate.setTime(nextTime);
-			Evenement newEvent= new Evenement(this.getEtat(),1,nextDate,this.getEtat());
-			echeancier.add(newEvent);
-			System.out.println("Demande evacuation : "+ echeancier.getCurrentEvent().getDate());
-			return;
+			if(this.isIn(this.getEtat()))
+			{
+				Date nextDate= new Date();
+				long nextTime = echeancier.getCurrentEvent().getDate().getTime() ;
+				nextDate.setTime(nextTime);
+				Evenement newEvent= new Evenement(this.getEtat(),1,nextDate,this.getEtat());
+				echeancier.add(newEvent);
+				System.out.println("Demande evacuation : "+ echeancier.getCurrentEvent().getDate());
+				return;
+			}
+			else return ;
 		}
 		
 		// je ne suis pas le premier dans la file
@@ -120,7 +124,7 @@ public  class Objet extends Acteur
 			// pas de sortie praticable
 			if (sortieMoinsRemplie.getListeObjets().size()>= sortieMoinsRemplie.getCapacity())
 			{
-				Date nextDate= null;
+				Date nextDate= new Date();
 				double tpsAleatoireDouble = Alea.exponentielle(this.getLambda());
 				long tpsAleatoireLong = (long) tpsAleatoireDouble ;
 				nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + tpsAleatoireLong);
@@ -146,15 +150,29 @@ public  class Objet extends Acteur
 				// mise en place Time Out eventuel
 				if (sortieMoinsRemplie instanceof FileAttente)
 				{
-					Date nextDat= null;
-					nextDat.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + this.getTimeout());
-					Evenement event= new Evenement(this,3,nextDat,this.getEtat());
+					Date nextDate2= new Date();
+					nextDate2.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + this.getTimeout());
+					Evenement event= new Evenement(this,3,nextDate2,this.getEtat());
 					echeancier.add(event);
 					System.out.println("Création TimeOut : "+ echeancier.getCurrentEvent().getDate());
 					return;
 				}
 			}
 		}
+	}
+
+	private boolean isIn(Case etat) 
+	{
+		LinkedList<Objet> list = etat.getListeObjets() ;
+		for(Objet objet : list )
+		{
+			if(objet==this)
+			{
+				return true ;
+			}
+		}
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }
