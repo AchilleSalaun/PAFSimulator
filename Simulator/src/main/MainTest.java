@@ -34,5 +34,5 @@ public class MainTest {
 				while(s>0);
 				
 				System.out.println("fin");
-
+	}
 }

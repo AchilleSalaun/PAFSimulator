@@ -27,7 +27,7 @@ public class Source extends Case
 	public void generer(Echeancier echeancier)
 	{	
 		super.generer(echeancier);
-		System.out.println("Génération : "+ echeancier.getCurrentEvent().getDate());
+		
 		Case sortieMoinsRemplie = this.compareSortie();
 		
 		if (sortieMoinsRemplie.getListeObjets().size() >= sortieMoinsRemplie.getCapacity())
@@ -36,6 +36,7 @@ public class Source extends Case
 			nextDate.setTime(((echeancier.getCurrentEvent()).getDate()).getTime() + this.getRetry());
 			Evenement newEvent= new Evenement(this,0,nextDate,this);
 			echeancier.add(newEvent);
+			System.out.println("Generation en attente : "+echeancier.getCurrentEvent().getDate());
 		}
 		else 
 		{
@@ -47,9 +48,7 @@ public class Source extends Case
 			Evenement newPassage = new Evenement(obj,2,nextDate,sortieMoinsRemplie);
 			echeancier.add(newGeneration);
 			echeancier.add(newPassage);
-			
-			/*System.out.println("Event ajouté : "+nextDate);
-			System.out.println("Taille echeancier : "+echeancier.size());*/
+			System.out.println("Génération : "+ echeancier.getCurrentEvent().getDate());
 		}
 	}
 }
