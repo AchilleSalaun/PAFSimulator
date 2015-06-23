@@ -14,7 +14,16 @@ public class MainTest {
 	{
 		
 		// Creation du modele
-				Source source = new Source();
+		
+				/*
+				 * lambdaGene    = 4
+				 * lambda        = 1
+				 * lambdaTimeOut = 2
+				 * nombremax     = 30
+				 */
+				
+				
+				Source source = new Source(4, 1, 2, 30);
 				FileAttente file = new FileAttente(1);
 				FileAttente fileBloquee1 = new FileAttente(0);
 				FileAttente fileBloquee2 = new FileAttente(1);
@@ -26,11 +35,11 @@ public class MainTest {
 				file.relierEchappatoire(fileBloquee3);
 				
 		// Creation de l'echeancier
-				Echeancier echeancier = new Echeancier(source);
+				Echeancier echeancier = new Echeancier(source,10);
 				/** ATTENTION : Constructeur Temporaire !!! **/
 
 		// Operations
-				Objet objet = new Objet(file, 0, 0);
+				Objet objet = new Objet(file, 0, 0, 0);
 				Date date = new Date();
 				Evenement event = new Evenement(objet, 3, date, file);
 				echeancier.setCurrentEvent(event);

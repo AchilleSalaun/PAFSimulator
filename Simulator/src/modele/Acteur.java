@@ -24,8 +24,14 @@ public abstract class Acteur
 	  			break ;
 	  		case 3: this.partir(echeancier)  ;    
 	  			break ;
+	  		case 4: this.arreter(echeancier);
 	  		default : System.out.println("default") ;//ne rien faire  	
 		}
+	}
+
+	public void arreter(Echeancier echeancier) 
+	{
+		// TODO Auto-generated method stub
 	}
 
 	public void partir(Echeancier echeancier) 

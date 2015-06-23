@@ -12,18 +12,18 @@ import simulatorpack.Evenement;
 public  class Objet extends Acteur 
 {
 	private Case etat ;
-	private long timeout; // le temps limite au dela duquel l'objet quitte une file d'attente en ms 
-	private int nombremax ; // tolerance au nombre dans une file
 	private double lambda ; 
+	private double lambdaTimeOut; // le temps limite au dela duquel l'objet quitte une file d'attente en ms 
+	private int nombremax ; // tolerance au nombre dans une file
+	
 	
 		
-	public Objet(Case etat, long timeout,  int nombremax)
+	public Objet(Case etat, double lambda, double lambdaTimeOut,  int nombremax)
 	{
 		this.etat = etat ;
-		this.timeout = timeout;
-
-		this.nombremax = nombremax ;
-		
+		this.lambda = lambda ;
+		this.lambdaTimeOut = lambdaTimeOut;
+		this.nombremax = nombremax ;		
 	}
 	
 	/********************************************************************************************************/
@@ -49,14 +49,14 @@ public  class Objet extends Acteur
 		this.lambda = coeff ;
 	}
 	
-	public long getTimeout()
+	public double getTimeOut()
 	{
-		return this.timeout;
+		return this.lambdaTimeOut;
 	}
 	
-	public void setTimeout(long timeout)
+	public void setTimeout(double lambdaTimeOut)
 	{
-		this.timeout = timeout;
+		this.lambdaTimeOut = lambdaTimeOut;
 	}
 
 	
@@ -80,8 +80,8 @@ public  class Objet extends Acteur
 		System.out.println("Démarrage passer : "+ echeancier.getCurrentEvent().getDate());
 		Date nextDateEvacuation = new Date();
 		nextDateEvacuation.setTime(echeancier.getCurrentEvent().getDate().getTime());
-		Date nextDate1 = this.creationNextDate(echeancier, 2);
-		Date nextDateTimeOut = this.creationNextDate(echeancier, 1);
+		Date nextDate1 = this.creationNextDate(echeancier, lambda);
+		Date nextDateTimeOut = this.creationNextDate(echeancier, lambdaTimeOut);
 		
 		Case lieu = this.getEtat() ;
 		
@@ -89,6 +89,7 @@ public  class Objet extends Acteur
 		if (lieu != echeancier.getCurrentEvent().getcaseActuelle())
 		{
 			System.out.println("Evenement obsolete (passé)");
+			echeancier.incrementeObsolete();
 			return;
 		}
 		
@@ -105,6 +106,7 @@ public  class Objet extends Acteur
 			else
 			{
 				System.out.println("Evenement obsolete (évacué)");
+				echeancier.incrementeObsolete();
 				return ;
 			} 
 			
@@ -162,14 +164,15 @@ public  class Objet extends Acteur
 		System.out.println("Démarrage partir : "+ echeancier.getCurrentEvent().getDate());
 		Date nextDateEvacuation = new Date();
 		nextDateEvacuation.setTime(echeancier.getCurrentEvent().getDate().getTime());
-		Date nextDate1 = this.creationNextDate(echeancier, 2);
-		Date nextDate2 = this.creationNextDate(echeancier, 1);
+		Date nextDate1 = this.creationNextDate(echeancier, lambda);
+		Date nextDate2 = this.creationNextDate(echeancier, lambdaTimeOut);
 		Case lieu = this.getEtat() ;
 		
 		// je veux quitter une case dont je suis deja parti
 		if (lieu != echeancier.getCurrentEvent().getcaseActuelle())
 		{
 			System.out.println("Evenement obsolete (parti)");
+			echeancier.incrementeObsolete();
 			return;
 		}
 		

@@ -10,27 +10,33 @@ import simulatorpack.Evenement;
 
 public class Source extends Case
 {
-	private long retry;
+	private double lambdaGene;
+	private double lambda ; 
+	private double lambdaTimeOut; // le temps limite au dela duquel l'objet quitte une file d'attente en ms 
+	private int nombremax ; // tolerance au nombre dans une file
 	
-	public long getRetry()
+	
+	public double getlambdaGene()
 	{
-		return this.retry;
+		return this.lambdaGene;
 	}
 
-	public Source()
+	public Source(double lambdaGene, double lambda, double lambdaTimeOut, int nombremax)
 	{
 		super(0);
+		this.lambdaGene = lambdaGene ;
+		this.lambda = lambda ;
+		this.lambdaTimeOut = lambdaTimeOut ;
+		this.nombremax = nombremax ;
 	}
 	
-	//il sera peut-etre plus simlpe de faire deux methode generer pour burger et client avec des paramétres différents
-	//Il faudrait donc modifier les int des actions dans le case et dans ce code
 	@Override
 	public void generer(Echeancier echeancier)
 	{	
 		super.generer(echeancier);
-		Date nextDateGeneration = this.creationNextDate(echeancier, 2);
-		Date nextDatePassage = this.creationNextDate(echeancier, 2);
-		Date nextDateTimeOut = this.creationNextDate(echeancier, 1);
+		Date nextDateGeneration = this.creationNextDate(echeancier, lambdaGene);
+		Date nextDatePassage = this.creationNextDate(echeancier, lambda);
+		Date nextDateTimeOut = this.creationNextDate(echeancier, lambdaTimeOut);
 		Case sortieMoinsRemplie = this.compareSortie();
 		
 		if (sortieMoinsRemplie.getListeObjets().size() >= sortieMoinsRemplie.getCapacity())
@@ -41,7 +47,7 @@ public class Source extends Case
 		}
 		else 
 		{
-			Objet obj = new Objet(sortieMoinsRemplie,(long)(10000 + Alea.exponentielle(100)), (int)Alea.exponentielle(30));
+			Objet obj = new Objet(sortieMoinsRemplie,lambda, lambdaTimeOut, nombremax);
 			sortieMoinsRemplie.getListeObjets().add(obj);
 			Evenement newGeneration= new Evenement(this,0,nextDateGeneration,this);
 			Evenement newPassage = new Evenement(obj,2,nextDatePassage,sortieMoinsRemplie);
@@ -51,6 +57,13 @@ public class Source extends Case
 			echeancier.add(newTimeOut);
 			System.out.println("Génération : "+ echeancier.getCurrentEvent().getDate());
 		}
+	}
+	
+	@Override
+	public void arreter(Echeancier echeancier)
+	{
+		super.arreter(echeancier);
+		echeancier.clear();
 	}
 
 }

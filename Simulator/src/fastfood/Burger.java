@@ -8,7 +8,7 @@ public class Burger extends Objet
 
 	public Burger(Case etat, long timeout) 
 	{
-		super(etat, timeout, 1000) ;
+		super(etat, timeout, 1000, 20) ;
 	}
 
 }

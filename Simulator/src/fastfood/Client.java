@@ -8,7 +8,7 @@ public class Client extends Objet
 	
 	public Client(Case etat, long timeout,  int nombremax) 
 	{
-		super(etat, timeout,  nombremax) ;
+		super(etat, timeout, 3,nombremax) ;
 	}
 
 
