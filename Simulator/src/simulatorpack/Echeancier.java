@@ -14,20 +14,21 @@ public class Echeancier extends PriorityQueue<Evenement>{
 	private static EventComparator comparator = new EventComparator();
 	
 
-	public Echeancier(Source source, long duree)
+	public Echeancier(Source source/*, long duree*/)
 	{
 		super(/*Integer.MAX_VALUE*/ 1000, comparator);
 		/*Creation de l'evenement de depart*/
 		Date date = new Date();
-		Evenement amorce = new Evenement(source,0,date,source);
-		//this.currentEvent=amorce;
+		Evenement amorce = new Evenement(source,0,date,source, source);
+		this.setCurrentEvent(amorce);
 		this.add(amorce);
 		
-		/*Creation de l'evenement de fin*/
-		Date endDate = new Date();
+		/*
+		/*Creation de l'evenement de fin
+ 		Date endDate = new Date();
 		endDate.setTime(date.getTime()+duree);
-		Evenement end = new Evenement(source,4,endDate,source);
-		this.add(end);
+		Evenement end = new Evenement(source,4,endDate,source, source);
+		this.add(end);*/
 	}
 	
 	public void nextEvent()

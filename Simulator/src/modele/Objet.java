@@ -132,6 +132,27 @@ public  class Objet extends Acteur
 			return;
 		}
 
+		
+		
+		/** MaJ attributs Cases et Objet **/
+		this.getEtat().getListeObjets().remove(this);
+		this.setEtat(cible);
+		cible.getListeObjets().add(this);
+		this.setBTimeOut(false);
+		
+		/** Libération génération **/
+		if(courante instanceof Source)
+		{
+			Date nextDate1 = this.creationNextDate(echeancier, lambda);
+			
+			Evenement newEvent= new Evenement(courante,0,nextDate1,courante,courante);
+			echeancier.add(newEvent);
+			System.out.println(courante+" générera à "+nextDate1);
+		}
+		
+		Case backward = courante ;
+		courante = cible ;
+		
 		/** Puit ? **/
 		if (courante instanceof Puit)
 		{
@@ -143,25 +164,16 @@ public  class Objet extends Acteur
 				Evenement newEvent= new Evenement(courante,1,nextDateEvacuation,courante,courante);
 				echeancier.add(newEvent);
 				System.out.println("Demande evacuation : prevue pour "+ nextDateEvacuation);
-				return;
+				
 			}
 			else
 			{
 				System.out.println("Evenement obsolete (évacué)");
 				echeancier.incrementeObsolete();
-				return ;			
+							
 			}
 		}
-		
-		/** MaJ attributs Cases et Objet **/
-		this.getEtat().getListeObjets().remove(this);
-		this.setEtat(cible);
-		cible.getListeObjets().add(this);
-		this.setBTimeOut(false);
-		
-		Case backward = courante ;
-		courante = cible ;
-
+		else
 		/** Forward **/
 		// Est-ce que je suis le premier ?
 		if(this.isFirst())
@@ -169,9 +181,11 @@ public  class Objet extends Acteur
 			// Est ce que je peux sortir ?		
 			if(courante.getC_Out())
 			{
-				ArrayList<Case> liste = courante.getSortie() ;
+				ArrayList<Case> liste = new ArrayList<Case>();
+				liste.addAll(courante.getEntree()) ;
 				Case forward = this.getEtat() ;
-				int s = 0 ;
+				int s = liste.size() ;
+				System.out.println(courante);
 				boolean available = false ;
 				
 				while(s>0 && !available )
@@ -181,7 +195,7 @@ public  class Objet extends Acteur
 					forward = liste.remove(i);
 					available = ((forward.getCapacity()>forward.getListeObjets().size()) && (forward.getC_In()));
 					s = liste.size();
-					System.out.println("available = "+available);
+					System.out.println("availableF = "+available);
 				}
 						
 				// si on trouve une sortie
@@ -191,7 +205,7 @@ public  class Objet extends Acteur
 				
 					Evenement newEvent= new Evenement(this,2,nextDate1,courante,forward);
 					echeancier.add(newEvent);
-					System.out.println(this+"partira de "+courante+" pour "+forward+" le "+nextDate1);
+					System.out.println(this+" partira de "+courante+" pour "+forward+" le "+nextDate1);
 				}
 			}
 		}
@@ -201,14 +215,15 @@ public  class Objet extends Acteur
 			Date nextDateTimeOut = this.creationNextDate(echeancier, lambdaTimeOut);
 			Evenement timeOut = new Evenement(this,3, nextDateTimeOut, courante, courante);
 			echeancier.add(timeOut);
-			System.out.println("Le TimeOut de "+this+" situé en "+courante+" est prévu pour"+nextDateTimeOut);
+			System.out.println("Le TimeOut de "+this+" situé en "+courante+" est prévu pour "+nextDateTimeOut);
 		}
 		
 		/** Backward **/
 		// peut-on rentrer ?
 		if(courante.getC_In())
 		{
-			ArrayList<Case> liste = courante.getEntree() ;
+			ArrayList<Case> liste = new ArrayList<Case>();
+			liste.addAll(courante.getEntree()) ;
 			int s = liste.size();
 			boolean available = false ;
 			
@@ -217,24 +232,30 @@ public  class Objet extends Acteur
 				// choix successeur passage : loi uniforme
 				int i = Alea.getRandomIndex(liste) ;		
 				backward = liste.remove(i);
-				available = backward.getC_Out() && (((backward.getSortie().contains(courante))&&(backward.getListeObjets().size()>0))||(backward.hasTimeOut()));
+
+				boolean A = backward.getC_Out() ;
+				boolean B = (backward.getSortie().contains(courante)) ;
+				boolean C = (backward.getListeObjets().size()>0) ;
+				boolean D = (backward.hasTimeOut());
+				
+				available = A && ((B&&C)||D);
 				s= liste.size();
-				System.out.println("available = "+available);
+				System.out.println("availableB = "+available);
 			}
 			
 			// si on trouve une entree
-			
 			if (available)
 			{
 				Date nextDate1 = this.creationNextDate(echeancier, lambda);
 				Objet nextObjet = new Objet(backward, 0,0,0) ;
-				
+				System.out.println(backward);
+				System.out.println(backward.hasTimeOut());
 				// lien de type echappatoire ?
 				if(backward.hasTimeOut())
 				{
 					int i = backward.getIndexTimeOutObjet() ;
 					nextObjet = backward.getListeObjets().get(i);
-					System.out.println(nextObjet+"passera de "+backward+" à "+courante+" le "+nextDate1);
+					System.out.println(nextObjet+" passera de "+backward+" à "+courante+" le "+nextDate1);
 				}
 				// ou lien de type sortie ?
 				else
@@ -243,7 +264,20 @@ public  class Objet extends Acteur
 				
 					Evenement newEvent = new Evenement(nextObjet,2,nextDate1,backward,courante);
 					echeancier.add(newEvent);
-					System.out.println(nextObjet+"passera de "+backward+" à "+courante+" le "+nextDate1);
+					System.out.println(nextObjet+" passera de "+backward+" à "+courante+" le "+nextDate1);
+					
+					if(backward instanceof Source)
+					{
+						Date nextDate2 = new Date();
+						long nextTime2 = echeancier.getCurrentEvent().getDate().getTime();
+						long tau2 = (long)(Alea.exponentielle(((Source) backward).getlambdaGene())*100000);
+						nextTime2 = nextTime2 + tau2 ;
+						nextDate2.setTime(nextTime2);
+						
+						Evenement newGeneration = new Evenement(nextObjet,0,nextDate2,backward,backward);
+						echeancier.add(newGeneration);
+						System.out.println(backward+" générera à "+nextDate2);
+					}
 					return ;
 				}
 			}

@@ -1,5 +1,6 @@
 package modele;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import alea.Alea;
@@ -34,30 +35,44 @@ public class Source extends Case
 	public void generer(Echeancier echeancier)
 	{	
 		super.generer(echeancier);
-		Date nextDateGeneration = this.creationNextDate(echeancier, lambdaGene);
-		Date nextDatePassage = this.creationNextDate(echeancier, lambda);
-		Date nextDateTimeOut = this.creationNextDate(echeancier, lambdaTimeOut);
-		Case sortieMoinsRemplie = this.compareSortie();
+		System.out.println("Démarrage générer : "+ echeancier.getCurrentEvent().getDate());
 		
-		if (sortieMoinsRemplie.getListeObjets().size() >= sortieMoinsRemplie.getCapacity())
+		Objet objet = new Objet(this, lambda, lambdaTimeOut, nombremax);
+		this.getListeObjets().add(objet);
+		
+		/** Forward **/
+		// Est ce que je peux sortir ?		
+		if(this.getC_Out())
 		{
-			Evenement newEvent= new Evenement(this,0,nextDateGeneration,this, sortieMoinsRemplie);
-			echeancier.add(newEvent);
-			System.out.println("Generation en attente : "+echeancier.getCurrentEvent().getDate());
-		}
-		else 
-		{
-			Objet obj = new Objet(sortieMoinsRemplie,lambda, lambdaTimeOut, nombremax);
-			sortieMoinsRemplie.getListeObjets().add(obj);
-			Evenement newGeneration= new Evenement(this,0,nextDateGeneration,this, sortieMoinsRemplie);
-			Evenement newPassage = new Evenement(obj,2,nextDatePassage,sortieMoinsRemplie, sortieMoinsRemplie);
-			Evenement newTimeOut = new Evenement(obj,3,nextDateTimeOut,sortieMoinsRemplie, sortieMoinsRemplie);
-			echeancier.add(newGeneration);
-			echeancier.add(newPassage);
-			echeancier.add(newTimeOut);
-			System.out.println("Génération : "+ echeancier.getCurrentEvent().getDate());
+			
+			ArrayList<Case> liste = new ArrayList<Case>();
+			liste.addAll(this.getSortie()) ;
+			Case forward = this ;
+			int s = liste.size() ;
+			boolean available = false ;
+			
+			while(s>0 && !available )
+			{	
+				// choix destination passage : loi uniforme
+				int i = Alea.getRandomIndex(liste) ;		
+				forward = liste.remove(i);
+				available = ((forward.getCapacity()>forward.getListeObjets().size()) && (forward.getC_In()));
+				s = liste.size();
+				System.out.println("available = "+available);
+			}
+						
+			// si on trouve une sortie
+			if (available)
+			{
+				Date nextDate1 = this.creationNextDate(echeancier, lambda);
+			
+				Evenement newEvent= new Evenement(objet,2,nextDate1,this,forward);
+				echeancier.add(newEvent);
+				System.out.println(objet+" partira de "+this+" pour "+forward+" le "+nextDate1);
+			}
 		}
 	}
+		
 	
 	@Override
 	public void arreter(Echeancier echeancier)

@@ -3,6 +3,7 @@ package main;
 import java.util.Date;
 
 import simulatorpack.Echeancier;
+import simulatorpack.Evenement;
 import modele.FileAttente;
 import modele.Puit;
 import modele.Source;
@@ -27,21 +28,22 @@ public class MainSimulator
 		Puit poubelle = new Puit() ;
 		FileAttente file1 = new FileAttente(50);
 		FileAttente file2 = new FileAttente(1);
-		source.relierSortie(file1);
-		file1.relierSortie(file2);
+		source.relierSortie(puit);
+		/*file1.relierSortie(file2);
 		file2.relierSortie(puit);
 		file1.relierEchappatoire(poubelle);
-		file2.relierEchappatoire(poubelle);
-		long duree = 100000000;
+		file2.relierEchappatoire(poubelle);*/
+		
+		long duree = 1000000000;
 		
 		// Creation de l'echeancier
-		Echeancier echeancier = new Echeancier(source, duree);
+		Echeancier echeancier = new Echeancier(source/*, duree*/);
 		/** ATTENTION : Constructeur Temporaire !!! **/
 		/*Constructeur modifie, l'echeancier a maintenant une date de fin*/
 
 		
 		System.out.println("début");
-	
+						
 		int s = 0;
 		int ctr = 0;
 		

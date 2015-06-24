@@ -36,7 +36,7 @@ public class MainTest {
 				long duree = 10000;
 				
 		// Creation de l'echeancier
-				Echeancier echeancier = new Echeancier(source, duree);
+				Echeancier echeancier = new Echeancier(source/*, duree*/);
 				/** ATTENTION : Constructeur Temporaire !!! **/
 
 		// Operations

@@ -125,7 +125,14 @@ public abstract class Case extends Acteur
     /** echappatoire **/
 	public boolean hasTimeOut()
 	{
-		return true ;
+		for(Objet obj : this.getListeObjets())
+		{
+			if(obj.isTimedOut())
+			{
+				return true ;
+			}
+		}
+		return false ;
 	}
 	
 	public int getIndexTimeOutObjet()
