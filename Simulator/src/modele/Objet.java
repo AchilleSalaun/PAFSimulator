@@ -182,10 +182,9 @@ public  class Objet extends Acteur
 			if(courante.getC_Out())
 			{
 				ArrayList<Case> liste = new ArrayList<Case>();
-				liste.addAll(courante.getEntree()) ;
+				liste.addAll(courante.getSortie()) ;
 				Case forward = this.getEtat() ;
 				int s = liste.size() ;
-				System.out.println(courante);
 				boolean available = false ;
 				
 				while(s>0 && !available )
@@ -240,7 +239,7 @@ public  class Objet extends Acteur
 				
 				available = A && ((B&&C)||D);
 				s= liste.size();
-				System.out.println("availableB = "+available);
+				System.out.println("availableB = "+available+" / "+courante+" : "+courante.getEntree());
 			}
 			
 			// si on trouve une entree
@@ -251,7 +250,7 @@ public  class Objet extends Acteur
 				System.out.println(backward);
 				System.out.println(backward.hasTimeOut());
 				// lien de type echappatoire ?
-				if(backward.hasTimeOut())
+				if(backward.hasTimeOut() && backward.getEchappatoire().contains(courante))
 				{
 					int i = backward.getIndexTimeOutObjet() ;
 					nextObjet = backward.getListeObjets().get(i);

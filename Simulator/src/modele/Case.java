@@ -8,7 +8,7 @@ public abstract class Case extends Acteur
 	private LinkedList<Objet> listeObjets;
     private ArrayList<Case> sortie;
     private ArrayList<Case> echappatoire ;
-    private ArrayList<Case> entree ;
+    private ArrayList<Case> entree = new ArrayList<Case>();
     private int capacity;
     private boolean c_in = true ;
     private boolean c_out = true ;    
@@ -78,7 +78,7 @@ public abstract class Case extends Acteur
     
     public ArrayList<Case> getEntree() 
     {
-    	return this.sortie;
+    	return this.entree;
     }
     
     public void setEntree(ArrayList<Case> entree)

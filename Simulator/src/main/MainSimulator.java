@@ -28,9 +28,12 @@ public class MainSimulator
 		Puit poubelle = new Puit() ;
 		FileAttente file1 = new FileAttente(50);
 		FileAttente file2 = new FileAttente(1);
-		source.relierSortie(puit);
-		/*file1.relierSortie(file2);
-		file2.relierSortie(puit);
+
+		source.relierSortie(file1);
+		file1.relierSortie(puit);
+	
+		
+		/*file2.relierSortie(puit);
 		file1.relierEchappatoire(poubelle);
 		file2.relierEchappatoire(poubelle);*/
 		
@@ -57,7 +60,12 @@ public class MainSimulator
 			System.out.println("Début boucle n°"+ctr);
 			echeancier.nextEvent();
 			s = echeancier.size();
-			System.out.println("Fin boucle n°"+ctr+": taille puit = " + puit.getListeObjets().size()+" / taille poubelle = "+poubelle.getListeObjets().size());
+			System.out.println("taille puit = " + puit.getListeObjets().size());
+			//System.out.println("taille poubelle = "+poubelle.getListeObjets().size());
+			System.out.println("taille source = "+source.getListeObjets().size());
+			System.out.println("taille file1 = "+file1.getListeObjets().size());
+			System.out.println("premier file1 = "+file1.getFirstObjet());
+			System.out.println("Fin boucle n°"+ctr);
 		}
 		while(s>0);
 		
