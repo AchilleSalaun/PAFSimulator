@@ -24,7 +24,8 @@ public abstract class Acteur
 	  			break ;
 	  		case 3: this.partir(echeancier)  ;    
 	  			break ;
-	  		case 4: this.arreter(echeancier);
+	  		case 4: this.arreter(echeancier);//evenement de fin, l'echeancier est evacue
+	  			break;
 	  		default : System.out.println("default") ;//ne rien faire  	
 		}
 	}

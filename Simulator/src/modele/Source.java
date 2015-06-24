@@ -64,6 +64,7 @@ public class Source extends Case
 	{
 		super.arreter(echeancier);
 		echeancier.clear();
+		System.out.println("Evenement de fin");
 	}
 
 }
