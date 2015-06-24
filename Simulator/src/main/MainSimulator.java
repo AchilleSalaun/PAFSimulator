@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Date;
+
 import simulatorpack.Echeancier;
 import modele.FileAttente;
 import modele.Puit;
@@ -21,15 +23,17 @@ public class MainSimulator
 		file2.relierSortie(puit);
 		file1.relierEchappatoire(poubelle);
 		file2.relierEchappatoire(poubelle);
+		long duree = 100000000;
 		
 		// Creation de l'echeancier
-		Echeancier echeancier = new Echeancier(source);
+		Echeancier echeancier = new Echeancier(source, duree);
 		/** ATTENTION : Constructeur Temporaire !!! **/
+		/*Constructeur modifie, l'echeancier a maintenant une date de fin*/
 
 		
 		System.out.println("début");
 	
-		int s = 0;
+		int s = echeancier.size();
 		int ctr = 0;
 		
 		/***************************************************************************************************************************************/
@@ -40,8 +44,8 @@ public class MainSimulator
 			ctr++ ;
 			System.out.println("******************************************************");
 			System.out.println("Début boucle n°"+ctr);
-			s = echeancier.size();
 			echeancier.nextEvent();
+			s = echeancier.size();
 			System.out.println("Fin boucle n°"+ctr+": taille puit = " + puit.getListeObjets().size()+" / taille poubelle = "+poubelle.getListeObjets().size());
 		}
 		while(s>0);

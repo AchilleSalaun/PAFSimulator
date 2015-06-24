@@ -24,6 +24,8 @@ public abstract class Acteur
 	  			break ;
 	  		case 3: this.partir(echeancier)  ;    
 	  			break ;
+	  		case 4: this.arreter(echeancier);//evenement de fin, l'echeancier est evacue
+	  			break;
 	  		default : System.out.println("default") ;//ne rien faire  	
 		}
 	}
@@ -46,6 +48,11 @@ public abstract class Acteur
 	public void generer(Echeancier echeancier) 
 	{
 		// TODO Auto-generated method stub	
+	}
+	
+	public void arreter(Echeancier echeancier)
+	{
+		
 	}
 	
 	public Date creationNextDate(Echeancier echeancier, double lambda)

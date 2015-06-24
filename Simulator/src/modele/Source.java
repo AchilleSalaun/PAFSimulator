@@ -52,5 +52,12 @@ public class Source extends Case
 			System.out.println("Génération : "+ echeancier.getCurrentEvent().getDate());
 		}
 	}
+	
+	@Override
+	public void arreter(Echeancier echeancier)
+	{
+		echeancier.clear();
+		System.out.println("Evenement de fin");
+	}
 
 }

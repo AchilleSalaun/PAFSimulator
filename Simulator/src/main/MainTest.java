@@ -24,9 +24,10 @@ public class MainTest {
 				file.relierEchappatoire(fileBloquee1);
 				file.relierEchappatoire(fileBloquee2);
 				file.relierEchappatoire(fileBloquee3);
+				long duree = 10000;
 				
 		// Creation de l'echeancier
-				Echeancier echeancier = new Echeancier(source);
+				Echeancier echeancier = new Echeancier(source, duree);
 				/** ATTENTION : Constructeur Temporaire !!! **/
 
 		// Operations
