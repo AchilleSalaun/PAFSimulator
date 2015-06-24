@@ -19,10 +19,6 @@ public class Echeancier extends PriorityQueue<Evenement>{
 		Date dateStart = new Date();
 		Date dateEnd = new Date();
 		dateEnd.setTime(dateEnd.getTime()+timeSimulation);
-		Evenement amorce = new Evenement(source,0,dateStart,source);
-		Evenement rupture = new Evenement(source,4,dateEnd,source);
-		//this.currentEvent=amorce;
-		this.add(amorce);
 	}
 	
 	public void nextEvent()

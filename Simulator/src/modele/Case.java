@@ -8,7 +8,10 @@ public abstract class Case extends Acteur
 	private LinkedList<Objet> listeObjets;
     private ArrayList<Case> sortie;
     private ArrayList<Case> echappatoire ;
+    private ArrayList<Case> entree ;
     private int capacity;
+    private boolean c_in = true ;
+    private boolean c_out = true ;    
 	
     /** Constructeur **/
     public Case(int capacity)
@@ -23,7 +26,29 @@ public abstract class Case extends Acteur
     	this.echappatoire = listeEchap ;
     	this.capacity = capacity ;
     }
-	
+    
+    /************************************************************************************/
+    /** Condition in/out **/
+    public boolean getC_In()
+    {
+    	return this.c_in ;
+    }
+        
+    public boolean getC_Out()
+    {
+    	return this.c_out ;
+    }
+    
+    public void switchC_In()
+    {
+    	this.c_in = !c_in;
+    }
+    
+    public void switchC_Out()
+    {
+    	this.c_out = !c_out;
+    }
+    
     /************************************************************************************/
     /** capacity **/
 	public int getCapacity(){
@@ -49,6 +74,19 @@ public abstract class Case extends Acteur
 	}
     
     /************************************************************************************/
+    /** entree **/
+    
+    public ArrayList<Case> getEntree() 
+    {
+    	return this.sortie;
+    }
+    
+    public void setEntree(ArrayList<Case> entree)
+    {
+		this.entree = entree;
+	}
+    
+    /************************************************************************************/
     /** sortie **/
     public ArrayList<Case> getSortie() 
     {
@@ -63,6 +101,7 @@ public abstract class Case extends Acteur
 	public void relierSortie(Case caseSortie)
 	{
 		this.sortie.add(caseSortie);
+		caseSortie.getEntree().add(this);
 	}
 	
 	public Case compareSortie(){
@@ -84,6 +123,23 @@ public abstract class Case extends Acteur
     
 	/************************************************************************************/
     /** echappatoire **/
+	public boolean hasTimeOut()
+	{
+		return true ;
+	}
+	
+	public int getIndexTimeOutObjet()
+	{
+		for(int i=0 ; i <this.listeObjets.size() ; i++)
+		{
+			if(listeObjets.get(i).isTimedOut())
+			{
+				return i ;
+			}
+		}
+		return -1;
+	}
+	
     public ArrayList<Case> getEchappatoire() 
     {
     	return this.echappatoire;
@@ -96,6 +152,7 @@ public abstract class Case extends Acteur
     public void relierEchappatoire(Case caseEchap)
     {
     	this.echappatoire.add(caseEchap);
+    	caseEchap.getEntree().add(this);
     }
 
 	public int compareCase(Case case2){

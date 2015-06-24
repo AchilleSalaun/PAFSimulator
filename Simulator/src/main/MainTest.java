@@ -41,7 +41,7 @@ public class MainTest {
 		// Operations
 				Objet objet = new Objet(file, 0, 0, 0);
 				Date date = new Date();
-				Evenement event = new Evenement(objet, 3, date, file);
+				Evenement event = new Evenement(objet, 3, date, file, puit);
 				echeancier.setCurrentEvent(event);
 				objet.realise(echeancier);
 	}
