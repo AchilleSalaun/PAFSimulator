@@ -1,6 +1,7 @@
 package simulatorpack;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.PriorityQueue;
 
@@ -14,14 +15,20 @@ public class Echeancier extends PriorityQueue<Evenement>{
 	private static EventComparator comparator = new EventComparator();
 	
 
-	public Echeancier(Source source/*, long duree*/)
+	public Echeancier(ArrayList<Source> sourceListe/*, long duree*/)
 	{
 		super(/*Integer.MAX_VALUE*/ 1000, comparator);
-		/*Creation de l'evenement de depart*/
+		/*Creation des evenements de depart*/
 		Date date = new Date();
-		Evenement amorce = new Evenement(source,0,date,source, source);
-		this.setCurrentEvent(amorce);
-		this.add(amorce);
+		for(Source source : sourceListe)
+		{
+			Evenement amorce = new Evenement(source,0,date,source, source);
+			this.setCurrentEvent(amorce);
+			this.add(amorce);
+			date.setTime(date.getTime()+1);
+		}
+		
+		
 		
 		/*
 		/*Creation de l'evenement de fin

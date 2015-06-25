@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import simulatorpack.Echeancier;
@@ -24,13 +25,16 @@ public class MainSimulator
 		
 		
 		Source source = new Source(4, 1, 2, 30);
-		//Puit puit = new Puit();
+		Source sourcebis = new Source(4, 1, 2, 30);
+		Puit puit = new Puit();
 		Puit poubelle = new Puit() ;
 		FileAttente file1 = new FileAttente(5);
 		FileAttente file2 = new FileAttente(1);
 
 		source.relierSortie(file1);
-		//file1.relierSortie(puit);
+		sourcebis.relierSortie(file2);
+		
+		file1.relierSortie(puit);
 		file1.relierEchappatoire(file2);
 		file2.relierSortie(poubelle);
 		
@@ -41,7 +45,10 @@ public class MainSimulator
 		long duree = 1000000000;
 		
 		// Creation de l'echeancier
-		Echeancier echeancier = new Echeancier(source/*, duree*/);
+		ArrayList<Source> sourceListe = new ArrayList<Source>();
+		sourceListe.add(source);
+		sourceListe.add(sourcebis);
+		Echeancier echeancier = new Echeancier(sourceListe/*, duree*/);
 		/** ATTENTION : Constructeur Temporaire !!! **/
 		/*Constructeur modifie, l'echeancier a maintenant une date de fin*/
 

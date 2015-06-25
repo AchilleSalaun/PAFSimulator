@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import simulatorpack.Echeancier;
@@ -35,8 +36,10 @@ public class MainTest {
 				file.relierEchappatoire(fileBloquee3);
 				long duree = 10000;
 				
-		// Creation de l'echeancier
-				Echeancier echeancier = new Echeancier(source/*, duree*/);
+				// Creation de l'echeancier
+				ArrayList<Source> sourceListe = new ArrayList<Source>();
+				sourceListe.add(source);
+				Echeancier echeancier = new Echeancier(sourceListe/*, duree*/);
 				/** ATTENTION : Constructeur Temporaire !!! **/
 
 		// Operations
