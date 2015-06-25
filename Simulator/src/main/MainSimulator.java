@@ -48,7 +48,7 @@ public class MainSimulator
 		ArrayList<Source> sourceListe = new ArrayList<Source>();
 		sourceListe.add(source);
 		sourceListe.add(sourcebis);
-		Echeancier echeancier = new Echeancier(sourceListe/*, duree*/);
+		Echeancier echeancier = new Echeancier(sourceListe, duree);
 		/** ATTENTION : Constructeur Temporaire !!! **/
 		/*Constructeur modifie, l'echeancier a maintenant une date de fin*/
 

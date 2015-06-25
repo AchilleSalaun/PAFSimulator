@@ -39,7 +39,7 @@ public class MainTest {
 				// Creation de l'echeancier
 				ArrayList<Source> sourceListe = new ArrayList<Source>();
 				sourceListe.add(source);
-				Echeancier echeancier = new Echeancier(sourceListe/*, duree*/);
+				Echeancier echeancier = new Echeancier(sourceListe, duree);
 				/** ATTENTION : Constructeur Temporaire !!! **/
 
 		// Operations
