@@ -6,26 +6,23 @@ import simulatorpack.Echeancier;
 
 
 public abstract class Acteur 
-{
-	
+{	
 	public void realise( Echeancier echeancier)
 	{
 		int action = echeancier.getCurrentEvent().getAction();
-		System.out.println("realisation de "+action+" par "+this);
-		
 		switch(action)
 		{
 	  		case 0: this.generer(echeancier) ;// generer un objet
 	  			break ;
 	  		case 1: this.evacuer(echeancier) ; //evacuer un puit
 	  			break ;
-	  		case 2: this.passer(echeancier) ; //passer à la case suivante
+	  		case 2: this.passer(echeancier) ; //passer à la case suivante en étant premier
 	  			break ;
-	  		case 3: this.partir(echeancier)  ;    
+	  		case 3: this.partir(echeancier)  ; // partir par une échappatoire
 	  			break ;
-	  		case 4: this.arreter(echeancier);//evenement de fin, l'echeancier est evacue
+	  		case 4: this.arreter(echeancier); //evenement de fin, l'echeancier est evacue
 	  			break;
-	  		default : System.out.println("default") ;//ne rien faire  	
+	  		default : System.out.println("default") ; //ne rien faire  	
 		}
 	}
 

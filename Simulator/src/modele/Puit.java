@@ -22,7 +22,7 @@ private int compteur = 0;
 	public void evacuer(Echeancier echeancier)
 	{
 		super.evacuer(echeancier);
-		System.out.println("Evacuation : "+echeancier.getCurrentEvent().getDate());
+		System.out.println("Evacuation : "+echeancier.getCurrentEvent().getDate()+" par "+echeancier.getCurrentEvent().getActeur());
 		(this.getListeObjets()).clear();
 	}
 }

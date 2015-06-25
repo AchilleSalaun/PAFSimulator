@@ -34,7 +34,7 @@ public class Source extends Case
 	public void generer(Echeancier echeancier)
 	{	
 		super.generer(echeancier);
-		System.out.println("Démarrage générer : "+ echeancier.getCurrentEvent().getDate());
+		System.out.println("Démarrage générer : "+ echeancier.getCurrentEvent().getDate()+" par "+echeancier.getCurrentEvent().getActeur());
 		
 		Objet objet = new Objet(this, lambda, lambdaTimeOut, nombremax);
 		
@@ -68,7 +68,6 @@ public class Source extends Case
 				forward = liste.remove(i);
 				available = ((forward.getCapacity()>forward.getListeObjets().size()) && (forward.getC_In()));
 				s = liste.size();
-				System.out.println("available = "+available);
 			}
 						
 			// si on trouve une sortie

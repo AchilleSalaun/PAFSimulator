@@ -14,6 +14,7 @@ public class Choix
 		return -Math.log(1 - alea.nextDouble());
 	}
 	
+	/*****************************************************************************************************/
 	/** Gestion du choix **/
 	public static int choixCase(int i,ArrayList<Case> liste)
 	{

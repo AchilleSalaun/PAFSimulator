@@ -82,7 +82,7 @@ public  class Objet extends Acteur
 	
 	
 	/*****************************************************************************************************/
-	/** Tests **/
+	/** Gestion Boolean **/
 	
 	private boolean isFirst() 
 	{
@@ -116,10 +116,8 @@ public  class Objet extends Acteur
 	public void passer( Echeancier echeancier)
 	{
 		super.passer(echeancier);
-		System.out.println("Démarrage passer : "+ echeancier.getCurrentEvent().getDate());
-		
-		
-		
+		System.out.println("Démarrage passer : "+ echeancier.getCurrentEvent().getDate()+" par "+echeancier.getCurrentEvent().getActeur());
+		System.out.println("Je vais de "+echeancier.getCurrentEvent().getcaseActuelle()+" vers "+echeancier.getCurrentEvent().getCaseCible());
 		Case courante = this.getEtat() ;
 		Case cible = echeancier.getCurrentEvent().getCaseCible();
 		
@@ -199,7 +197,6 @@ public  class Objet extends Acteur
 					forward = liste.remove(i);
 					available = ((forward.getCapacity()>forward.getListeObjets().size()) && (forward.getC_In()));
 					s = liste.size();
-					System.out.println("availableF = "+available);
 				}
 						
 				// si on trouve une sortie
@@ -219,12 +216,11 @@ public  class Objet extends Acteur
 			Date nextDateTimeOut = this.creationNextDate(echeancier, lambdaTimeOut);
 			Evenement timeOut = new Evenement(this,3, nextDateTimeOut, cible, cible);
 			echeancier.add(timeOut);
-			System.out.println("Le TimeOut de "+this+" situé en "+cible+" est prévu pour "+nextDateTimeOut);
+			System.out.println("Un TimeOut pour "+this+" situé en "+cible+" à été prévu le "+nextDateTimeOut);
 		}
 		
 		/** Backward cible : Peut-on me suivre ? **/
 		// peut-on rentrer ?
-		System.out.println("cible = "+cible);
 		if(cible.getC_In())
 		{
 			ArrayList<Case> liste = new ArrayList<Case>();
@@ -241,10 +237,9 @@ public  class Objet extends Acteur
 				boolean B = (backwardCible.getSortie().contains(cible)) ;
 				boolean C = (backwardCible.getListeObjets().size()>0) ;
 				boolean D = (backwardCible.hasTimeOut());
-				System.out.println(D+" / "+backwardCible);
+
 				available = A && ((B&&C)||D);
 				s= liste.size();
-				System.out.println("availableB1 = "+available+" / "+cible+" : "+cible.getEntree());
 			}
 			
 			// si on trouve une entree
@@ -252,8 +247,6 @@ public  class Objet extends Acteur
 			{
 				Date nextDate1 = this.creationNextDate(echeancier, lambda);
 				Objet nextObjet = new Objet(backwardCible, 0,0,0) ;
-				System.out.println(backwardCible);
-				System.out.println(backwardCible.hasTimeOut());
 				// lien de type echappatoire ?
 				if(backwardCible.hasTimeOut() && backwardCible.getEchappatoire().contains(cible))
 				{
@@ -278,7 +271,6 @@ public  class Objet extends Acteur
 		/** Backward courante : Est-ce qu'on peut-me remplacer ? **/
 		// peut-on rentrer ?
 		Case backwardCourante = backwardCible ;
-		System.out.println("courante = "+courante);
 				if(courante.getC_In())
 				{
 					ArrayList<Case> liste = new ArrayList<Case>();
@@ -291,15 +283,13 @@ public  class Objet extends Acteur
 						// choix successeur passage : loi uniforme
 						int i = Choix.choixCase(0,liste) ;		
 						backwardCourante = liste.remove(i);
-						System.out.println("backwardCourante = "+backwardCourante);
 						boolean A = backwardCourante.getC_Out() ;
 						boolean B = (backwardCourante.getSortie().contains(courante)) ;
 						boolean C = (backwardCourante.getListeObjets().size()>0) ;
 						boolean D = (backwardCourante.hasTimeOut());
-						System.out.println(D+" / "+backwardCourante);
+
 						available = A && ((B&&C)||D);
 						s= liste.size();
-						System.out.println("availableB2 = "+available+" / "+courante+" : "+courante.getEntree());
 					}
 					
 					// si on trouve une entree
@@ -307,8 +297,6 @@ public  class Objet extends Acteur
 					{
 						Date nextDate1 = this.creationNextDate(echeancier, lambda);
 						Objet nextObjet = new Objet(backwardCourante, 0,0,0) ;
-						System.out.println(backwardCourante);
-						System.out.println(backwardCourante.hasTimeOut());
 						// lien de type echappatoire ?
 						if(backwardCourante.hasTimeOut() && backwardCourante.getEchappatoire().contains(courante))
 						{
@@ -336,7 +324,7 @@ public  class Objet extends Acteur
 	public void partir( Echeancier echeancier)
 	{
 		super.partir(echeancier);
-		System.out.println("Démarrage partir : "+ echeancier.getCurrentEvent().getDate());
+		System.out.println("Démarrage partir : "+ echeancier.getCurrentEvent().getDate()+" par "+echeancier.getCurrentEvent().getActeur());
 		Case courante = this.getEtat();
 
 		// Evenement obsolete ?
@@ -353,7 +341,6 @@ public  class Objet extends Acteur
 			
 			ArrayList<Case> liste = new ArrayList<Case>() ;
 			liste.addAll(courante.getEchappatoire()) ;
-			System.out.println(liste);
 			Case cible = this.getEtat() ;
 			int s = liste.size() ;
 			boolean available = false ;
@@ -365,7 +352,6 @@ public  class Objet extends Acteur
 				cible = liste.remove(i);
 				available = ((cible.getCapacity()>cible.getListeObjets().size()) && (cible.getC_In()));
 				s = liste.size();
-				System.out.println("available = "+available);
 			}
 					
 			// si on trouve une échappatoire : on part sans autre forme de procès
@@ -375,7 +361,7 @@ public  class Objet extends Acteur
 				this.setEtat(cible);
 				cible.getListeObjets().add(this);
 				this.setBTimeOut(false);
-				
+				System.out.println("J'ai choisi de partir de "+echeancier.getCurrentEvent().getcaseActuelle()+" pour aller vers "+cible);
 				
 				/** Puit ? **/
 				if (cible instanceof Puit)
@@ -418,7 +404,6 @@ public  class Objet extends Acteur
 							forward = liste.remove(i);
 							available = ((forward.getCapacity()>forward.getListeObjets().size()) && (forward.getC_In()));
 							s = liste.size();
-							System.out.println("availableF = "+available);
 						}
 								
 						// si on trouve une sortie
@@ -438,7 +423,7 @@ public  class Objet extends Acteur
 					Date nextDateTimeOut = this.creationNextDate(echeancier, lambdaTimeOut);
 					Evenement timeOut = new Evenement(this,3, nextDateTimeOut, cible, cible);
 					echeancier.add(timeOut);
-					System.out.println("Le TimeOut de "+this+" situé en "+cible+" est prévu pour "+nextDateTimeOut);
+					System.out.println("Un TimeOut pour "+this+" situé en "+cible+" a été prévu le "+nextDateTimeOut);
 				}
 				
 				/** Backward cible : Peut-on me suivre ? **/
@@ -461,10 +446,9 @@ public  class Objet extends Acteur
 						boolean B = (backwardCible.getSortie().contains(cible)) ;
 						boolean C = (backwardCible.getListeObjets().size()>0) ;
 						boolean D = (backwardCible.hasTimeOut());
-						System.out.println(D+" / "+backwardCible);
+
 						available = A && ((B&&C)||D);
 						s= liste.size();
-						System.out.println("availableB1 = "+available+" / "+cible+" : "+cible.getEntree());
 					}
 					
 					// si on trouve une entree
@@ -472,8 +456,6 @@ public  class Objet extends Acteur
 					{
 						Date nextDate1 = this.creationNextDate(echeancier, lambda);
 						Objet nextObjet = new Objet(backwardCible, 0,0,0) ;
-						System.out.println(backwardCible);
-						System.out.println(backwardCible.hasTimeOut());
 						// lien de type echappatoire ?
 						if(backwardCible.hasTimeOut() && backwardCible.getEchappatoire().contains(cible))
 						{
@@ -504,7 +486,6 @@ public  class Objet extends Acteur
 							liste.addAll(courante.getEntree()) ;
 							s = liste.size();
 							available = false ;
-							System.out.println("liste = "+liste);
 							while(s>0 && !available )
 							{			
 								// choix successeur passage : loi uniforme
@@ -515,10 +496,9 @@ public  class Objet extends Acteur
 								boolean B = (backwardCourante.getSortie().contains(courante)) ;
 								boolean C = (backwardCourante.getListeObjets().size()>0) ;
 								boolean D = (backwardCourante.hasTimeOut());
-								System.out.println(D+" / "+backwardCourante);
+
 								available = A && ((B&&C)||D);
 								s= liste.size();
-								System.out.println("availableB2 = "+available+" / "+courante+" : "+courante.getEntree());
 							}
 							
 							// si on trouve une entree
@@ -526,8 +506,6 @@ public  class Objet extends Acteur
 							{
 								Date nextDate1 = this.creationNextDate(echeancier, lambda);
 								Objet nextObjet = new Objet(backwardCourante, 0,0,0) ;
-								System.out.println(backwardCourante);
-								System.out.println(backwardCourante.hasTimeOut());
 								// lien de type echappatoire ?
 								if(backwardCourante.hasTimeOut() && backwardCourante.getEchappatoire().contains(courante))
 								{

@@ -14,16 +14,15 @@ public class MainSimulator
 
 	public static void main(String[] args) 
 	{
-		// Creation du modele
+		/** Creation du modele **/
 		
-		/*
-		 * lambdaGene    = 4
+		/** Rappel attributs source **/ 
+		/* lambdaGene    = 4
 		 * lambda        = 1
 		 * lambdaTimeOut = 2
 		 * nombremax     = 30
 		 */
-		
-		
+
 		Source source = new Source(4, 1, 2, 30);
 		Source sourcebis = new Source(4, 1, 2, 30);
 		Puit puit = new Puit();
@@ -42,47 +41,38 @@ public class MainSimulator
 		file1.relierEchappatoire(poubelle);
 		file2.relierEchappatoire(poubelle);*/
 		
+		/*****************************************************************************************************/
+		/** Creation de l'echeancier **/
+		
 		long duree = 1000000000;
 		
-		// Creation de l'echeancier
 		ArrayList<Source> sourceListe = new ArrayList<Source>();
 		sourceListe.add(source);
 		sourceListe.add(sourcebis);
-		Echeancier echeancier = new Echeancier(sourceListe, duree);
-		/** ATTENTION : Constructeur Temporaire !!! **/
-		/*Constructeur modifie, l'echeancier a maintenant une date de fin*/
-
 		
+		Echeancier echeancier = new Echeancier(sourceListe, duree) ;
+		
+		/*****************************************************************************************************/
+		/** Simulation **/
 		System.out.println("début");
 						
 		int s = 0;
 		int ctr = 0;
-		
-		/***************************************************************************************************************************************/
+				
 		/** Regime permanent **/
 		
 		do
 		{
-			ctr++ ;
-			System.out.println("******************************************************");
+			System.out.println("****************************************************************************");
 			System.out.println("Début boucle n°"+ctr);
 			echeancier.nextEvent();
 			s = echeancier.size();
-			//System.out.println("taille puit = " + puit.getListeObjets().size()+" /"+puit);
-			System.out.println("source = "+source.getListeObjets()+" /"+source);
-			System.out.println("file1 = "+file1.getListeObjets()+" /"+file1);
-			
-			System.out.println("TO file1 = "+file1.hasTimeOut()+" /"+file1);
-			//System.out.println("premier file1 = "+file1.getFirstObjet());
-			System.out.println("file2 = "+file2.getListeObjets()+" /"+file2);
-			System.out.println("premier file2 = "+file2.getFirstObjet());
-			System.out.println("poubelle = "+poubelle.getListeObjets().size()+" /"+poubelle);
-			
-			//System.out.println("Fin boucle n°"+ctr);
+			System.out.println("Fin boucle : taille echancier = "+s+" / event traités = "+ctr+" / déchets = "+echeancier.getObsolete());
+			ctr++ ;
 		}
 		while(s>0);
 		
-		/***************************************************************************************************************************************/
+		/*****************************************************************************************************/
 		/** Regime transitoire **/
 		
 		/*for(int i=0 ; i<20
