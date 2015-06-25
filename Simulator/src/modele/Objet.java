@@ -132,13 +132,21 @@ public  class Objet extends Acteur
 			return;
 		}
 
-		
-		
 		/** MaJ attributs Cases et Objet **/
-		this.getEtat().getListeObjets().remove(this);
+		if(cible.getCapacity()>cible.getListeObjets().size())
+		{
+			this.getEtat().getListeObjets().remove(this);
 		this.setEtat(cible);
 		cible.getListeObjets().add(this);
 		this.setBTimeOut(false);
+		}
+		else
+		{
+			System.out.println("Evenement obsolete (passé)");
+			echeancier.incrementeObsolete();
+			return;
+		}
+		
 		
 		/** Libération génération **/
 		if(courante instanceof Source)
@@ -217,6 +225,7 @@ public  class Objet extends Acteur
 		
 		/** Backward cible : Peut-on me suivre ? **/
 		// peut-on rentrer ?
+		System.out.println("cible = "+cible);
 		if(cible.getC_In())
 		{
 			ArrayList<Case> liste = new ArrayList<Case>();
@@ -270,6 +279,7 @@ public  class Objet extends Acteur
 		/** Backward courante : Est-ce qu'on peut-me remplacer ? **/
 		// peut-on rentrer ?
 		Case backwardCourante = backwardCible ;
+		System.out.println("courante = "+courante);
 				if(courante.getC_In())
 				{
 					ArrayList<Case> liste = new ArrayList<Case>();

@@ -24,7 +24,7 @@ public class Source extends Case
 
 	public Source(double lambdaGene, double lambda, double lambdaTimeOut, int nombremax)
 	{
-		super(0);
+		super(1);
 		this.lambdaGene = lambdaGene ;
 		this.lambda = lambda ;
 		this.lambdaTimeOut = lambdaTimeOut ;
@@ -38,7 +38,18 @@ public class Source extends Case
 		System.out.println("Démarrage générer : "+ echeancier.getCurrentEvent().getDate());
 		
 		Objet objet = new Objet(this, lambda, lambdaTimeOut, nombremax);
-		this.getListeObjets().add(objet);
+		
+		if(this.getCapacity()>this.getListeObjets().size())
+		{
+			this.getListeObjets().add(objet);
+		}
+		else
+		{
+			System.out.println("Evenement obsolete (généré)");
+			echeancier.incrementeObsolete();
+			return ;
+		}
+		
 		
 		/** Forward **/
 		// Est ce que je peux sortir ?		
@@ -68,7 +79,7 @@ public class Source extends Case
 			
 				Evenement newEvent= new Evenement(objet,2,nextDate1,this,forward);
 				echeancier.add(newEvent);
-				System.out.println(objet+" partira de "+this+" pour "+forward+" le "+nextDate1);
+				System.out.println(objet+" passera de "+this+" à "+forward+" le "+nextDate1);
 			}
 		}
 	}
