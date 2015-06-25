@@ -1,11 +1,9 @@
-package alea;
+package modele;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import modele.Case;
-
-public class Alea 
+public class Choix 
 {
 	private static Random alea = new Random();
 	

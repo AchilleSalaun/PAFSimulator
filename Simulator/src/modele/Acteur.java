@@ -2,7 +2,6 @@ package modele;
 
 import java.util.Date;
 
-import alea.Alea;
 import simulatorpack.Echeancier;
 
 
@@ -59,7 +58,7 @@ public abstract class Acteur
 	{
 		Date nextDate = new Date();
 		long nextTime = echeancier.getCurrentEvent().getDate().getTime();
-		long tau = (long)(Alea.exponentielle(lambda)*100000);
+		long tau = (long)(Choix.exponentielle(lambda)*100000);
 		nextTime = nextTime + tau ;
 		nextDate.setTime(nextTime);
 		return nextDate;

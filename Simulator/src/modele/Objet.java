@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import modele.Puit;
-import alea.Alea;
 import simulatorpack.Echeancier;
 import simulatorpack.Evenement;
 
@@ -196,7 +195,7 @@ public  class Objet extends Acteur
 				while(s>0 && !available )
 				{	
 					// choix destination passage : loi uniforme
-					int i = Alea.getRandomIndex(liste) ;		
+					int i = Choix.getRandomIndex(liste) ;		
 					forward = liste.remove(i);
 					available = ((forward.getCapacity()>forward.getListeObjets().size()) && (forward.getC_In()));
 					s = liste.size();
@@ -235,7 +234,7 @@ public  class Objet extends Acteur
 			while(s>0 && !available )
 			{			
 				// choix successeur passage : loi uniforme
-				int i = Alea.getRandomIndex(liste) ;		
+				int i = Choix.getRandomIndex(liste) ;		
 				backwardCible = liste.remove(i);
 		
 				boolean A = backwardCible.getC_Out() ;
@@ -290,7 +289,7 @@ public  class Objet extends Acteur
 					while(s>0 && !available )
 					{			
 						// choix successeur passage : loi uniforme
-						int i = Alea.getRandomIndex(liste) ;		
+						int i = Choix.getRandomIndex(liste) ;		
 						backwardCourante = liste.remove(i);
 						System.out.println("backwardCourante = "+backwardCourante);
 						boolean A = backwardCourante.getC_Out() ;
@@ -362,7 +361,7 @@ public  class Objet extends Acteur
 			while(s>0 && !available )
 			{			
 				// choix destination départ : loi uniforme
-				int i = Alea.getRandomIndex(liste) ;		
+				int i = Choix.getRandomIndex(liste) ;		
 				cible = liste.remove(i);
 				available = ((cible.getCapacity()>cible.getListeObjets().size()) && (cible.getC_In()));
 				s = liste.size();
@@ -415,7 +414,7 @@ public  class Objet extends Acteur
 						while(s>0 && !available )
 						{	
 							// choix destination passage : loi uniforme
-							int i = Alea.getRandomIndex(liste) ;		
+							int i = Choix.getRandomIndex(liste) ;		
 							forward = liste.remove(i);
 							available = ((forward.getCapacity()>forward.getListeObjets().size()) && (forward.getC_In()));
 							s = liste.size();
@@ -455,7 +454,7 @@ public  class Objet extends Acteur
 					while(s>0 && !available )
 					{			
 						// choix successeur passage : loi uniforme
-						int i = Alea.getRandomIndex(liste) ;		
+						int i = Choix.getRandomIndex(liste) ;		
 						backwardCible = liste.remove(i);
 				
 						boolean A = backwardCible.getC_Out() ;
@@ -509,7 +508,7 @@ public  class Objet extends Acteur
 							while(s>0 && !available )
 							{			
 								// choix successeur passage : loi uniforme
-								int i = Alea.getRandomIndex(liste) ;		
+								int i = Choix.getRandomIndex(liste) ;		
 								courante = liste.remove(i);
 						
 								boolean A = backwardCourante.getC_Out() ;

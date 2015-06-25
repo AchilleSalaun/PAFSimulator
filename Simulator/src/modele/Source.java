@@ -3,7 +3,6 @@ package modele;
 import java.util.ArrayList;
 import java.util.Date;
 
-import alea.Alea;
 import simulatorpack.Echeancier;
 import simulatorpack.Evenement;
 
@@ -65,7 +64,7 @@ public class Source extends Case
 			while(s>0 && !available )
 			{	
 				// choix destination passage : loi uniforme
-				int i = Alea.getRandomIndex(liste) ;		
+				int i = Choix.getRandomIndex(liste) ;		
 				forward = liste.remove(i);
 				available = ((forward.getCapacity()>forward.getListeObjets().size()) && (forward.getC_In()));
 				s = liste.size();
