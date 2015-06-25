@@ -291,8 +291,8 @@ public  class Objet extends Acteur
 					{			
 						// choix successeur passage : loi uniforme
 						int i = Alea.getRandomIndex(liste) ;		
-						courante = liste.remove(i);
-				
+						backwardCourante = liste.remove(i);
+						System.out.println("backwardCourante = "+backwardCourante);
 						boolean A = backwardCourante.getC_Out() ;
 						boolean B = (backwardCourante.getSortie().contains(courante)) ;
 						boolean C = (backwardCourante.getListeObjets().size()>0) ;
@@ -505,7 +505,7 @@ public  class Objet extends Acteur
 							liste.addAll(courante.getEntree()) ;
 							s = liste.size();
 							available = false ;
-							
+							System.out.println("liste = "+liste);
 							while(s>0 && !available )
 							{			
 								// choix successeur passage : loi uniforme
