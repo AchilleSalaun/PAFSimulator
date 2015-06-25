@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
@@ -25,133 +27,73 @@ public class ViewModelisation extends JPanel
 	@SuppressWarnings("unused")
 	private Controller controller;
 	private String modele = "";
+	
+	JRadioButton txt1 = new JRadioButton("Modélisation Automatique : ");
+	JRadioButton txt2 = new JRadioButton("Parcourir : ");
+
+	JComboBox choixmodele ;
+	public boolean autoSelected()
+	{
+		if(txt1.isSelected())
+		{
+			return true ;
+		}
+		else return false ;
+	}
+	
 	public ViewModelisation(Controller controller)
 	{
 		this.controller = controller ;
+		this.setPreferredSize(new Dimension(1000,1000));
 		
-		// definition du layout
-		GroupLayout layout = new GroupLayout(this) ;
-		this.setLayout(layout);
-		
-		JRadioButton txt1 = new JRadioButton("Modélisation Automatique : ");
-		txt1.setSelected(true);
-		String[] tab ={"Vierge","Pré-Enregistré 1","Pré-Enregistré 2"};
-		JComboBox choixmodele = new JComboBox(tab);
-		
-		JRadioButton txt2 = new JRadioButton("Parcourir : ");
-		JTextField adressemodele = new JTextField();
-		
-		ButtonGroup group = new ButtonGroup();
-		group.add(txt1);
-		group.add(txt2);
-		
-		JButton charger = new JButton("Charger");
-		
-		charger.addActionListener(new ActionListener()
-		{					
-			public void actionPerformed(ActionEvent arg0)
-			{
-				controller.charger();
-			}
-		});
-		
-		JButton enregistrer = new JButton("Enregistrer");
-		
-		enregistrer.addActionListener(new ActionListener()
-		{					
-			public void actionPerformed(ActionEvent arg0)
-			{
-				controller.enregistrer();
-			}
-		});
-		
-		/*****************************************/
-		
-		mxGraphModel modelSource = new mxGraphModel();
-		mxGraph graphSource = new mxGraph();
-		graphSource.setEnabled(false);
-		Object parentSource = graphSource.getDefaultParent() ;
-		Object vSource = graphSource.insertVertex(parentSource, null, "Source", 20, 20, 80, 30);
-		
-		
-		graphSource.getModel().endUpdate();
-		
-		mxGraphComponent graphComponentSource = new mxGraphComponent(graphSource);
-		JScrollPane scrollSource = new JScrollPane();
-		scrollSource.add(graphComponentSource);
-		/*****************************************/
-		
-		mxGraphModel modelFile = new mxGraphModel();
-		mxGraph graphFile = new mxGraph();
-		graphFile.setEnabled(false);
-		Object parentFile = graphFile.getDefaultParent() ;
-		Object vFile = graphFile.insertVertex(parentFile, null, "File", 20, 20, 80, 30);
-		
-		graphFile.getModel().endUpdate();
-		
-		mxGraphComponent graphComponentFile = new mxGraphComponent(graphFile);
-		JScrollPane scrollFile = new JScrollPane();
-		scrollFile.add(graphComponentFile);
-		/*****************************************/
-		
-		mxGraphModel modelPuit = new mxGraphModel();
-		mxGraph graphPuit = new mxGraph();
-		graphPuit.setEnabled(false);
-		Object parentPuit = graphPuit.getDefaultParent() ;
-		Object vPuit = graphPuit.insertVertex(parentPuit, null, "Puit", 20, 20, 10, 10);
-		
-		graphPuit.getModel().endUpdate();
-		
-		mxGraphComponent graphComponentPuit = new mxGraphComponent(graphPuit);
-		JScrollPane scrollPuit = new JScrollPane();
-		scrollPuit.add(graphComponentPuit);
-		/*****************************************/
-		
-		//mxGraphModel model = new mxGraphModel();
 		mxGraph graph = new mxGraph();
-		graph.setEnabled(true);
-		
+		graph.setEnabled(false);
 		Object parent = graph.getDefaultParent() ;
-		Object v1 = graph.insertVertex(parent, null, "Hello", 20, 20, 10, 10);
+		Object source = graph.insertVertex(parent, null, "Entrée", 0, 100, 50, 30);
+		Object fileAttente = graph.insertVertex(parent, null, "File d'Attente n°2", 120, 0, 50, 30);
+		
+		Object caisse1 = graph.insertVertex(parent, null, "Caisse n°1", 240, 0, 50, 30);
+		Object caisse2 = graph.insertVertex(parent, null, "Caisse n°2", 240, 200, 50, 30);
+		
+		Object puitLivre = graph.insertVertex(parent, null, "Livré", 360, 100, 50, 30);
+		Object puitRageQuit = graph.insertVertex(parent, null, "Enervé", 360, 100, 50, 30);
+		
+		graph.insertEdge(parent, null, "sortie",source, fileAttente);
+		
+		graph.insertEdge(parent, null, "sortie",fileAttente, caisse1);
+		graph.insertEdge(parent, null, "sortie",fileAttente, caisse2);
+		
+		graph.insertEdge(parent, null, "sortie",caisse1, puitLivre);
+		graph.insertEdge(parent, null, "sortie",caisse2, puitLivre);
+		
+		graph.insertEdge(parent, null, "échappatoire",fileAttente, puitRageQuit);
+		graph.insertEdge(parent, null, "échappatoire",caisse1, puitRageQuit);
+		graph.insertEdge(parent, null, "échappatoire",caisse2, puitRageQuit);
+				
 		graph.getModel().endUpdate();
 		
 		mxGraphComponent graphComponent = new mxGraphComponent(graph);
-		JScrollPane scroll = new JScrollPane();
-		scroll.add(graphComponent);
-		/*****************************************/
+		
+		JScrollPane scroll = new JScrollPane(graphComponent) ;
+		scroll.setPreferredSize(new Dimension(100,100));
+		
+		this.add(scroll);
+		//scroll.add(graphComponent);
+		//scroll.createHorizontalScrollBar();
+		//scroll.createVerticalScrollBar();
+		
+		//scroll.add(txt1);
+		//scroll.add(txt2);
+		
+		
+		/** definition du layout **/
+		GroupLayout layout = new GroupLayout(this) ;
+		this.setLayout(layout);
 		
 		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-				.addGroup(layout.createSequentialGroup()
-						.addComponent(txt1)
-						.addComponent(choixmodele))
-				.addGroup(layout.createSequentialGroup()
-						.addComponent(txt2)
-						.addComponent(adressemodele))
-				.addComponent(charger)
-				.addGroup(layout.createSequentialGroup()
-						.addComponent(graphComponent)
-						.addGroup(layout.createParallelGroup()
-								.addComponent(scrollSource)
-								.addComponent(scrollFile)
-								.addComponent(scrollPuit)))
-				.addComponent(enregistrer)
-				);
+				.addComponent(scroll));
 		layout.setVerticalGroup(layout.createSequentialGroup()
-				.addGroup(layout.createParallelGroup()
-						.addComponent(txt1)
-						.addComponent(choixmodele))
-				.addGroup(layout.createParallelGroup()
-						.addComponent(txt2)
-						.addComponent(adressemodele))
-				.addComponent(charger)
-				.addGroup(layout.createParallelGroup()
-						.addComponent(graphComponent)
-						.addGroup(layout.createSequentialGroup()
-								.addComponent(scrollSource)
-								.addComponent(scrollFile)
-								.addComponent(scrollPuit)))
-				.addComponent(enregistrer)
-				
-				);
+				.addComponent(scroll));
+		
 	}
 }

@@ -23,13 +23,11 @@ public class Window extends JFrame
 	private int width = 1000;
 	private int height = 800;
 	private Controller controller ;
-	//private GroupLayout layout ;
 
 	private JMenuBar menubar = new JMenuBar();
 	private JToolBar toolbar = new JToolBar();
 	
 	private JButton simulation = new JButton("Simulation");
-	private JButton modelisation = new JButton("Modélisation");
 	
 	private JButton previous = new JButton("⇦");
 	private JButton next = new JButton("⇨");	
@@ -55,9 +53,6 @@ public class Window extends JFrame
 
 	public Window() 
 	{
-		//previous.setMinimumSize(new Dimension(20, previous.getPreferredSize().height));
-		//next.setMinimumSize(new Dimension(20, next.getPreferredSize().height));
-	
 		Container cont = this.getContentPane();
         cont.setLayout(new GridBagLayout());
         
@@ -94,14 +89,6 @@ public class Window extends JFrame
 					controller.boutonSimulation();
 				}
 			});
-			
-			this.modelisation.addActionListener(new ActionListener()
-			{					
-				public void actionPerformed(ActionEvent arg0)
-				{
-					controller.boutonModelisation();
-				}
-			});
 
 		/** Menu help */
 		this.help.add(this.help_help);
@@ -131,7 +118,6 @@ public class Window extends JFrame
 		this.toolbar.add(previous);
 		this.toolbar.add(next);
 		this.toolbar.add(simulation);
-		this.toolbar.add(modelisation);
 		this.menubar.add(toolbar);
 
 		this.menubar.add(help);

@@ -21,7 +21,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
+import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.view.mxGraph;
 
 import view.ViewModelisation;
 import view.ViewSimulation;
@@ -195,9 +199,11 @@ public class Controller
 	{
 		// Methode appelee quand on appuie sur Simulation sur l'ecran d'accueil
 		this.addPreviousView(actualview);
-		ViewSimulation vs = new ViewSimulation(this);
+		ViewSimulation vs = new ViewSimulation(this,1);
+		vs.setPreferredSize(vs.getMinimumSize());
 		
-		Container cp = new Container() ;		
+		Container cp = new Container() ;
+		//cp.setPreferredSize(cp.getMaximumSize());
 		cp.setLayout(new GridBagLayout());
 		cp.add(vs) ;
 		window.setContentPane(cp);
@@ -231,17 +237,35 @@ public class Controller
 		this.fonctionnaliteNonImplementee("lancerSimulation()");
 	}
 
-	public void charger() 
+	public void chargerPE1() 
 	{
-		this.fonctionnaliteNonImplementee("charger()");
-		
+		// TODO Auto-generated method stub
+		// Methode appelee quand on appuie sur Modelisation sur l'ecran d'accueil
+				this.addPreviousView(actualview);
+				ViewSimulation vs = new ViewSimulation(this,1);
+				
+				Container cp = new Container() ;		
+				cp.setLayout(new GridBagLayout());
+				cp.add(vs) ;
+				window.setContentPane(cp);
+				
+				this.setActualView(cp);
+				window.validate();
 	}
 
-	public void enregistrer()
+	public void chargerPE2() 
 	{
-		this.fonctionnaliteNonImplementee("enregistrer()");		
+		// TODO Auto-generated method stub
+		// Methode appelee quand on appuie sur Modelisation sur l'ecran d'accueil
+				this.addPreviousView(actualview);
+				ViewSimulation vs = new ViewSimulation(this,2);
+				
+				Container cp = new Container() ;		
+				cp.setLayout(new GridBagLayout());
+				cp.add(vs) ;
+				window.setContentPane(cp);
+				
+				this.setActualView(cp);
+				window.validate();
 	}
-	
-	/****************************************************************************************************/
-	/** ViewModelisation */
 }
