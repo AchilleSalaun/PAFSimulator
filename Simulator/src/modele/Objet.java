@@ -195,7 +195,7 @@ public  class Objet extends Acteur
 				while(s>0 && !available )
 				{	
 					// choix destination passage : loi uniforme
-					int i = Choix.getRandomIndex(liste) ;		
+					int i = Choix.choixCase(0,liste) ;		
 					forward = liste.remove(i);
 					available = ((forward.getCapacity()>forward.getListeObjets().size()) && (forward.getC_In()));
 					s = liste.size();
@@ -234,7 +234,7 @@ public  class Objet extends Acteur
 			while(s>0 && !available )
 			{			
 				// choix successeur passage : loi uniforme
-				int i = Choix.getRandomIndex(liste) ;		
+				int i = Choix.choixCase(0,liste) ;		
 				backwardCible = liste.remove(i);
 		
 				boolean A = backwardCible.getC_Out() ;
@@ -289,7 +289,7 @@ public  class Objet extends Acteur
 					while(s>0 && !available )
 					{			
 						// choix successeur passage : loi uniforme
-						int i = Choix.getRandomIndex(liste) ;		
+						int i = Choix.choixCase(0,liste) ;		
 						backwardCourante = liste.remove(i);
 						System.out.println("backwardCourante = "+backwardCourante);
 						boolean A = backwardCourante.getC_Out() ;
@@ -361,7 +361,7 @@ public  class Objet extends Acteur
 			while(s>0 && !available )
 			{			
 				// choix destination départ : loi uniforme
-				int i = Choix.getRandomIndex(liste) ;		
+				int i = Choix.choixCase(0,liste) ;		
 				cible = liste.remove(i);
 				available = ((cible.getCapacity()>cible.getListeObjets().size()) && (cible.getC_In()));
 				s = liste.size();
@@ -414,7 +414,7 @@ public  class Objet extends Acteur
 						while(s>0 && !available )
 						{	
 							// choix destination passage : loi uniforme
-							int i = Choix.getRandomIndex(liste) ;		
+							int i = Choix.choixCase(0,liste) ;		
 							forward = liste.remove(i);
 							available = ((forward.getCapacity()>forward.getListeObjets().size()) && (forward.getC_In()));
 							s = liste.size();
@@ -454,7 +454,7 @@ public  class Objet extends Acteur
 					while(s>0 && !available )
 					{			
 						// choix successeur passage : loi uniforme
-						int i = Choix.getRandomIndex(liste) ;		
+						int i = Choix.choixCase(0,liste) ;		
 						backwardCible = liste.remove(i);
 				
 						boolean A = backwardCible.getC_Out() ;
@@ -508,7 +508,7 @@ public  class Objet extends Acteur
 							while(s>0 && !available )
 							{			
 								// choix successeur passage : loi uniforme
-								int i = Choix.getRandomIndex(liste) ;		
+								int i = Choix.choixCase(0,liste) ;		
 								courante = liste.remove(i);
 						
 								boolean A = backwardCourante.getC_Out() ;

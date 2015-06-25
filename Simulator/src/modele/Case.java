@@ -103,23 +103,6 @@ public abstract class Case extends Acteur
 		this.sortie.add(caseSortie);
 		caseSortie.getEntree().add(this);
 	}
-	
-	public Case compareSortie(){
-		int fileMin = 0;
-		for (int i=0; i<(this.getSortie()).size(); i++){
-			for (int j=i+1; j<(this.getSortie()).size(); j++)
-			{
-				if ( !(this.getSortie().get(i)instanceof Puit) 
-						&& !(this.getSortie().get(j)instanceof Puit) 
-						&& (this.getSortie().get(i)).compareCase((this.getSortie()).get(j)) <= 0 
-						&& ((this.getSortie()).get(i)).compareCase((this.getSortie()).get(fileMin)) <= 0)
-				{
-					fileMin =i;
-				}
-			}
-		}
-		return (this.getSortie()).get(fileMin);
-	}
     
 	/************************************************************************************/
     /** echappatoire **/
