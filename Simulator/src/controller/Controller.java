@@ -25,9 +25,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import modele.FileAttente;
+import modele.Puit;
+import modele.Source;
+
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 
+import simulatorpack.Echeancier;
 import view.ViewModelisation;
 import view.ViewSimulation;
 import view.Window;
@@ -245,7 +250,97 @@ public class Controller
 	
 	public void lancerSimulation() 
 	{
-		this.fonctionnaliteNonImplementee("lancerSimulation()");
+		
+/** Creation du modele **/
+		
+		/** Rappel attributs source **/ 
+		/* lambdaGene    = 4
+		 * lambda        = 1
+		 * lambdaTimeOut = 2
+		 * nombremax     = 30
+		 */
+
+		Source source = new Source(4, 1, 2, 30);
+		
+		Puit puit = new Puit();
+		Puit poubelle = new Puit() ;
+		
+		FileAttente file1 = new FileAttente(20);
+		FileAttente file2 = new FileAttente(20);
+		FileAttente file  = new FileAttente(20);
+		
+		FileAttente caisse1 = new FileAttente(1);
+		FileAttente caisse2 = new FileAttente(1);
+		
+		switch(modele)
+		{
+			case 1 : this.chargerM1(source, file1, file2, caisse1, caisse2, puit, poubelle);
+				break ;
+			case 2 : this.chargerM2(source, file, caisse1, caisse2, puit, poubelle);
+				break ;
+			default : this.chargerM1(source, file1, file2, caisse1, caisse2, puit, poubelle);
+		}
+		
+
+		/*****************************************************************************************************/
+		/** Creation de l'echeancier **/
+		
+		long duree = 1000000000;
+		
+		ArrayList<Source> sourceListe = new ArrayList<Source>();
+		sourceListe.add(source);
+		
+		Echeancier echeancier = new Echeancier(sourceListe, duree) ;
+		
+		/*****************************************************************************************************/
+		/** Simulation **/
+		System.out.println("début");
+						
+		int s = 0;
+		int ctr = 0;
+				
+		/** Regime permanent **/
+		
+		do
+		{
+			System.out.println("****************************************************************************");
+			System.out.println("Début boucle n°"+ctr);
+			echeancier.nextEvent();
+			s = echeancier.size();
+			System.out.println("Fin boucle : taille echancier = "+s+" / event traités = "+ctr+" / déchets = "+echeancier.getObsolete());
+			ctr++ ;
+		}
+		while(s>0);
+	}
+
+	private void chargerM1(Source source, FileAttente file1, FileAttente file2, FileAttente caisse1, FileAttente caisse2, Puit puit, Puit poubelle) 
+	{
+		source.relierSortie(file1);
+		source.relierSortie(file2);
+		
+		file1.relierSortie(caisse1);
+		file1.relierEchappatoire(poubelle);
+		file2.relierSortie(caisse2);
+		file2.relierEchappatoire(poubelle);
+		
+		caisse1.relierSortie(puit);
+		caisse1.relierEchappatoire(poubelle);
+		caisse2.relierSortie(puit);
+		caisse2.relierEchappatoire(poubelle);
+	}
+
+	private void chargerM2(Source source, FileAttente file, FileAttente caisse1, FileAttente caisse2, Puit puit, Puit poubelle) 
+	{
+		source.relierSortie(file);
+		
+		file.relierSortie(caisse1);
+		file.relierEchappatoire(poubelle);
+		file.relierSortie(caisse2);
+		
+		caisse1.relierSortie(puit);
+		caisse1.relierEchappatoire(poubelle);
+		caisse2.relierSortie(puit);
+		caisse2.relierEchappatoire(poubelle);
 	}
 
 	public void chargerPE(int i) 

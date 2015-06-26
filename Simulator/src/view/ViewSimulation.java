@@ -116,9 +116,9 @@ public class ViewSimulation extends JPanel
 			switch("1"+e.getItem().toString())
 			{
 				case "Pré-Enregistré 1" : System.out.println(e.getItem().toString());//controller.chargerPE(1);
-					break ;
+					return ;
 				case "Pré-Enregistré 2" : System.out.println(e.getItem().toString());//controller.chargerPE(2);
-					break ;
+					return ;
 			}
 			System.out.println("2"+e.getItem().toString());
 		}
@@ -141,6 +141,7 @@ public class ViewSimulation extends JPanel
 		
 		mxGraphComponent graphComponent ;
 		
+		/** Choix du modèle **/
 		switch(modele)
 		{
 			case 1 : graphComponent = this.setModel1();
