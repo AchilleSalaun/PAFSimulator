@@ -160,6 +160,7 @@ public  class Objet extends Acteur
 		/** Puit ? **/
 		if (cible instanceof Puit)
 		{
+			((Puit) cible).incrementer();
 			if(this.isIn(cible))
 			{
 				Date nextDateEvacuation = new Date();
@@ -366,6 +367,7 @@ public  class Objet extends Acteur
 				/** Puit ? **/
 				if (cible instanceof Puit)
 				{
+					((Puit) cible).incrementer();
 					if(this.isIn(cible))
 					{
 						Date nextDateEvacuation = new Date();

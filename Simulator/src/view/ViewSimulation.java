@@ -160,6 +160,7 @@ public class ViewSimulation extends JPanel
 		{					
 			public void actionPerformed(ActionEvent arg0)
 			{
+				controller.setVerrouSimu(true);
 				controller.lancerSimulation();
 			}	
 		});

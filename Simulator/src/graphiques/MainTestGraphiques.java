@@ -18,9 +18,9 @@ public class MainTestGraphiques {
 		Puit puitClientServi = new Puit();
 
 		/* Valeurs au hasard... */
-		puitClientParti.setCompteur(300);
+		puitClientParti.setCompteur(4560);
 		puitClientParti.setName("Clients partis");
-		puitClientServi.setCompteur(350);
+		puitClientServi.setCompteur(842);
 		puitClientServi.setName("Clients servis");
 
 		ArrayList<Puit> puits = new ArrayList<Puit>();
