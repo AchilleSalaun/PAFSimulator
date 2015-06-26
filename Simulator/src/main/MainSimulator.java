@@ -1,5 +1,6 @@
 package main;
 
+import graphiques.Courbe;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -41,6 +42,7 @@ public class MainSimulator
 		file1.relierEchappatoire(poubelle);
 		file2.relierEchappatoire(poubelle);*/
 		
+	
 		/*****************************************************************************************************/
 		/** Creation de l'echeancier **/
 		
@@ -87,6 +89,12 @@ public class MainSimulator
 		}*/
 		
 		System.out.println("fin");
+		
+		/** Creation de la courbe des cliens **/
+		final Courbe demo = new Courbe("Evolution du nombre de clients", echeancier.getTableau());
+        demo.pack();
+        //RefineryUtilities.centerFrameOnScreen(demo);
+        demo.setVisible(true);
 	}
 
 }
