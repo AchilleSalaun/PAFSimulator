@@ -60,6 +60,11 @@ public class Window extends JFrame
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		simulation.setBackground(Color.RED);
+		previous.setBackground(Color.YELLOW);
+		next.setBackground(Color.BLUE);
+		
+		
 		toolbar.setFloatable(false);
 		
 		/** Navigation */
