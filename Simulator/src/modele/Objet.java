@@ -161,6 +161,8 @@ public  class Objet extends Acteur
 		if (cible instanceof Puit)
 		{
 			((Puit) cible).incrementer();
+			echeancier.decrementerClients();
+			echeancier.addDonnee();
 			if(this.isIn(cible))
 			{
 				Date nextDateEvacuation = new Date();
@@ -368,6 +370,8 @@ public  class Objet extends Acteur
 				if (cible instanceof Puit)
 				{
 					((Puit) cible).incrementer();
+					echeancier.decrementerClients();
+					echeancier.addDonnee();
 					if(this.isIn(cible))
 					{
 						Date nextDateEvacuation = new Date();

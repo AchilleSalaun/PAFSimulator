@@ -1,6 +1,7 @@
 package controller;
 
 import graphiques.Camembert;
+import graphiques.Courbe;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -257,7 +258,7 @@ public class Controller
 		
 			FileAttente file1 = new FileAttente(20);
 			FileAttente file2 = new FileAttente(20);
-			FileAttente file  = new FileAttente(20);
+			FileAttente file  = new FileAttente(40);
 		
 			FileAttente caisse1 = new FileAttente(1);
 			FileAttente caisse2 = new FileAttente(1);
@@ -310,10 +311,17 @@ public class Controller
 			puits.add(puit);
 			puits.add(poubelle);
 
+			/*Creation d'un camembert*/
 			final Camembert test = new Camembert("Satisfaction des clients - Modèle n°"+modele, puits);
 			test.pack();
 			RefineryUtilities.centerFrameOnScreen(test);
 			test.setVisible(true);
+			
+			/*Creation d'une courbe*/
+			final Courbe demo = new Courbe("Evolution du nombre de clients", echeancier.getTableau());
+	        demo.pack();
+	        //RefineryUtilities.centerFrameOnScreen(demo);
+	        demo.setVisible(true);
 		}
 		this.setVerrouSimu(false);
 	}

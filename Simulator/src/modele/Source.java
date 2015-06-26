@@ -41,6 +41,8 @@ public class Source extends Case
 		if(this.getCapacity()>this.getListeObjets().size())
 		{
 			this.getListeObjets().add(objet);
+			echeancier.incrementerClients();
+			echeancier.addDonnee();
 		}
 		else
 		{
