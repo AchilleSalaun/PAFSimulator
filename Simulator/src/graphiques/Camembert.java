@@ -2,6 +2,9 @@ package graphiques;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 import modele.Puit;
 
 import org.jfree.chart.ChartFactory;
@@ -18,7 +21,7 @@ import org.jfree.util.Rotation;
  * {@link DefaultPieDataset}.
  *
  */
-public class Camembert extends ApplicationFrame {
+public class Camembert extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -36,7 +39,7 @@ public class Camembert extends ApplicationFrame {
         
         // create the chart...
         final JFreeChart chart = createChart(dataset);
-        
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         // add the chart to a panel...
         final ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));

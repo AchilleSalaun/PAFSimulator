@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -20,7 +23,7 @@ import org.jfree.ui.ApplicationFrame;
  * A simple demonstration application showing how to create a line chart using data from a
  * {@link CategoryDataset}.
  */
-public class Courbe extends ApplicationFrame {
+public class Courbe extends JFrame {
 
     /**
 	 * 
@@ -88,8 +91,10 @@ public class Courbe extends ApplicationFrame {
             true,                      // include legend
             true,                      // tooltips
             false                      // urls
+            
+           
         );
-
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         // NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
 //        final StandardLegend legend = (StandardLegend) chart.getLegend();
   //      legend.setDisplaySeriesShapes(true);
