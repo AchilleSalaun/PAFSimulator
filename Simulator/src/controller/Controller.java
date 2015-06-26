@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -39,6 +40,18 @@ public class Controller
 	private Window window;
 	private String duree;// Ce tableau permet de connaitre la duree a afficher
 
+	private int modele = 1 ;
+	
+	public int getModele()
+	{
+		return this.modele ;		
+	}
+	
+	public void setModele(int i)
+	{
+		this.modele = i ;
+	}
+	
 	/** private String temps = "mois"; */
 
 	public Controller(Window window) 
@@ -195,15 +208,13 @@ public class Controller
 	
 	/****************************************************************************************************/
 	/** ViewWelcome */
-	public void boutonSimulation() 
+	public void boutonSimulation(int i) 
 	{
 		// Methode appelee quand on appuie sur Simulation sur l'ecran d'accueil
 		this.addPreviousView(actualview);
-		ViewSimulation vs = new ViewSimulation(this,1);
-		vs.setPreferredSize(vs.getMinimumSize());
+		ViewSimulation vs = new ViewSimulation(this,i);
 		
 		Container cp = new Container() ;
-		//cp.setPreferredSize(cp.getMaximumSize());
 		cp.setLayout(new GridBagLayout());
 		cp.add(vs) ;
 		window.setContentPane(cp);
@@ -237,35 +248,9 @@ public class Controller
 		this.fonctionnaliteNonImplementee("lancerSimulation()");
 	}
 
-	public void chargerPE1() 
+	public void chargerPE(int i) 
 	{
-		// TODO Auto-generated method stub
-		// Methode appelee quand on appuie sur Modelisation sur l'ecran d'accueil
-				this.addPreviousView(actualview);
-				ViewSimulation vs = new ViewSimulation(this,1);
-				
-				Container cp = new Container() ;		
-				cp.setLayout(new GridBagLayout());
-				cp.add(vs) ;
-				window.setContentPane(cp);
-				
-				this.setActualView(cp);
-				window.validate();
-	}
-
-	public void chargerPE2() 
-	{
-		// TODO Auto-generated method stub
-		// Methode appelee quand on appuie sur Modelisation sur l'ecran d'accueil
-				this.addPreviousView(actualview);
-				ViewSimulation vs = new ViewSimulation(this,2);
-				
-				Container cp = new Container() ;		
-				cp.setLayout(new GridBagLayout());
-				cp.add(vs) ;
-				window.setContentPane(cp);
-				
-				this.setActualView(cp);
-				window.validate();
+		this.boutonSimulation(i);
+		this.setModele(i);
 	}
 }

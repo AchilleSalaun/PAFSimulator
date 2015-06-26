@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.LayoutStyle;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
@@ -41,17 +42,16 @@ public class ViewSimulation extends JPanel
 	public mxGraphComponent setModel1()
 	{
 		mxGraph graph = new mxGraph();
-		graph.setEnabled(false);
 		Object parent = graph.getDefaultParent() ;
-		Object source = graph.insertVertex(parent, null, "Entrée", 0, 100, 30, 30);
-		Object fileAttente1 = graph.insertVertex(parent, null, "File d'Attente n°1", 50, 40, 30, 30);
-		Object fileAttente2 = graph.insertVertex(parent, null, "File d'Attente n°2", 50, -40, 30, 30);
+		Object source = graph.insertVertex(parent, null, "Entrée", 10, 50, 40, 40);
+		Object fileAttente1 = graph.insertVertex(parent, null, "File d'Attente n°1", 150, 0, 40, 40);
+		Object fileAttente2 = graph.insertVertex(parent, null, "File d'Attente n°2", 150, 100, 40, 40);
 		
-		Object caisse1 = graph.insertVertex(parent, null, "Caisse n°1", 100, 40, 30, 30);
-		Object caisse2 = graph.insertVertex(parent, null, "Caisse n°2", 100, -40, 30, 30);
+		Object caisse1 = graph.insertVertex(parent, null, "Caisse n°1", 450, 0, 40, 40);
+		Object caisse2 = graph.insertVertex(parent, null, "Caisse n°2", 450, 100, 40, 40);
 		
-		Object puitLivre = graph.insertVertex(parent, null, "Livré", 1500, 0, 30, 30);
-		Object puitRageQuit = graph.insertVertex(parent, null, "Enervé", 75, 0, 30, 30);
+		Object puitLivre = graph.insertVertex(parent, null, "Livré", 600, 50, 40, 40);
+		Object puitRageQuit = graph.insertVertex(parent, null, "Enervé", 300, 50, 40, 40);
 		
 		graph.insertEdge(parent, null, "sortie",source, fileAttente1);
 		graph.insertEdge(parent, null, "sortie",source, fileAttente2);
@@ -77,16 +77,16 @@ public class ViewSimulation extends JPanel
 	public mxGraphComponent setModel2()
 	{
 		mxGraph graph = new mxGraph();
-		graph.setEnabled(false);
+		
 		Object parent = graph.getDefaultParent() ;
-		Object source = graph.insertVertex(parent, null, "Entrée", 0, 0, 30, 30);
-		Object fileAttente = graph.insertVertex(parent, null, "File d'Attente n°2", 50, 0, 30, 30);
+		Object source = graph.insertVertex(parent, null, "Entrée", 10, 50, 40, 40);
+		Object fileAttente = graph.insertVertex(parent, null, "File d'Attente", 150, 50, 40, 40);
 		
-		Object caisse1 = graph.insertVertex(parent, null, "Caisse n°1", 100, 40, 30, 30);
-		Object caisse2 = graph.insertVertex(parent, null, "Caisse n°2", 100, -40, 30, 30);
+		Object caisse1 = graph.insertVertex(parent, null, "Caisse n°1", 450, 0, 40, 40);
+		Object caisse2 = graph.insertVertex(parent, null, "Caisse n°2", 450, 100, 40, 40);
 		
-		Object puitLivre = graph.insertVertex(parent, null, "Livré", 150, 0, 30, 30);
-		Object puitRageQuit = graph.insertVertex(parent, null, "Enervé", 100, 0, 30, 30);
+		Object puitLivre = graph.insertVertex(parent, null, "Livré", 600, 50, 40, 40);
+		Object puitRageQuit = graph.insertVertex(parent, null, "Enervé", 350, 50, 40, 40);
 		
 		graph.insertEdge(parent, null, "sortie",source, fileAttente);
 		
@@ -99,7 +99,7 @@ public class ViewSimulation extends JPanel
 		graph.insertEdge(parent, null, "échappatoire",fileAttente, puitRageQuit);
 		graph.insertEdge(parent, null, "échappatoire",caisse1, puitRageQuit);
 		graph.insertEdge(parent, null, "échappatoire",caisse2, puitRageQuit);
-				
+		
 		graph.getModel().endUpdate();
 		
 		mxGraphComponent graphComponent = new mxGraphComponent(graph);
@@ -112,13 +112,15 @@ public class ViewSimulation extends JPanel
 	{
 		public void itemStateChanged(ItemEvent e) 
 		{	
-			switch(e.getItem().toString())
+			System.out.println(e.getItem().toString());
+			switch("1"+e.getItem().toString())
 			{
-			case "Pré-Enregistré 1" : controller.chargerPE1();
-				break ;
-			case "Pré-Enregistré 2" : controller.chargerPE2();
-				break ;
+				case "Pré-Enregistré 1" : System.out.println(e.getItem().toString());//controller.chargerPE(1);
+					break ;
+				case "Pré-Enregistré 2" : System.out.println(e.getItem().toString());//controller.chargerPE(2);
+					break ;
 			}
+			System.out.println("2"+e.getItem().toString());
 		}
 	}
 	
@@ -131,7 +133,7 @@ public class ViewSimulation extends JPanel
 		this.setLayout(layout);
 		
 		/** définition des objets **/
-		JLabel txt = new JLabel("Choix du modèle prédéfini : ");
+		JLabel txt = new JLabel("Choix du modèle :  ");
 		
 		String[] tab ={"Pré-Enregistré 1","Pré-Enregistré 2"};
 		JComboBox choixModele = new JComboBox(tab);
@@ -144,15 +146,22 @@ public class ViewSimulation extends JPanel
 			case 1 : graphComponent = this.setModel1();
 				break ;
 			case 2 : graphComponent = this.setModel2();
-				break ;
-				
+				break ;	
 			default : graphComponent = this.setModel1();
 		}
 		
-		JScrollPane scroll = new JScrollPane(graphComponent);
-		scroll.setPreferredSize(scroll.getMaximumSize());
+		JPanel scroll = new JPanel();
+		scroll.add(graphComponent);
 		
 		JButton lancer = new JButton("Lancer la simulation");
+		
+		lancer.addActionListener(new ActionListener()
+		{					
+			public void actionPerformed(ActionEvent arg0)
+			{
+				controller.lancerSimulation();
+			}	
+		});
 		
 		lancer.addActionListener(new ActionListener()
 		{					
@@ -171,10 +180,12 @@ public class ViewSimulation extends JPanel
 							.addComponent(choixModele))
 					.addComponent(lancer));
 	layout.setVerticalGroup(layout.createSequentialGroup()
-					.addComponent(scroll)
+					.addComponent(scroll,GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 					.addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
 							.addComponent(txt)
 							.addComponent(choixModele))
+					.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 					.addComponent(lancer));
 	}
 }

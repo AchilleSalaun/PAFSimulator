@@ -28,6 +28,7 @@ public class Window extends JFrame
 	private JToolBar toolbar = new JToolBar();
 	
 	private JButton simulation = new JButton("Simulation");
+	private JButton simulation2 = new JButton("lol");
 	
 	private JButton previous = new JButton("⇦");
 	private JButton next = new JButton("⇨");	
@@ -86,7 +87,17 @@ public class Window extends JFrame
 			{					
 				public void actionPerformed(ActionEvent arg0)
 				{
-					controller.boutonSimulation();
+					controller.boutonSimulation(controller.getModele());
+				}
+			});
+			
+		
+			
+			this.simulation2.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent arg0)
+				{
+					controller.chargerPE(1);
 				}
 			});
 
@@ -118,6 +129,7 @@ public class Window extends JFrame
 		this.toolbar.add(previous);
 		this.toolbar.add(next);
 		this.toolbar.add(simulation);
+		this.toolbar.add(simulation2);
 		this.menubar.add(toolbar);
 
 		this.menubar.add(help);
