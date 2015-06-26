@@ -71,7 +71,7 @@ public class Camembert extends ApplicationFrame {
     private JFreeChart createChart(final PieDataset dataset) {
         
         final JFreeChart chart = ChartFactory.createPieChart3D(
-            this.getTitle(),  // chart title
+            "",  // chart title
             dataset,                // data
             true,                   // include legend
             true,
