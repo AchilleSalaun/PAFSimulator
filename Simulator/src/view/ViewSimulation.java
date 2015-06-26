@@ -7,11 +7,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
 
@@ -25,6 +27,10 @@ public class ViewSimulation extends JPanel
 	private static final long serialVersionUID = 1L;
 	@SuppressWarnings("unused")
 	private Controller controller;
+	
+	private ButtonGroup group = new ButtonGroup();
+	private JRadioButton jr1 = new JRadioButton("Modèle Prédéfini 1");
+	private JRadioButton jr2 = new JRadioButton("Modèle Prédéfini 2");
 	
 	public mxGraphComponent setVierge()
 	{
@@ -108,20 +114,21 @@ public class ViewSimulation extends JPanel
 	}
 	
 	//Classe interne implémentant l'interface ItemListener
-	class ItemState implements ItemListener
+	class StateListener implements ActionListener
 	{
-		public void itemStateChanged(ItemEvent e) 
-		{	
-			System.out.println(e.getItem().toString());
-			switch("1"+e.getItem().toString())
+		@Override
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			if(jr2.isSelected())
 			{
-				case "Pré-Enregistré 1" : System.out.println(e.getItem().toString());//controller.chargerPE(1);
-					return ;
-				case "Pré-Enregistré 2" : System.out.println(e.getItem().toString());//controller.chargerPE(2);
-					return ;
+				ViewSimulation.this.controller.chargerPE(2);
 			}
-			System.out.println("2"+e.getItem().toString());
-		}
+			else
+			{
+				ViewSimulation.this.controller.chargerPE(1);
+			}
+			
+		}	
 	}
 	
 	public ViewSimulation(Controller controller, int modele)
@@ -134,10 +141,26 @@ public class ViewSimulation extends JPanel
 		
 		/** définition des objets **/
 		JLabel txt = new JLabel("Choix du modèle :  ");
-		
+		/*
 		String[] tab ={"Pré-Enregistré 1","Pré-Enregistré 2"};
 		JComboBox choixModele = new JComboBox(tab);
 		choixModele.addItemListener(new ItemState());
+		*/
+		
+		switch(modele)
+		{
+			case 1 : jr1.setSelected(true);
+				break ;
+			case 2 : jr2.setSelected(true);
+				break ;
+		}
+		 //jr2.setSelected(false);
+		
+		
+		jr1.addActionListener(new StateListener());
+		jr2.addActionListener(new StateListener());
+		group.add(jr1);
+		group.add(jr2);
 		
 		mxGraphComponent graphComponent ;
 		
@@ -179,14 +202,18 @@ public class ViewSimulation extends JPanel
 					.addComponent(scroll)
 					.addGroup(layout.createSequentialGroup()
 							.addComponent(txt)
-							.addComponent(choixModele))
+							.addGroup(layout.createParallelGroup()
+									.addComponent(jr1)
+									.addComponent(jr2)))
 					.addComponent(lancer));
 	layout.setVerticalGroup(layout.createSequentialGroup()
 					.addComponent(scroll,GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 					.addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
 							.addComponent(txt)
-							.addComponent(choixModele))
+							.addGroup(layout.createSequentialGroup()
+									.addComponent(jr1)
+									.addComponent(jr2)))
 					.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 					.addComponent(lancer));
 	}

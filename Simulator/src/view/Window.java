@@ -28,7 +28,6 @@ public class Window extends JFrame
 	private JToolBar toolbar = new JToolBar();
 	
 	private JButton simulation = new JButton("Simulation");
-	
 	private JButton previous = new JButton("⇦");
 	private JButton next = new JButton("⇨");	
 
