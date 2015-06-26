@@ -37,7 +37,6 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 
 import simulatorpack.Echeancier;
-import view.ViewModelisation;
 import view.ViewSimulation;
 import view.Window;
 
@@ -232,23 +231,6 @@ public class Controller
 		window.validate();
 	}
 
-	public void boutonModelisation() 
-	{
-		// Methode appelee quand on appuie sur Modelisation sur l'ecran d'accueil
-		this.addPreviousView(actualview);
-		ViewModelisation vm = new ViewModelisation(this);
-		
-		Container cp = new Container() ;		
-		cp.setLayout(new GridBagLayout());
-		cp.add(vm) ;
-		window.setContentPane(cp);
-		
-		this.setActualView(cp);
-		window.validate();
-	}
-
-	
-
 	/****************************************************************************************************/
 	/** ViewSimulation */
 	
@@ -269,10 +251,9 @@ public class Controller
 		
 			Puit puit = new Puit();
 			puit.setCompteur(0);
-			puit.setName("Clients servis");
 			Puit poubelle = new Puit() ;
 			poubelle.setCompteur(0);
-			poubelle.setName("Clients partis");
+			
 		
 			FileAttente file1 = new FileAttente(20);
 			FileAttente file2 = new FileAttente(20);
@@ -323,6 +304,8 @@ public class Controller
 			while(s>0);
 		
 			/** Affichage **/
+			puit.setName(puit.getCompteur()+" clients satisfaits");
+			poubelle.setName(poubelle.getCompteur()+" clients partis");
 			ArrayList<Puit> puits = new ArrayList<Puit>();
 			puits.add(puit);
 			puits.add(poubelle);
