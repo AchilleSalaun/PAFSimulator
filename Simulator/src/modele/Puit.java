@@ -10,8 +10,7 @@ public class Puit extends Case
 		// TODO Auto-generated constructor stub
 	}
 
-@SuppressWarnings("unused")
-private int compteur = 0;
+	private int compteur = 0;
 	
 	public void incrementer()
 	{
@@ -24,6 +23,18 @@ private int compteur = 0;
 		super.evacuer(echeancier);
 		System.out.println("Evacuation : "+echeancier.getCurrentEvent().getDate()+" par "+echeancier.getCurrentEvent().getActeur());
 		(this.getListeObjets()).clear();
+	}
+
+	public int getCompteur() 
+	{
+		return compteur;
+	}
+	
+	//La methode setCompteur ne sert qu'aux tests des graphiques, ne pas utiliser dans la simulation
+	public void setCompteur(int valeur) 
+	{
+		compteur = valeur;
+		
 	}
 }
 

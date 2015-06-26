@@ -11,7 +11,8 @@ public abstract class Case extends Acteur
     private ArrayList<Case> entree = new ArrayList<Case>();
     private int capacity;
     private boolean c_in = true ;
-    private boolean c_out = true ;    
+    private boolean c_out = true ;   
+    private String name = ""; //Le nom sert à la legende des graphiques
 	
     /** Constructeur **/
     public Case(int capacity)
@@ -25,6 +26,17 @@ public abstract class Case extends Acteur
     	ArrayList<Case> listeEchap = new ArrayList<Case>();
     	this.echappatoire = listeEchap ;
     	this.capacity = capacity ;
+    }
+    
+    /** Name **/
+    
+    public String getName()
+    {
+    	return name;
+    }
+    
+    public void setName(String newName){
+    	name = newName;
     }
     
     /************************************************************************************/
